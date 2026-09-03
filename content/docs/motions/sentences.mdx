@@ -1,46 +1,67 @@
 ---
 title: Sentences & Paragraphs
-description: "( ) { } — move by sentence and paragraph."
+description: "( ) { } — move by sentence and paragraph, with before/after examples"
 ---
 
-These are **text object motions** (they move the cursor). For operating on a sentence/paragraph under the cursor, prefer text objects <Keys keys="is" /> / <Keys keys="as" /> / <Keys keys="ip" /> / <Keys keys="ap" />.
+These are **text object motions** (they move the cursor). For operating on a sentence/paragraph under the cursor, prefer text objects <Keys keys="is" link /> / <Keys keys="as" link /> / <Keys keys="ip" link /> / <Keys keys="ap" link />.
 
 ## Sentence motions
 
 <MotionList>
-  <Motion keys="(" name="Sentence(s) backward" example="[count]( — exclusive" />
-  <Motion keys=")" name="Sentence(s) forward" />
+  <Motion
+    keys="("
+    name="Sentence(s) backward"
+    before={'One. Two. |Three.'}
+    after={'One. |Two. Three.'}
+  />
+  <Motion
+    keys=")"
+    name="Sentence(s) forward"
+    before={'One. |Two. Three.'}
+    after={'One. Two. |Three.'}
+  />
 </MotionList>
 
-A **sentence** ends at `.` `!` or `?` followed by EOL, space, or tab. Closing `)` `]` `"` `'` may appear after the punctuation. Paragraph and section boundaries also count as sentence boundaries.
+A **sentence** ends at `.` `!` or `?` followed by EOL, space, or tab.
 
 ## Paragraph motions
 
 <MotionList>
-  <Motion keys="{" name="Paragraph(s) backward" />
-  <Motion keys="}" name="Paragraph(s) forward" />
+  <Motion
+    keys="{"
+    name="Paragraph(s) backward"
+    before={'para one\n\npara |two\n\npara three'}
+    after={'para one\n\n|para two\n\npara three'}
+    note="{ jumps to the blank-line boundary above."
+  />
+  <Motion
+    keys="}"
+    name="Paragraph(s) forward"
+    before={'para |one\n\npara two\n\npara three'}
+    after={'para one\n\n|para two\n\npara three'}
+  />
 </MotionList>
 
-A **paragraph** begins after each **empty** line (not merely a blank whitespace-only line), and at nroff-style macros from the `'paragraphs'` option. Section boundaries are also paragraph boundaries.
+A **paragraph** begins after each **empty** line (not merely whitespace-only).
 
 ## With operators
 
-| Combo | Result |
-| --- | --- |
-| <Keys keys="d)" /> | Delete to next sentence |
-| <Keys keys="c(" /> | Change back through previous sentence |
-| <Keys keys="y}" /> | Yank to next paragraph |
-| <Keys keys=">}" /> | Indent through next paragraph |
-| <Keys keys="dap" /> | Delete **a** paragraph (usually better than `d}`) |
-| <Keys keys="vip" /> | Visually select inner paragraph |
+<Buffer
+  keys="d)"
+  before={'Keep. |Delete this sentence. Stay.'}
+  after={'Keep. |Stay.'}
+/>
 
-## Related mark motions
+<Buffer
+  keys="y}"
+  before={'|# include header\n\nbody text'}
+  after={'|# include header\n\nbody text'}
+  note="Yanks from the cursor through the next paragraph boundary into the default register."
+/>
 
-| Keys | Meaning |
-| --- | --- |
-| `` `( `` / <Keys keys="'(" /> | Start of current sentence |
-| `` `) `` / <Keys keys="')" /> | End of current sentence |
-| `` `{ `` / <Keys keys="'{" /> | Start of current paragraph |
-| `` `} `` / <Keys keys="'}" /> | End of current paragraph |
-
-See [Marks as motions](/docs/motions/marks-as-motions).
+<Buffer
+  keys="dap"
+  before={'keep\n\n|delete this paragraph\nstill here\n\nkeep'}
+  after={'keep\n\n|keep'}
+  note="Usually better than d} when you want the whole paragraph including surrounding blank lines."
+/>

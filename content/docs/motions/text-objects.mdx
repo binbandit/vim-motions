@@ -1,16 +1,11 @@
 ---
 title: Text Objects
-description: "Every built-in text object: iw aw iW aW is as ip ap i( a( ib ab i[ a[ i{ a{ iB aB i< a< i\" a\" i' a' i` a` it at"
+description: "Every built-in text object with before/after buffer examples — iw aw i( a\" it and more"
 ---
 
 Text objects answer: *what thing am I editing?* Use them **after** an operator, or in Visual mode (`:help object-select`).
 
-```text
-d i w     delete inner word
-c a "     change a quoted string (includes quotes)
-v i [     visually select inside brackets
-y a p     yank a paragraph
-```
+Highlighted cell = cursor. Examples show the **edit** result (usually with `d` / `c`).
 
 ## Inner vs a (around)
 
@@ -28,6 +23,20 @@ y a p     yank a paragraph
   <Motion keys="aW" name="A WORD" />
 </MotionList>
 
+<Buffer
+  keys="diw"
+  before={'rename |userName|Today'}
+  after={'rename |Today'}
+  note="Cursor anywhere in userName — iw targets the whole word."
+/>
+
+<Buffer
+  keys="daw"
+  before={'keep |drop| keep'}
+  after={'keep |keep'}
+  note="aw also eats a neighboring space."
+/>
+
 ## Sentences & paragraphs
 
 <MotionList>
@@ -37,9 +46,13 @@ y a p     yank a paragraph
   <Motion keys="ap" name="A paragraph" />
 </MotionList>
 
-## Parentheses `()`
+<Buffer
+  keys="das"
+  before={'Intro. |Delete this sentence. |Keep this.'}
+  after={'Intro. |Keep this.'}
+/>
 
-Any open/close form works the same:
+## Parentheses `()`
 
 <MotionList>
   <Motion keys="ib" name="Inner () block (ib)" />
@@ -50,6 +63,20 @@ Any open/close form works the same:
   <Motion keys="a)" name="A () — same as ab" sameAs="ab" sameAsLabel="Same as" />
 </MotionList>
 
+<Buffer
+  keys="di("
+  before={'print(|hello|)'}
+  after={'print(|)'}
+  note="Inner — keeps the parentheses."
+/>
+
+<Buffer
+  keys="da("
+  before={'print(|hello|)'}
+  after={'|'}
+  note="Around — removes the parentheses too."
+/>
+
 ## Square brackets `[]`
 
 <MotionList>
@@ -58,6 +85,13 @@ Any open/close form works the same:
   <Motion keys="a[" name="A [] block" />
   <Motion keys="a]" name="A [] — same as a[" sameAs="a[" sameAsLabel="Same as" />
 </MotionList>
+
+<Buffer
+  keys="ci["
+  before={'items = [|a, b|]'}
+  after={'items = [|]'}
+  note="Deletes inside [] and enters Insert."
+/>
 
 ## Curly braces `{}`
 
@@ -69,6 +103,13 @@ Any open/close form works the same:
   <Motion keys="a{" name="A {} — same as aB" sameAs="aB" sameAsLabel="Same as" />
   <Motion keys="a}" name="A {} — same as aB" sameAs="aB" sameAsLabel="Same as" />
 </MotionList>
+
+<Buffer
+  keys="di{"
+  before={'fn() {\n  |return 1\n}'}
+  after={'fn() {\n|}\n'}
+  note="Clears the block body; braces remain."
+/>
 
 ## Angle brackets `<>`
 
@@ -82,27 +123,56 @@ Any open/close form works the same:
 ## Quotes
 
 <MotionList>
-  <Motion keys={'i"'} name={'Inner double quotes i"'} example={'ci" — change inside "..."'} />
-  <Motion keys={'a"'} name={'A double-quoted string a"'} example="Includes the quotes" />
+  <Motion keys={'i"'} name={'Inner double quotes i"'} />
+  <Motion keys={'a"'} name={'A double-quoted string a"'} />
   <Motion keys="i'" name="Inner single quotes i'" />
   <Motion keys="a'" name="A single-quoted string a'" />
   <Motion keys="i`" name="Inner backticks i`" />
   <Motion keys="a`" name="A backtick string a`" />
 </MotionList>
 
+<Buffer
+  keys='ci"'
+  before={'msg = "|hello|"'}
+  after={'msg = "|"'}
+  note="Classic: change inside quotes, type replacement, Esc."
+/>
+
+<Buffer
+  keys='da"'
+  before={'msg = "|hello|"'}
+  after={'msg = |'}
+  note="Around — removes the quote characters too."
+/>
+
 ## Tags
 
 <MotionList>
-  <Motion keys="it" name="Inner tag block" example="Inside &lt;div&gt;…&lt;/div&gt;" />
-  <Motion keys="at" name="A tag block" example="Includes the opening and closing tags" />
+  <Motion keys="it" name="Inner tag block" />
+  <Motion keys="at" name="A tag block" />
 </MotionList>
+
+<Buffer
+  keys="dit"
+  before={'<div>|title|</div>'}
+  after={'<div>|</div>'}
+/>
+
+<Buffer
+  keys="dat"
+  before={'<div>|title|</div>'}
+  after={'|'}
+  note="Removes the tags and their contents."
+/>
 
 ## Search match as object
 
-<MotionList>
-  <Motion keys="gn" name="Next search match (as object)" example="See Search — dgn / cgn" />
-  <Motion keys="gN" name="Previous search match (as object)" />
-</MotionList>
+<Buffer
+  keys="dgn"
+  before={'fix |foo| and foo again'}
+  after={'fix | and foo again'}
+  note="After * or /foo — dgn deletes the match under/after the cursor."
+/>
 
 ## Everyday combos
 
@@ -112,17 +182,5 @@ Any open/close form works the same:
 | <Keys keys="ci(" link /> | Replace inside call/args |
 | <Keys keys="ca{" /> | Replace block including braces |
 | <Keys keys="cit" link /> | Change inside HTML tag |
-| <Keys keys="dit" /> | Delete tag contents |
 | <Keys keys="yap" link /> | Copy paragraph |
-| <Keys keys="=ip" /> | Re-indent paragraph |
-| <Keys keys=">ap" /> | Indent paragraph |
-| <Keys keys="gUiw" /> | Uppercase word |
 | <Keys keys="cgn" /> | Change next search match |
-
-## Nesting
-
-With nested brackets, Vim picks the **smallest** object containing the cursor. Move inside the pair you want first, or use Visual and expand.
-
-## Plugins (not built-in)
-
-Argument objects (`ia`/`aa`), function bodies, etc. come from plugins. This site documents **built-in** objects only.

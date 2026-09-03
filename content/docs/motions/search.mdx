@@ -1,30 +1,89 @@
 ---
 title: Search Motions
-description: "Search motions: / ? n N * star # hash g* g# gd gD gn gN f F t T"
+description: "Search motions: / ? n N * star # hash g* g# gd gD gn gN f F t T — with before/after buffer examples"
 ---
 
 Find text on a line or in the file. These are full motions — operators accept them (`d/foo`, `cgn`, `y*`).
 
+In examples, the highlighted block is the **cursor** position (`|` in the source).
+
 ## Word under cursor (`*` / `#`)
 
-These are among the most-used search motions:
-
 <MotionList>
-  <Motion keys="*" name="Star (*) — search word under cursor forward" example="Whole-word \<word\> · like /\<word\>/ then n" />
-  <Motion keys="#" name="Hash (#) — search word under cursor backward" example="Same as * but reverse direction · also called pound" />
-  <Motion keys="g*" name="g-star (g*) — search forward, not whole-word" sameAs="*" example="No \< \> word boundaries" />
-  <Motion keys="g#" name="g-hash (g#) — search backward, not whole-word" sameAs="#" />
+  <Motion
+    keys="*"
+    name="Star (*) — search word under cursor forward"
+    before={'total = count + 1\nextra = |count| * 2\nprint(count)'}
+    after={'total = count + 1\nextra = count * 2\nprint(|count|)'}
+    note="Jumps to the next whole-word match of count (like /\<count\>)."
+  />
+  <Motion
+    keys="#"
+    name="Hash (#) — search word under cursor backward"
+    before={'total = count + 1\nextra = |count| * 2\nprint(count)'}
+    after={'total = |count| + 1\nextra = count * 2\nprint(count)'}
+    note="Same as * but searches upward. Also called pound."
+  />
+  <Motion
+    keys="g*"
+    name="g-star (g*) — search forward, not whole-word"
+    sameAs="*"
+    before={'id = user_id\nprint(|user|)'}
+    after={'id = |user|_id\nprint(user)'}
+    note="Matches user inside user_id because there are no \< \> boundaries."
+  />
+  <Motion
+    keys="g#"
+    name="g-hash (g#) — search backward, not whole-word"
+    sameAs="#"
+    before={'id = user_id\nprint(|user|)'}
+    after={'id = |user|_id\nprint(user)'}
+  />
 </MotionList>
 
 ## Find on the current line
 
 <MotionList>
-  <Motion keys="f{char}" name="Find char forward" example="Inclusive · digraphs / :lmap apply to {char}" />
-  <Motion keys="F{char}" name="Find char backward" />
-  <Motion keys="t{char}" name="Till before char forward" example="Stops one before target — great with d/c" />
-  <Motion keys="T{char}" name="Till after char backward" />
-  <Motion keys=";" name="Repeat last f/F/t/T" />
-  <Motion keys="," name="Repeat last f/F/t/T opposite direction" />
+  <Motion
+    keys="f{char}"
+    name="Find char forward"
+    before={'price = |42.50;'}
+    after={'price = 42.50|;'}
+    note="f; lands on the semicolon (inclusive)."
+  />
+  <Motion
+    keys="F{char}"
+    name="Find char backward"
+    before={'price = 42.50|;'}
+    after={'price |= 42.50;'}
+    note="F= jumps back onto the equals."
+  />
+  <Motion
+    keys="t{char}"
+    name="Till before char forward"
+    before={'href=|"/docs"'}
+    after={'href="|/docs"'}
+    note="t&quot; stops on the character before the quote — perfect for dt&quot; / ct&quot;."
+  />
+  <Motion
+    keys="T{char}"
+    name="Till after char backward"
+    before={'href="/docs|"'}
+    after={'href="/docs"|'}
+  />
+  <Motion
+    keys=";"
+    name="Repeat last f/F/t/T"
+    before={'a,|b,c,d'}
+    after={'a,b,|c,d'}
+    note="After f,, pressing ; finds the next comma."
+  />
+  <Motion
+    keys=","
+    name="Repeat last f/F/t/T opposite direction"
+    before={'a,b,|c,d'}
+    after={'a,|b,c,d'}
+  />
 </MotionList>
 
 | Goal | Keys |
@@ -32,16 +91,52 @@ These are among the most-used search motions:
 | Delete until `)` exclusive | <Keys keys="dt)" /> |
 | Delete through `)` | <Keys keys="df)" /> |
 | Change until `=` | <Keys keys="ct=" /> |
-| Jump to 2nd `_` | <Keys keys="2f_" /> |
+
+<Buffer
+  keys="dt)"
+  before={'print(|name)'}
+  after={'print(|)'}
+  note="t stops before ); d deletes up to but not including it."
+/>
 
 ## Search in the file
 
 <MotionList>
-  <Motion keys="/" name="Search forward" example="/TODO then Enter · exclusive motion to match" id="slash" />
-  <Motion keys="?" name="Search backward" id="qmark" />
-  <Motion keys="n" name="Next match (same direction as last search)" />
-  <Motion keys="N" name="Previous match (opposite direction)" />
-  <Motion keys="gd" name="Go to local declaration" />
+  <Motion
+    keys="/"
+    name="Search forward"
+    id="slash"
+    before={'TODO: wire auth\nfix login\n|TODO: tests'}
+    after={'|TODO: wire auth\nfix login\nTODO: tests'}
+    note="Type /TODO then Enter. Cursor moves to the match (exclusive motion)."
+  />
+  <Motion
+    keys="?"
+    name="Search backward"
+    id="qmark"
+    before={'TODO: wire auth\nfix login\n|TODO: tests'}
+    after={'TODO: wire auth\nfix login\n|TODO: tests'}
+    note="?TODO searches upward from the cursor."
+  />
+  <Motion
+    keys="n"
+    name="Next match (same direction as last search)"
+    before={'|TODO: wire auth\nfix login\nTODO: tests'}
+    after={'TODO: wire auth\nfix login\n|TODO: tests'}
+  />
+  <Motion
+    keys="N"
+    name="Previous match (opposite direction)"
+    before={'TODO: wire auth\nfix login\n|TODO: tests'}
+    after={'|TODO: wire auth\nfix login\nTODO: tests'}
+  />
+  <Motion
+    keys="gd"
+    name="Go to local declaration"
+    before={'function main() {\n  const |count| = 0\n  return count\n}'}
+    after={'function main() {\n  const |count| = 0\n  return count\n}'}
+    note="From a use of count, gd jumps to the local declaration (same here if already on it)."
+  />
   <Motion keys="gD" name="Go to global declaration" />
   <Motion keys="1gd" name="Like gd, ignore matches before cursor" sameAs="gd" />
   <Motion keys="1gD" name="Like gD, ignore matches before cursor" sameAs="gD" />
@@ -52,23 +147,33 @@ Offsets after a search still count as part of the motion, e.g. `/foo/e` (end of 
 ## Operate on the match (`gn` / `gN`)
 
 <MotionList>
-  <Motion keys="gn" name="Select next search match" example="dgn deletes the next match; cgn changes it — then . repeats" />
+  <Motion
+    keys="gn"
+    name="Select next search match"
+    before={'rename |foo| here and foo there'}
+    after={'rename |foo| here and foo there'}
+    note="After searching foo (or *), gn selects that match so cgn / dgn can edit it."
+  />
   <Motion keys="gN" name="Select previous search match" />
 </MotionList>
 
-Classic refactor loop:
-
-1. <Keys keys="*" link /> or `/\<oldName\>`
-2. <Keys keys="cgn" /> type `newName`, <Keys keys="Esc" link />
-3. <Keys keys="n" link /> then <Keys keys="." /> (or keep using `cgn` / `.`)
-
-<Keys keys="gn" link /> always searches **forward** for the pattern (unlike <Keys keys="n" link />, direction does not flip with <Keys keys="?" link />).
+<Buffer
+  keys="cgn"
+  before={'oldName = 1\nprint(|oldName|)'}
+  after={'oldName = 1\nprint(|newName|)'}
+  note="Workflow: * on oldName → cgn → type newName → Esc → n . to repeat."
+/>
 
 ## Search as a motion
 
+<Buffer
+  keys="d/foo"
+  before={'keep |this foo drop'}
+  after={'keep |foo drop'}
+  note="d/foo&lt;CR&gt; deletes from the cursor up to (not including) the match."
+/>
+
 ```text
-d/foo<CR>   delete until next "foo"
-c?bar<CR>   change backward until "bar"
 y*          yank through next occurrence of current word
 cgn         change next match of last search
 ```

@@ -5,33 +5,83 @@ description: H M L plus viewport scrolling — what is a motion vs view-only.
 
 ## Window-relative motions
 
-These **are** motions (usable with operators: `yH`, `dL`, …):
+These **are** motions (usable with operators: `yH`, `dL`, …). Imagine a window
+showing five lines — cursor starts in the middle:
 
-<MotionList>
-  <Motion keys="H" name="To [count]th line from top of window" example="Default first visible · linewise · Home" />
-  <Motion keys="M" name="Middle line of window" example="Linewise" />
-  <Motion keys="L" name="To [count]th line from bottom of window" example="Default last visible · linewise · Low" />
-</MotionList>
+```
+1  alpha     ← H (top)
+2  bravo
+3  |charlie  ← M (middle) — you are here
+4  delta
+5  echo      ← L (bottom)
+```
 
-Cursor lands on the first non-blank (see `'startofline'`). Adjusted for `'scrolloff'` unless an operator is pending.
+<Motion
+  keys="H"
+  name="To first visible line (Home)"
+  before={"alpha\nbravo\n|charlie\ndelta\necho"}
+  after={"|alpha\nbravo\ncharlie\ndelta\necho"}
+  note="In a real window this is the top *visible* line, not necessarily line 1 of the file."
+/>
+
+<Motion
+  keys="M"
+  name="Middle line of window"
+  before={"|alpha\nbravo\ncharlie\ndelta\necho"}
+  after={"alpha\nbravo\n|charlie\ndelta\necho"}
+/>
+
+<Motion
+  keys="L"
+  name="To last visible line (Low)"
+  before={"alpha\nbravo\n|charlie\ndelta\necho"}
+  after={"alpha\nbravo\ncharlie\ndelta\n|echo"}
+/>
+
+Cursor lands on the first non-blank (see `'startofline'`). Adjusted for
+`'scrolloff'` unless an operator is pending.
+
+### With an operator
+
+<Buffer
+  keys="dL"
+  before={"keep\n|drop\nalso drop\nlast visible\nbelow window"}
+  after={"keep\n|below window"}
+  note="Deletes from the current line through the last visible line."
+/>
 
 ## Page & half-page (move cursor + view)
 
-From `:help scroll.txt` — these move the cursor as they scroll:
+From `:help scroll.txt` — these move the cursor as they scroll. Exact line
+counts depend on window height; demos show the *idea*:
+
+<Motion
+  keys="Ctrl-d"
+  name="Half-page down"
+  before={"|line 1\nline 2\nline 3\nline 4\nline 5\nline 6"}
+  after={"line 1\nline 2\nline 3\n|line 4\nline 5\nline 6"}
+  note="Also scrolls the view — cursor moves down by roughly half a screen."
+/>
+
+<Motion
+  keys="Ctrl-u"
+  name="Half-page up"
+  before={"line 1\nline 2\nline 3\n|line 4\nline 5\nline 6"}
+  after={"|line 1\nline 2\nline 3\nline 4\nline 5\nline 6"}
+/>
 
 <MotionList>
   <Motion keys="Ctrl-f" name="Page forward" />
   <Motion keys="Ctrl-b" name="Page backward" />
-  <Motion keys="Ctrl-d" name="Half-page down" example="Also moves cursor down" />
-  <Motion keys="Ctrl-u" name="Half-page up" />
 </MotionList>
 
 ## View-only scroll (not operator motions)
 
-Cursor tries to stay put:
+Cursor tries to stay put — the **viewport** moves, so before/after buffers look
+identical. Use these to peek without losing your place:
 
 <MotionList>
-  <Motion keys="Ctrl-e" name="Scroll down one line" />
+  <Motion keys="Ctrl-e" name="Scroll down one line" example="View moves down; cursor text stays the same if possible" />
   <Motion keys="Ctrl-y" name="Scroll up one line" />
   <Motion keys="zh" name="Scroll left one character" />
   <Motion keys="zl" name="Scroll right one character" />
@@ -43,8 +93,11 @@ Cursor tries to stay put:
 
 ## Redraw cursor line
 
+These also keep the same buffer text — they reposition which screen row your
+line sits on:
+
 <MotionList>
-  <Motion keys="zz" name="Center cursor line" />
+  <Motion keys="zz" name="Center cursor line" example="Cursor stays on the same text; line moves to middle of window" />
   <Motion keys="zt" name="Cursor line to top of window" />
   <Motion keys="zb" name="Cursor line to bottom of window" />
   <Motion keys="z." name="Center, then first non-blank" sameAs="zz" example="Then move to first non-blank" />
@@ -54,4 +107,5 @@ Cursor tries to stay put:
 
 ## Tip
 
-With `'relativenumber'`, type <Keys keys="12j" /> instead of searching. Pair big jumps with <Keys keys="zz" /> to stay oriented.
+With `'relativenumber'`, type <Keys keys="12j" /> instead of searching. Pair big
+jumps with <Keys keys="zz" /> to stay oriented.

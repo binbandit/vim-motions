@@ -4,31 +4,68 @@ description: "c, s, C, S — delete a range and enter Insert mode."
 ---
 
 **Change** = delete + Insert. Prefer change over delete+`i` when replacing text.
+After the operator, you type the replacement and hit <Keys keys="Esc" />.
 
-## Core change
+Buffer demos show the buffer **after Esc** (replacement already typed).
 
-<MotionList>
-  <Motion keys="c" name="Change over motion" example="Follow with a motion or text object: cw, ciw, c$, …" />
-  <Motion keys="cc / S" name="Change whole line" />
-  <Motion keys="C" name="Change to end of line" sameAs="c$" />
-  <Motion keys="s" name="Substitute character" sameAs="cl" />
-  <Motion keys="r{char}" name="Replace single character" example="Does not enter Insert" />
-  <Motion keys="R" name="Replace mode" example="Overwrites until Esc" />
-  <Motion keys="~" name="Toggle case of character and move right" />
-</MotionList>
+## Character & line
 
-## Best combos
+<Motion keys="s" name="Substitute character" sameAs="cl" before={"co|nst x"} after={"co|Xst x"} note="Deletes one char and enters Insert — here we typed X then Esc." />
 
-| Keys | Result |
-| --- | --- |
-| <Keys keys="ciw" /> | Change word |
-| <Keys keys='ci"' /> | Change inside quotes |
-| <Keys keys="ci(" /> | Change inside parens |
-| <Keys keys="cit" /> | Change inside HTML tag |
-| <Keys keys="ct;" /> | Change till `;` |
-| <Keys keys="c$" /> / <Keys keys="C" /> | Change rest of line |
-| <Keys keys="c/^" /> | (search) change backward/forward to pattern |
+<Motion keys="r{char}" name="Replace single character" before={"co|nst x"} after={"co|Xst x"} note="Does not enter Insert — press r then the replacement char." />
+
+<Motion keys="~" name="Toggle case and move right" before={"|Hello"} after={"h|ello"} />
+
+<Motion keys="C" name="Change to end of line" sameAs="c$" before={"const |name = value"} after={"const |done"} note="Deleted from cursor to EOL, typed done, Esc." />
+
+<Motion keys="cc / S" name="Change whole line" before={"keep\n|old line\nkeep"} after={"keep\n|new line\nkeep"} />
+
+## Motions with c
+
+<Motion keys="cw" name="Change word" before={"const |userName = 1"} after={"const |id = 1"} note="Leaves the trailing space; type the new word then Esc." />
+
+<Motion keys="ciw" name="Change inner word" before={"const |userName = 1"} after={"const |id = 1"} note="Whole word under cursor, wherever you are in it." />
+
+<Motion keys="ct;" name="Change till ;" before={"x = |foo + bar;"} after={"x = |42;"} note="Deletes up to (not including) `;`." />
+
+## Best text-object combos
+
+<Buffer
+  keys={'ci"'}
+  before={'msg = "|hello world|"'}
+  after={'msg = "|hi|"'}
+  note="Change inside quotes — delimiters stay."
+/>
+
+<Buffer
+  keys="ci("
+  before={"print(|hello, world|)"}
+  after={"print(|ok|)"}
+/>
+
+<Buffer
+  keys="cit"
+  before={"<div>|old title|</div>"}
+  after={"<div>|new title|</div>"}
+/>
+
+<Buffer
+  keys="c$"
+  before={"keep |change the rest"}
+  after={"keep |OK"}
+/>
 
 ## After change
 
-You're in Insert mode. Edit, then <Keys keys="Esc" />. <Keys keys="." /> repeats the same change (including typed text) elsewhere.
+You're in Insert mode. Edit, then <Keys keys="Esc" />. <Keys keys="." /> repeats the
+same change (including typed text) elsewhere.
+
+```
+|foo bar baz
+```
+
+After `ciw` + `qux` + Esc on `foo`, then `w.`:
+
+```
+qux |qux baz
+```

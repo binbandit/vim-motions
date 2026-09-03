@@ -230,6 +230,98 @@ a.motion-ref:hover .kbd {
   white-space: pre-wrap;
 }
 
+.buffer-demo {
+  margin-top: 0.75rem;
+  border: 1px solid color-mix(in oklab, var(--vim-accent) 16%, transparent);
+  border-radius: 0.65rem;
+  background: color-mix(in oklab, var(--vim-panel) 92%, black);
+  overflow: hidden;
+}
+
+.buffer-cmd {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.85rem;
+  border-bottom: 1px solid color-mix(in oklab, var(--vim-accent) 12%, transparent);
+  font-size: 0.82rem;
+}
+
+.buffer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 720px) {
+  .buffer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .buffer-grid > :first-child {
+    border-right: 1px solid color-mix(in oklab, var(--vim-accent) 12%, transparent);
+  }
+}
+
+.buffer-pane-label {
+  padding: 0.4rem 0.85rem 0.15rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--vim-accent) 75%, white);
+}
+
+.buffer-pre {
+  margin: 0;
+  padding: 0.35rem 0.55rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.55;
+  overflow-x: auto;
+}
+
+.buffer-line {
+  display: flex;
+  gap: 0.65rem;
+  min-height: 1.55em;
+}
+
+.buffer-gutter {
+  flex: 0 0 1.5rem;
+  text-align: right;
+  color: color-mix(in oklab, var(--vim-accent) 35%, transparent);
+  user-select: none;
+}
+
+.buffer-code {
+  flex: 1;
+  white-space: pre;
+  color: hsl(140 18% 88%);
+}
+
+.buffer-cursor {
+  display: inline-block;
+  min-width: 0.6ch;
+  background: var(--vim-accent);
+  color: var(--vim-ink);
+  box-shadow: 0 0 12px color-mix(in oklab, var(--vim-accent) 45%, transparent);
+  border-radius: 1px;
+}
+
+.buffer-mark {
+  background: color-mix(in oklab, var(--vim-amber) 28%, transparent);
+  border-radius: 1px;
+}
+
+.buffer-note {
+  padding: 0.55rem 0.85rem 0.7rem;
+  border-top: 1px solid color-mix(in oklab, var(--vim-accent) 12%, transparent);
+  font-size: 0.85rem;
+  color: var(--color-fd-muted-foreground);
+  line-height: 1.45;
+}
+
 .landing-shell {
   position: relative;
   overflow: hidden;

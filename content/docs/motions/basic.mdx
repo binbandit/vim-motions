@@ -1,17 +1,42 @@
 ---
 title: Basic Motions
-description: "Left-right and up-down cursor steps — every built-in key from :help."
+description: "Left-right and up-down cursor steps — with before/after buffer examples"
 ---
 
 Character and line steps from `:help left-right-motions` and `:help up-down-motions`.
 
+Highlighted cell = cursor (`|` in the source).
+
 ## Left / right
 
 <MotionList>
-  <Motion keys="h" name="Left" example="Also ← · exclusive" />
-  <Motion keys="l" name="Right" example="Also → · exclusive; stops at EOL unless 'whichwrap'" />
-  <Motion keys="Space" name="Right" sameAs="l" />
-  <Motion keys="BS" name="Left" also={["Ctrl-h"]} example="Can cross lines depending on 'whichwrap'" />
+  <Motion
+    keys="h"
+    name="Left"
+    before={'vim| rocks'}
+    after={'vi|m rocks'}
+  />
+  <Motion
+    keys="l"
+    name="Right"
+    before={'vi|m rocks'}
+    after={'vim| rocks'}
+  />
+  <Motion
+    keys="Space"
+    name="Right"
+    sameAs="l"
+    before={'vi|m rocks'}
+    after={'vim| rocks'}
+  />
+  <Motion
+    keys="BS"
+    name="Left"
+    also={['Ctrl-h']}
+    before={'vim| rocks'}
+    after={'vi|m rocks'}
+    note="Can cross lines depending on 'whichwrap'."
+  />
   <Motion keys="Ctrl-h" name="Backspace alias" sameAs="BS" sameAsLabel="Same as" />
 </MotionList>
 
@@ -20,34 +45,85 @@ Prefer <Keys keys="h j k l" /> over arrows so hands stay on the home row.
 ## Up / down
 
 <MotionList>
-  <Motion keys="k" name="Up one line" also={["Ctrl-p"]} example="Also ↑" />
-  <Motion keys="j" name="Down one line" also={["Ctrl-j", "Ctrl-n"]} example="Also ↓ · NL" />
-  <Motion keys="gk" name="Up one screen line" example="Respects wrap; also g↑" />
-  <Motion keys="gj" name="Down one screen line" example="Also g↓" />
-  <Motion keys="-" name="Up [count] lines to first non-blank" example="Linewise" />
-  <Motion keys="+" name="Down [count] lines to first non-blank" also={["Enter", "Ctrl-m"]} example="Linewise" />
-  <Motion keys="_" name="Down [count]-1 lines to first non-blank" example="Alone, _ is first non-blank of this line" />
+  <Motion
+    keys="k"
+    name="Up one line"
+    also={['Ctrl-p']}
+    before={'line one\nline |two'}
+    after={'line |one\nline two'}
+  />
+  <Motion
+    keys="j"
+    name="Down one line"
+    also={['Ctrl-j', 'Ctrl-n']}
+    before={'line |one\nline two'}
+    after={'line one\nline |two'}
+  />
+  <Motion
+    keys="gk"
+    name="Up one screen line"
+    example="Respects wrap; also g↑"
+  />
+  <Motion
+    keys="gj"
+    name="Down one screen line"
+    example="Also g↓ — use when 'wrap' is on"
+  />
+  <Motion
+    keys="-"
+    name="Up [count] lines to first non-blank"
+    before={'  alpha\n  |bravo'}
+    after={'  |alpha\n  bravo'}
+  />
+  <Motion
+    keys="+"
+    name="Down [count] lines to first non-blank"
+    also={['Enter', 'Ctrl-m']}
+    before={'  |alpha\n  bravo'}
+    after={'  alpha\n  |bravo'}
+  />
+  <Motion
+    keys="_"
+    name="Down [count]-1 lines to first non-blank"
+    before={'    |indented'}
+    after={'    |indented'}
+    note="Alone, _ jumps to the first non-blank of the current line."
+  />
 </MotionList>
 
 ## Soft wrap
 
-When `'wrap'` is on, <Keys keys="j" />/<Keys keys="k" /> move by **buffer lines**. Use <Keys keys="gj" />/<Keys keys="gk" /> for **screen rows**. Pair with <Keys keys="g0" /> <Keys keys="g$" /> on [Lines](/docs/motions/lines).
+When `'wrap'` is on, <Keys keys="j" link />/<Keys keys="k" link /> move by **buffer lines**. Use <Keys keys="gj" link />/<Keys keys="gk" link /> for **screen rows**.
 
 ## With operators
 
-| Combo | Result |
-| --- | --- |
-| <Keys keys="dl" link /> | Delete character under cursor (≈ <Keys keys="x" link />) |
-| <Keys keys="dh" link /> | Delete character to the left (≈ <Keys keys="X" link />) |
-| <Keys keys="dj" /> | Delete this line and the next |
-| <Keys keys="d+" /> | Delete through next line (to first non-blank target) |
+<Buffer
+  keys="dl"
+  before={'xa|bc'}
+  after={'xa|c'}
+  note="Deletes the character under the cursor (≈ x)."
+/>
+
+<Buffer
+  keys="dh"
+  before={'xa|bc'}
+  after={'x|bc'}
+  note="Deletes the character to the left (≈ X)."
+/>
+
+<Buffer
+  keys="dj"
+  before={'keep\n|drop me\ndrop too\nkeep'}
+  after={'keep\n|keep'}
+  note="Deletes this line and the next (linewise)."
+/>
 
 ## Habits
 
 | Goal | Prefer |
 | --- | --- |
-| Next word | <Keys keys="w" /> not many <Keys keys="l" /> |
-| End of line | <Keys keys="$" /> |
-| Matching paren | <Keys keys="%" /> |
+| Next word | <Keys keys="w" link /> not many <Keys keys="l" link /> |
+| End of line | <Keys keys="$" link /> |
+| Matching paren | <Keys keys="%" link /> |
 | Find on line | <Keys keys="f" /> / <Keys keys="t" /> |
-| Screen row | <Keys keys="gj" /> / <Keys keys="gk" /> |
+| Screen row | <Keys keys="gj" link /> / <Keys keys="gk" link /> |

@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import Link from 'next/link';
 import { motionId } from '@/lib/motion-id';
 import { hrefForKeys, splitLinkedKeys } from '@/lib/motion-links';
+import { Buffer } from '@/components/buffer';
 
 function splitKeys(keys: string): string[] {
   if (keys.includes(' / ')) {
@@ -99,6 +100,9 @@ export function Motion({
   name,
   children,
   example,
+  before,
+  after,
+  note,
   sameAs,
   sameAsThen,
   sameAsLabel,
@@ -109,6 +113,10 @@ export function Motion({
   name: string;
   children?: ReactNode;
   example?: string;
+  /** Buffer demo: `|` marks cursor position. */
+  before?: string;
+  after?: string;
+  note?: ReactNode;
   sameAs?: string;
   sameAsThen?: string;
   sameAsLabel?: string;
@@ -144,6 +152,9 @@ export function Motion({
               <Keys key={k} keys={k} link />
             ))}
           </div>
+        ) : null}
+        {before && after ? (
+          <Buffer keys={keys} before={before} after={after} note={note} />
         ) : null}
         {example ? <div className="example-block">{example}</div> : null}
       </div>

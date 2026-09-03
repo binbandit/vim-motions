@@ -3,20 +3,65 @@ title: Sections
 description: "[[ ]] [] ][ — section and column-1 brace motions."
 ---
 
-Section motions jump by **sections** (form-feed / nroff section macros) or, in practice for code, by `{` / `}` in **column 1**.
+Section motions jump by **sections** (form-feed / nroff section macros) or, in
+practice for code, by `{` / `}` in **column 1**.
 
-<MotionList>
-  <Motion keys="]]" name="Next section / next { in column 1" example="After an operator, also stops below a } in column 1" />
-  <Motion keys="][" name="Next section / next } in column 1" />
-  <Motion keys="[[" name="Previous section / previous { in column 1" />
-  <Motion keys="[]" name="Previous section / previous } in column 1" />
-</MotionList>
+These examples use top-level braces in column 1 (typical C / Go style):
+
+```
+fn a() {
+  …
+}
+
+fn b() {
+  …
+}
+```
+
+<Motion
+  keys="]]"
+  name="Next section / next { in column 1"
+  before={"fn a() |{\n  return 1\n}\n\nfn b() {\n  return 2\n}"}
+  after={"fn a() {\n  return 1\n}\n\nfn b() |{\n  return 2\n}"}
+  note="From inside / on a column-1 `{`, jump to the next column-1 `{`."
+/>
+
+<Motion
+  keys="]["
+  name="Next } in column 1"
+  before={"fn a() |{\n  return 1\n}\n\nfn b() {\n  return 2\n}"}
+  after={"fn a() {\n  return 1\n|}\n\nfn b() {\n  return 2\n}"}
+/>
+
+<Motion
+  keys="[["
+  name="Previous { in column 1"
+  before={"fn a() {\n  return 1\n}\n\nfn b() |{\n  return 2\n}"}
+  after={"fn a() |{\n  return 1\n}\n\nfn b() {\n  return 2\n}"}
+/>
+
+<Motion
+  keys="[]"
+  name="Previous } in column 1"
+  before={"fn a() {\n  return 1\n}\n\nfn b() |{\n  return 2\n}"}
+  after={"fn a() {\n  return 1\n|}\n\nfn b() {\n  return 2\n}"}
+/>
 
 These are exclusive; with operators they often become **exclusive-linewise**.
 
+## With an operator
+
+<Buffer
+  keys="d]]"
+  before={"fn a() |{\n  keep()\n}\n\nfn b() {\n  drop()\n}\n\nfn c() {\n  keep()\n}"}
+  after={"fn a() |{\n  keep()\n}\n\nfn c() {\n  keep()\n}"}
+  note="Deletes from here through the line before the next section start — exact range depends on exclusive-linewise rules."
+/>
+
 ## What is a section?
 
-A section begins after a form-feed (`Ctrl-l`) in column 1, and at macros listed in the `'sections'` option (default nroff-style `.SH`, `.NH`, …).
+A section begins after a form-feed (`Ctrl-l`) in column 1, and at macros listed
+in the `'sections'` option (default nroff-style `.SH`, `.NH`, …).
 
 In C-like code without those macros, think “next/previous top-level `{`/`}`”.
 

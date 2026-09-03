@@ -3,28 +3,73 @@ title: Jumps
 description: "Jump list, change list, and which motions create jumps."
 ---
 
-Far motions push the previous position onto the **jump list**. Near motions (like <Keys keys="h" link /> / <Keys keys="w" link />) usually do not.
+Far motions push the previous position onto the **jump list**. Near motions
+(like <Keys keys="h" link /> / <Keys keys="w" link />) usually do not.
 
 ## Jump list
 
+Start at `count`, jump with `G` to the last line, then come back:
+
+<Motion
+  keys="Ctrl-o"
+  name="Older jump"
+  before={"count = 1\nextra = 2\nprint(|count|)"}
+  after={"|count = 1\nextra = 2\nprint(count)"}
+  note="After G (or /search, gd, …), Ctrl-o walks back through jump history."
+/>
+
+<Motion
+  keys="Ctrl-i"
+  name="Newer jump"
+  before={"|count = 1\nextra = 2\nprint(count)"}
+  after={"count = 1\nextra = 2\nprint(|count|)"}
+  note="Forward again — Tab often sends Ctrl-i in the terminal."
+/>
+
+<Motion
+  keys="''"
+  name="Line before the latest jump"
+  before={"count = 1\nextra = 2\nprint(|count|)"}
+  after={"|count = 1\nextra = 2\nprint(count)"}
+  note="After a jump that left line 1, '' returns to that line (first non-blank)."
+/>
+
+<Motion
+  keys="``"
+  name="Exact position before the latest jump"
+  before={"count = 1\nextra = 2\nprint(|count|)"}
+  after={"count = 1\nextra = 2\nprint(|count|)"}
+  note="Same idea as '', but restores column too — after jumping away and back."
+/>
+
 <MotionList>
-  <Motion keys="Ctrl-o" name="Older jump" example="Back through jump history" />
-  <Motion keys="Ctrl-i" name="Newer jump" example="Forward · Tab often sends this" />
   <Motion keys=":jumps" name="Show jump list" />
   <Motion keys=":clearjumps" name="Clear jump list" />
-  <Motion keys="''" name="Line before the latest jump" />
-  <Motion keys="``" name="Exact position before the latest jump" />
 </MotionList>
 
-Use <Keys keys="g'{mark}" /> / <Keys keys="g`{mark}" /> to jump to a mark **without** adding a jumplist entry.
+Use <Keys keys="g'{mark}" /> / <Keys keys="g`{mark}" /> to jump to a mark **without**
+adding a jumplist entry.
 
 ## Change list
 
-Positions of edits, separate from jumps:
+Positions of edits, separate from jumps. After editing `old` then moving away:
+
+<Motion
+  keys="g;"
+  name="Older change position"
+  before={"renamed = 1\nprint(|other|)"}
+  after={"|renamed = 1\nprint(other)"}
+  note="Jumps to where you last changed text (here: the rename on line 1)."
+/>
+
+<Motion
+  keys="g,"
+  name="Newer change position"
+  before={"|renamed = 1\nprint(other)"}
+  after={"renamed = 1\nprint(|other|)"}
+/>
 
 <MotionList>
-  <Motion keys="g;" name="Older change position" />
-  <Motion keys="g," name="Newer change position" />
   <Motion keys=":changes" name="Show change list" />
   <Motion keys="'." name="Last change line" />
   <Motion keys="`." name="Last change exact position" />
