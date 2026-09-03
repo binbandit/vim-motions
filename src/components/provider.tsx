@@ -17,7 +17,7 @@ export function Provider({ children }: { children: ReactNode }) {
         options: {
           links: [
             ['All motions', '/docs/motions/all'],
-            ['Basic Motions', '/docs/motions/basic'],
+            ['* and # search', '/docs/motions/search'],
             ['Text Objects', '/docs/motions/text-objects'],
             ['Cheatsheet', '/docs/cheatsheet'],
           ],

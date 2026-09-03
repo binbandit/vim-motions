@@ -1,78 +1,119 @@
 ---
 title: Text Objects
-description: "Every built-in i/a text object — words, sentences, quotes, brackets, tags."
+description: "Every built-in text object: iw aw iW aW is as ip ap i( a( ib ab i[ a[ i{ a{ iB aB i< a< i\" a\" i' a' i` a` it at"
 ---
 
-Text objects answer: *what thing am I editing?* Use them **after** an operator, or in Visual mode. They are listed in `:help object-select`.
+Text objects answer: *what thing am I editing?* Use them **after** an operator, or in Visual mode (`:help object-select`).
 
 ```text
 d i w     delete inner word
 c a "     change a quoted string (includes quotes)
 v i [     visually select inside brackets
 y a p     yank a paragraph
-d g n     delete next search match (see Search)
 ```
 
 ## Inner vs a (around)
 
 | Prefix | Meaning |
 | --- | --- |
-| <Keys keys="i" /> | **Inner** — contents only |
-| <Keys keys="a" /> | **A / around** — contents + delimiters / whitespace |
+| <Keys keys="i" link /> | **Inner** — contents only |
+| <Keys keys="a" link /> | **A / around** — contents + delimiters / whitespace |
 
-## Word, sentence, paragraph
+## Words
 
 <MotionList>
   <Motion keys="iw" name="Inner word" />
   <Motion keys="aw" name="A word (with surrounding space)" />
   <Motion keys="iW" name="Inner WORD" />
   <Motion keys="aW" name="A WORD" />
+</MotionList>
+
+## Sentences & paragraphs
+
+<MotionList>
   <Motion keys="is" name="Inner sentence" />
   <Motion keys="as" name="A sentence" />
   <Motion keys="ip" name="Inner paragraph" />
   <Motion keys="ap" name="A paragraph" />
 </MotionList>
 
-## Brackets & blocks
+## Parentheses `()`
 
-Any of the open/close forms work (<Keys keys="i(" link /> same as <Keys keys="i)" link />):
+Any open/close form works the same:
 
 <MotionList>
-  <Motion keys="ib / ab / i( / a(" name="Parentheses ()" />
-  <Motion keys="i[ / a[ / i] / a]" name="Square brackets []" />
-  <Motion keys="iB / aB / i{ / a{" name="Curly braces {}" />
-  <Motion keys="i< / a< / i> / a>" name="Angle brackets <>" />
+  <Motion keys="ib" name="Inner () block (ib)" />
+  <Motion keys="ab" name="A () block (ab)" />
+  <Motion keys="i(" name="Inner () — same as ib" sameAs="ib" sameAsLabel="Same as" />
+  <Motion keys="i)" name="Inner () — same as ib" sameAs="ib" sameAsLabel="Same as" />
+  <Motion keys="a(" name="A () — same as ab" sameAs="ab" sameAsLabel="Same as" />
+  <Motion keys="a)" name="A () — same as ab" sameAs="ab" sameAsLabel="Same as" />
+</MotionList>
+
+## Square brackets `[]`
+
+<MotionList>
+  <Motion keys="i[" name="Inner [] block" />
+  <Motion keys="i]" name="Inner [] — same as i[" sameAs="i[" sameAsLabel="Same as" />
+  <Motion keys="a[" name="A [] block" />
+  <Motion keys="a]" name="A [] — same as a[" sameAs="a[" sameAsLabel="Same as" />
+</MotionList>
+
+## Curly braces `{}`
+
+<MotionList>
+  <Motion keys="iB" name="Inner {} block (iB)" />
+  <Motion keys="aB" name="A {} block (aB)" />
+  <Motion keys="i{" name="Inner {} — same as iB" sameAs="iB" sameAsLabel="Same as" />
+  <Motion keys="i}" name="Inner {} — same as iB" sameAs="iB" sameAsLabel="Same as" />
+  <Motion keys="a{" name="A {} — same as aB" sameAs="aB" sameAsLabel="Same as" />
+  <Motion keys="a}" name="A {} — same as aB" sameAs="aB" sameAsLabel="Same as" />
+</MotionList>
+
+## Angle brackets `<>`
+
+<MotionList>
+  <Motion keys="i<" name="Inner <> block" />
+  <Motion keys="i>" name="Inner <> — same as i<" sameAs="i<" sameAsLabel="Same as" />
+  <Motion keys="a<" name="A <> block" />
+  <Motion keys="a>" name="A <> — same as a<" sameAs="a<" sameAsLabel="Same as" />
 </MotionList>
 
 ## Quotes
 
 <MotionList>
-  <Motion keys={'i" / a"'} name="Double quotes" example={'ci" — change inside "..."'} />
-  <Motion keys="i' / a'" name="Single quotes" />
-  <Motion keys="i` / a`" name="Backticks" />
+  <Motion keys={'i"'} name={'Inner double quotes i"'} example={'ci" — change inside "..."'} />
+  <Motion keys={'a"'} name={'A double-quoted string a"'} example="Includes the quotes" />
+  <Motion keys="i'" name="Inner single quotes i'" />
+  <Motion keys="a'" name="A single-quoted string a'" />
+  <Motion keys="i`" name="Inner backticks i`" />
+  <Motion keys="a`" name="A backtick string a`" />
 </MotionList>
 
 ## Tags
 
 <MotionList>
   <Motion keys="it" name="Inner tag block" example="Inside &lt;div&gt;…&lt;/div&gt;" />
-  <Motion keys="at" name="A tag block" example="Includes the tags" />
+  <Motion keys="at" name="A tag block" example="Includes the opening and closing tags" />
 </MotionList>
 
 ## Search match as object
 
-<Keys keys="gn" /> / <Keys keys="gN" /> select the next/previous search match and work with operators (`dgn`, `cgn`). Full detail: [Search](/docs/motions/search).
+<MotionList>
+  <Motion keys="gn" name="Next search match (as object)" example="See Search — dgn / cgn" />
+  <Motion keys="gN" name="Previous search match (as object)" />
+</MotionList>
 
 ## Everyday combos
 
 | Combo | Result |
 | --- | --- |
 | <Keys keys={'ci"'} /> | Replace string contents |
-| <Keys keys="ci(" /> | Replace inside call/args |
+| <Keys keys="ci(" link /> | Replace inside call/args |
 | <Keys keys="ca{" /> | Replace block including braces |
-| <Keys keys="cit" /> | Change inside HTML tag |
+| <Keys keys="cit" link /> | Change inside HTML tag |
 | <Keys keys="dit" /> | Delete tag contents |
-| <Keys keys="yap" /> | Copy paragraph |
+| <Keys keys="yap" link /> | Copy paragraph |
 | <Keys keys="=ip" /> | Re-indent paragraph |
 | <Keys keys=">ap" /> | Indent paragraph |
 | <Keys keys="gUiw" /> | Uppercase word |
@@ -84,4 +125,4 @@ With nested brackets, Vim picks the **smallest** object containing the cursor. M
 
 ## Plugins (not built-in)
 
-Argument objects (`ia`/`aa`), function bodies, etc. come from plugins (targets.vim, mini.ai, nvim-treesitter-textobjects). This site documents **built-in** objects only.
+Argument objects (`ia`/`aa`), function bodies, etc. come from plugins. This site documents **built-in** objects only.

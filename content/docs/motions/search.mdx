@@ -1,7 +1,20 @@
 ---
 title: Search Motions
-description: "f t / ? * # n N gn gN and declaration jumps."
+description: "Search motions: / ? n N * star # hash g* g# gd gD gn gN f F t T"
 ---
+
+Find text on a line or in the file. These are full motions — operators accept them (`d/foo`, `cgn`, `y*`).
+
+## Word under cursor (`*` / `#`)
+
+These are among the most-used search motions:
+
+<MotionList>
+  <Motion keys="*" name="Star (*) — search word under cursor forward" example="Whole-word \<word\> · like /\<word\>/ then n" />
+  <Motion keys="#" name="Hash (#) — search word under cursor backward" example="Same as * but reverse direction · also called pound" />
+  <Motion keys="g*" name="g-star (g*) — search forward, not whole-word" sameAs="*" example="No \< \> word boundaries" />
+  <Motion keys="g#" name="g-hash (g#) — search backward, not whole-word" sameAs="#" />
+</MotionList>
 
 ## Find on the current line
 
@@ -14,8 +27,6 @@ description: "f t / ? * # n N gn gN and declaration jumps."
   <Motion keys="," name="Repeat last f/F/t/T opposite direction" />
 </MotionList>
 
-### Line-find patterns
-
 | Goal | Keys |
 | --- | --- |
 | Delete until `)` exclusive | <Keys keys="dt)" /> |
@@ -26,17 +37,17 @@ description: "f t / ? * # n N gn gN and declaration jumps."
 ## Search in the file
 
 <MotionList>
-  <Motion keys="/pattern" name="Search forward" example="/TODO then Enter · exclusive motion to match" />
-  <Motion keys="?pattern" name="Search backward" />
+  <Motion keys="/" name="Search forward" example="/TODO then Enter · exclusive motion to match" id="slash" />
+  <Motion keys="?" name="Search backward" id="qmark" />
   <Motion keys="n" name="Next match (same direction as last search)" />
   <Motion keys="N" name="Previous match (opposite direction)" />
-  <Motion keys="*" name="Search word under cursor forward" example="Whole-word \<word\>" />
-  <Motion keys="#" name="Search word under cursor backward" />
-  <Motion keys="g*" name="Search forward without word boundaries" />
-  <Motion keys="g#" name="Search backward without word boundaries" />
   <Motion keys="gd" name="Go to local declaration" />
   <Motion keys="gD" name="Go to global declaration" />
+  <Motion keys="1gd" name="Like gd, ignore matches before cursor" sameAs="gd" />
+  <Motion keys="1gD" name="Like gD, ignore matches before cursor" sameAs="gD" />
 </MotionList>
+
+Offsets after a search still count as part of the motion, e.g. `/foo/e` (end of match), `/bar/+1` (line below). See `:help search-offset`.
 
 ## Operate on the match (`gn` / `gN`)
 
@@ -47,11 +58,11 @@ description: "f t / ? * # n N gn gN and declaration jumps."
 
 Classic refactor loop:
 
-1. `/\<oldName\>` or `*`
-2. <Keys keys="cgn" /> type `newName`, <Keys keys="Esc" />
-3. <Keys keys="n" /> then <Keys keys="." /> (or keep using `cgn` / `.`)
+1. <Keys keys="*" link /> or `/\<oldName\>`
+2. <Keys keys="cgn" /> type `newName`, <Keys keys="Esc" link />
+3. <Keys keys="n" link /> then <Keys keys="." /> (or keep using `cgn` / `.`)
 
-<Keys keys="gn" link /> always searches **forward** for the pattern (unlike <Keys keys="n" link />, direction does not flip with <Keys keys="?pattern" link />).
+<Keys keys="gn" link /> always searches **forward** for the pattern (unlike <Keys keys="n" link />, direction does not flip with <Keys keys="?" link />).
 
 ## Search as a motion
 
@@ -59,6 +70,7 @@ Classic refactor loop:
 d/foo<CR>   delete until next "foo"
 c?bar<CR>   change backward until "bar"
 y*          yank through next occurrence of current word
+cgn         change next match of last search
 ```
 
 ## Search options worth knowing
@@ -66,4 +78,4 @@ y*          yank through next occurrence of current word
 - `\c` / `\C` — force case-insensitive / sensitive for this search
 - `\<` `\>` — word boundaries
 - `\v` — very magic regex
-- `:noh` — clear highlight until next search
+- `:noh` / `:nohlsearch` — clear highlight until next search
