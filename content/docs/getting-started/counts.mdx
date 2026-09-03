@@ -1,0 +1,33 @@
+---
+title: Counts
+description: Prefix numbers to multiply motions and operators.
+---
+
+Type a number before a command to repeat it.
+
+<MotionList>
+  <Motion keys="3w" name="Move 3 words forward" />
+  <Motion keys="5j" name="Move down 5 lines" />
+  <Motion keys="2dw" name="Delete 2 words" example="Same as d2w" />
+  <Motion keys="3dd" name="Delete 3 lines" />
+  <Motion keys="10." name="Repeat last change 10 times" />
+  <Motion keys="3p" name="Paste 3 times" />
+  <Motion keys="2fx" name="Find the 2nd 'x' on the line" />
+</MotionList>
+
+## Count placement
+
+Both of these work:
+
+- <Keys keys="2dw" /> — count on the operator
+- <Keys keys="d2w" /> — count on the motion
+
+They usually mean the same thing. Prefer whichever you type more fluently.
+
+## Counts with Insert
+
+<Keys keys="5i*-Esc" /> inserts `*****` (five stars). Counts before <Keys keys="i" /> / <Keys keys="a" /> / <Keys keys="I" /> / <Keys keys="A" /> / <Keys keys="o" /> / <Keys keys="O" /> repeat the inserted text after you leave Insert.
+
+## Line numbers
+
+<Keys keys="42G" /> or <Keys keys="42gg" /> jumps to line 42. <Keys keys=":" />`42` <Keys keys="Enter" /> does the same.

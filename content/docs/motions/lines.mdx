@@ -1,0 +1,43 @@
+---
+title: Line Motions
+description: Start, end, first non-blank, file top/bottom, and soft wrap helpers.
+---
+
+## Within a line
+
+<MotionList>
+  <Motion keys="0" name="First column" example="Column 1, even if blank/indent" />
+  <Motion keys="^" name="First non-blank character" />
+  <Motion keys="$" name="End of line" example="With count: 2$ → end of next line" />
+  <Motion keys="g_" name="Last non-blank character" />
+  <Motion keys="g0" name="First screen column of soft-wrapped line" />
+  <Motion keys="g^" name="First non-blank screen column (wrap)" />
+  <Motion keys="g$" name="Last screen column of soft-wrapped line" />
+  <Motion keys="gm" name="Middle of screen line" />
+  <Motion keys="gM" name="Middle of text line" />
+</MotionList>
+
+## Across the file
+
+<MotionList>
+  <Motion keys="gg" name="First line" example="With count: 42gg → line 42" />
+  <Motion keys="G" name="Last line" example="With count: 42G → line 42" />
+  <Motion keys=":{n}" name="Go to line n" example=":80 then Enter" />
+  <Motion keys="%" name="Go to matching pair / percentage" example="On (, ), [, ], {, }, or with count: 50% → half file" />
+</MotionList>
+
+## Line operators (shorthand)
+
+| Keys | Meaning |
+| --- | --- |
+| <Keys keys="dd" /> | Delete line |
+| <Keys keys="cc" /> / <Keys keys="S" /> | Change line |
+| <Keys keys="yy" /> / <Keys keys="Y" /> | Yank line (`Y` is linewise like `yy` in Vim) |
+| <Keys keys="D" /> | Delete to end of line (`d$`) |
+| <Keys keys="C" /> | Change to end of line (`c$`) |
+| <Keys keys="I" /> | Insert at first non-blank |
+| <Keys keys="A" /> | Append at end of line |
+
+## Soft wrap note
+
+When `wrap` is on, <Keys keys="j" />/<Keys keys="k" /> move by **buffer lines**. Use <Keys keys="gj" />/<Keys keys="gk" /> to move by **screen rows**.

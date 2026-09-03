@@ -1,0 +1,43 @@
+---
+title: Scrolling
+description: Move the viewport — Ctrl-d/u/f/b, zz, and window-relative jumps.
+---
+
+Scrolling moves the **window**; some commands also move the cursor.
+
+## Page & half-page
+
+<MotionList>
+  <Motion keys="Ctrl-f" name="Page forward" />
+  <Motion keys="Ctrl-b" name="Page backward" />
+  <Motion keys="Ctrl-d" name="Half-page down" example="Also moves cursor down" />
+  <Motion keys="Ctrl-u" name="Half-page up" />
+  <Motion keys="Ctrl-e" name="Scroll down one line" example="Cursor stays if possible" />
+  <Motion keys="Ctrl-y" name="Scroll up one line" />
+</MotionList>
+
+## Redraw cursor position
+
+<MotionList>
+  <Motion keys="zz" name="Center cursor line" />
+  <Motion keys="zt" name="Cursor line to top" />
+  <Motion keys="zb" name="Cursor line to bottom" />
+  <Motion keys="zs" name="Scroll horizontally: cursor to left" />
+  <Motion keys="ze" name="Scroll horizontally: cursor to right" />
+  <Motion keys="zh zl" name="Scroll left / right one character" />
+  <Motion keys="zH zL" name="Scroll half screen left / right" />
+</MotionList>
+
+## Window-relative moves
+
+<MotionList>
+  <Motion keys="H" name="Top of window (Home)" />
+  <Motion keys="M" name="Middle of window" />
+  <Motion keys="L" name="Bottom of window (Low)" />
+</MotionList>
+
+With counts: <Keys keys="3H" /> → third line from top of window.
+
+## Relative line numbers tip
+
+Many configs use `relativenumber` so you can type <Keys keys="12j" /> instead of searching. Pair with <Keys keys="zz" /> after big jumps to stay oriented.

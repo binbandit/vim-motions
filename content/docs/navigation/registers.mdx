@@ -1,0 +1,45 @@
+---
+title: Registers
+description: Named clipboards, delete history, expressions, and macros.
+---
+
+Prefix yank/delete/put with <Keys keys='"{reg}' />.
+
+## Common registers
+
+| Reg | Purpose |
+| --- | --- |
+| <Keys keys='""' /> | Unnamed — last yank or delete |
+| <Keys keys='"0' /> | Last yank only |
+| <Keys keys='"1' />–<Keys keys='"9' /> | Recent deletes (1 newest) |
+| <Keys keys='"a' />–<Keys keys='"z' /> | Named |
+| <Keys keys='"A' />–<Keys keys='"Z' /> | Append to named |
+| <Keys keys='"+' /> | Clipboard |
+| <Keys keys='"*' /> | Primary selection |
+| <Keys keys='"_' /> | Black hole |
+| <Keys keys='"-' /> | Small deletes (less than a line) |
+| <Keys keys='":' /> | Last Ex command |
+| <Keys keys='".' /> | Last inserted text |
+| <Keys keys='"%' /> | Current filename |
+| <Keys keys='"#' /> | Alternate filename |
+| <Keys keys='"/' /> | Last search pattern |
+| <Keys keys='"=' /> | Expression register |
+
+## Examples
+
+```text
+"ayiw      yank word → a
+"Ayy       append line to a
+"ap        put a
+"+yg_      yank to clipboard till last non-blank
+:_dd       wait — black hole is "_dd
+"_dd       delete line, keep "0 yank
+Ctrl-r a   (Insert) paste register a
+:reg       list registers
+```
+
+## Expression register
+
+In Insert mode, press `Ctrl-r` then `=` then an expression like `2*21` and Enter to insert `42`.
+
+In Normal mode, `"=` then `system('date')` then Enter then `p` puts the result.

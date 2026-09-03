@@ -1,0 +1,50 @@
+---
+title: Transform
+description: Indent, case, formatting, and external filters.
+---
+
+## Indent
+
+<MotionList>
+  <Motion keys=">{motion}" name="Indent right" />
+  <Motion keys="<{motion}" name="Indent left" />
+  <Motion keys=">>" name="Indent line" />
+  <Motion keys="<<" name="Outdent line" />
+  <Motion keys="={motion}" name="Auto-indent / format range" />
+  <Motion keys="==" name="Auto-indent line" />
+  <Motion keys=">i{" name="Indent inside braces" />
+  <Motion keys="=ap" name="Re-indent a paragraph" />
+  <Motion keys="gg=G" name="Re-indent whole file" example="Careful in huge files / mixed styles" />
+</MotionList>
+
+In Visual mode: <Keys keys=">" />, <Keys keys="<" />, <Keys keys="=" />. Use `.` to repeat indent.
+
+## Case
+
+<MotionList>
+  <Motion keys="~" name="Toggle case of character" />
+  <Motion keys="g~{motion}" name="Toggle case over motion" />
+  <Motion keys="gu{motion}" name="Lowercase" example="guiw — lowercase word" />
+  <Motion keys="gU{motion}" name="Uppercase" example='gUi" — uppercase inside quotes' />
+  <Motion keys="g~~" name="Toggle case on line" />
+</MotionList>
+
+## Filter & format
+
+<MotionList>
+  <Motion keys="!{motion}" name="Filter range through shell cmd" example="!}sort — sort to next paragraph" />
+  <Motion keys="!!" name="Filter current line" example="!!date" />
+  <Motion keys="gq{motion}" name="Format lines to textwidth" />
+  <Motion keys="gw{motion}" name="Format, keep cursor" />
+</MotionList>
+
+## Substitute (command)
+
+Not an operator, but related:
+
+```vim
+:s/old/new/        " current line
+:s/old/new/g       " all on line
+:%s/old/new/g      " whole file
+:%s/old/new/gc     " confirm each
+```

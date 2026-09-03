@@ -1,0 +1,39 @@
+---
+title: Vim Motions
+description: A dark, searchable reference for every Vim motion — keep it open while you code.
+---
+
+**Vim Motions** is a single reference for how you move and act in Vim. Search any key, skim a category, or open the cheatsheet beside your editor.
+
+## How to use this site
+
+1. Press <Kbd>⌘</Kbd><Kbd>K</Kbd> / <Kbd>Ctrl</Kbd><Kbd>K</Kbd> and type a key or idea (`word`, `delete inside`, `f`, `ci"`).
+2. Browse by category in the sidebar: motions → operators → text objects.
+3. Keep the [cheatsheet](/docs/cheatsheet) pinned for dense lookup.
+
+## The mental model
+
+Vim editing is **operator + motion** (or **operator + text object**):
+
+```text
+d    w     → delete a word
+c    i"    → change inside quotes
+y    ap    → yank a paragraph
+>    }
+     → indent to next paragraph
+```
+
+Learn motions once. Every operator becomes more powerful.
+
+## Start here
+
+<Cards>
+  <Card title="Modes" href="/docs/getting-started/modes" description="Normal, Insert, Visual, and when to use each" />
+  <Card title="Basic motions" href="/docs/motions/basic" description="hjkl, words, lines — the daily drivers" />
+  <Card title="Text objects" href="/docs/motions/text-objects" description="iw, i(, at — edit by meaning, not by counting" />
+  <Card title="Cheatsheet" href="/docs/cheatsheet" description="Dense table of the motions you'll reach for" />
+</Cards>
+
+## Tip
+
+Counts multiply almost everything: <Keys keys="3w" /> moves three words, <Keys keys="2dw" /> deletes two words, <Keys keys="5j" /> jumps five lines.

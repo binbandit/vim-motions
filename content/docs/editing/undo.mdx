@@ -1,0 +1,34 @@
+---
+title: Undo & Repeat
+description: u, Ctrl-r, ., and repeating macros.
+---
+
+## Undo tree basics
+
+<MotionList>
+  <Motion keys="u" name="Undo" />
+  <Motion keys="Ctrl-r" name="Redo" />
+  <Motion keys="U" name="Undo all changes on the current line" example="Line-local; different from u" />
+  <Motion keys="g-" name="Older text state (undo time travel)" />
+  <Motion keys="g+" name="Newer text state" />
+</MotionList>
+
+Modern Vim/Neovim keep an undo tree — branches exist if you undo then make a new change. Plugins like `undotree` help visualize.
+
+## Repeat
+
+<MotionList>
+  <Motion keys="." name="Repeat last change" example="The most important key after hjkl" />
+  <Motion keys="@:" name="Repeat last command-line command" />
+  <Motion keys="@@" name="Repeat last macro" />
+  <Motion keys="&" name="Repeat last :s on this line" />
+  <Motion keys="g&" name="Repeat last :s on all lines" />
+</MotionList>
+
+## Repeat workflow
+
+1. Make a careful change with a motion/object (`ci"` …).
+2. Move to the next place (`n`, `j`, `f`, etc.).
+3. Hit <Keys keys="." />.
+
+For multi-step edits, record a [macro](/docs/editing/macros).

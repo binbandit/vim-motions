@@ -1,0 +1,62 @@
+---
+title: Search Motions
+description: Find on a line or in the file — f t / ? * # and friends.
+---
+
+## Find on the current line
+
+<MotionList>
+  <Motion keys="f{char}" name="Find char forward" example="fa → next 'a' on this line (inclusive)" />
+  <Motion keys="F{char}" name="Find char backward" />
+  <Motion keys="t{char}" name="Till char forward" example="Stops one char before target (great with d/c)" />
+  <Motion keys="T{char}" name="Till char backward" />
+  <Motion keys=";" name="Repeat last f/F/t/T" />
+  <Motion keys="," name="Repeat last f/F/t/T opposite direction" />
+</MotionList>
+
+### Line-find patterns
+
+| Goal | Keys |
+| --- | --- |
+| Delete until `)` exclusive | <Keys keys="dt)" /> |
+| Delete through `)` | <Keys keys="df)" /> |
+| Change until `=` | <Keys keys="ct=" /> |
+| Jump to next `_` | <Keys keys="f_" /> |
+
+## Search in the file
+
+<MotionList>
+  <Motion keys="/pattern" name="Search forward" example="/TODO then Enter" />
+  <Motion keys="?pattern" name="Search backward" />
+  <Motion keys="n" name="Next match (same direction)" />
+  <Motion keys="N" name="Previous match (opposite direction)" />
+  <Motion keys="*" name="Search word under cursor forward" example="Whole-word, like /\<word\>" />
+  <Motion keys="#" name="Search word under cursor backward" />
+  <Motion keys="g*" name="Search word forward (not whole-word)" />
+  <Motion keys="g#" name="Search word backward (not whole-word)" />
+  <Motion keys="gd" name="Go to local declaration" />
+  <Motion keys="gD" name="Go to global declaration" />
+</MotionList>
+
+## Search options worth knowing
+
+In command mode:
+
+- `\c` — case-insensitive for this search
+- `\C` — case-sensitive
+- `\<` `\>` — word boundaries
+- Very magic: `\v` so you can write `(foo|bar)` more naturally
+
+## Search as a motion
+
+Operators accept search motions:
+
+```text
+d/foo<CR>   delete until next "foo"
+c?bar<CR>   change backward until "bar"
+y*          yank through next occurrence of current word
+```
+
+## Clear highlight
+
+`:noh` or `:nohlsearch` clears search highlighting until the next search.

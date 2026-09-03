@@ -1,0 +1,34 @@
+---
+title: Change
+description: c, s, C, S — delete a range and enter Insert mode.
+---
+
+**Change** = delete + Insert. Prefer change over delete+`i` when replacing text.
+
+## Core change
+
+<MotionList>
+  <Motion keys="c{motion}" name="Change over motion" />
+  <Motion keys="cc / S" name="Change whole line" />
+  <Motion keys="C" name="Change to end of line" example="Like c$" />
+  <Motion keys="s" name="Substitute character" example="Like cl" />
+  <Motion keys="r{char}" name="Replace single character" example="Does not enter Insert" />
+  <Motion keys="R" name="Replace mode" example="Overwrites until Esc" />
+  <Motion keys="~" name="Toggle case of character and move right" />
+</MotionList>
+
+## Best combos
+
+| Keys | Result |
+| --- | --- |
+| <Keys keys="ciw" /> | Change word |
+| <Keys keys='ci"' /> | Change inside quotes |
+| <Keys keys="ci(" /> | Change inside parens |
+| <Keys keys="cit" /> | Change inside HTML tag |
+| <Keys keys="ct;" /> | Change till `;` |
+| <Keys keys="c$" /> / <Keys keys="C" /> | Change rest of line |
+| <Keys keys="c/^" /> | (search) change backward/forward to pattern |
+
+## After change
+
+You're in Insert mode. Edit, then <Keys keys="Esc" />. <Keys keys="." /> repeats the same change (including typed text) elsewhere.

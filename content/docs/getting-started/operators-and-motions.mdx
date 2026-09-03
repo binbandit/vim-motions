@@ -1,0 +1,53 @@
+---
+title: Operators & Motions
+description: The operator + motion grammar that makes Vim scale.
+---
+
+Almost all editing follows:
+
+```text
+[count][operator][count][motion]
+```
+
+or:
+
+```text
+[count][operator][text-object]
+```
+
+## Operators you use daily
+
+| Operator | Meaning |
+| --- | --- |
+| <Keys keys="d" /> | Delete |
+| <Keys keys="c" /> | Change (delete + Insert) |
+| <Keys keys="y" /> | Yank (copy) |
+| <Keys keys=">" /> | Indent |
+| <Keys keys="<" /> | Outdent |
+| <Keys keys="=" /> | Auto-indent |
+| <Keys keys="g~" /> | Toggle case |
+| <Keys keys="gu" /> | Lowercase |
+| <Keys keys="gU" /> | Uppercase |
+| <Keys keys="!" /> | Filter through external program |
+
+Doubling an operator acts on the current line: <Keys keys="dd" />, <Keys keys="cc" />, <Keys keys="yy" />, <Keys keys=">>" />.
+
+## Motions feed operators
+
+| Combo | Result |
+| --- | --- |
+| <Keys keys="dw" /> | Delete to next word start |
+| <Keys keys="d$" /> / <Keys keys="D" /> | Delete to end of line |
+| <Keys keys="d0" /> | Delete to start of line |
+| <Keys keys="diw" /> | Delete inner word |
+| <Keys keys={'ci"'} /> | Change inside double quotes |
+| <Keys keys="yap" /> | Yank a paragraph |
+| <Keys keys=">i{" /> | Indent inside braces |
+
+## Pending operator feedback
+
+After pressing <Keys keys="d" />, Vim waits for a motion. Wrong motion? Hit <Keys keys="Esc" />.
+
+## Visual vs operator
+
+Visual mode is useful when you need to see the range. Operators are faster when you already know the motion. Prefer operators for speed; use Visual when discovering.

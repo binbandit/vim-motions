@@ -1,0 +1,27 @@
+---
+title: Tabs
+description: Tab pages hold layouts of windows.
+---
+
+Tabs in Vim are **layouts**, not browser-style file tabs.
+
+## Commands
+
+<MotionList>
+  <Motion keys=":tabnew" name="New tab page" />
+  <Motion keys=":tabe {file}" name="Edit file in new tab" />
+  <Motion keys="gt / :tabn" name="Next tab" />
+  <Motion keys="gT / :tabp" name="Previous tab" />
+  <Motion keys="{n}gt" name="Go to tab n" />
+  <Motion keys=":tabc" name="Close tab" />
+  <Motion keys=":tabo" name="Close other tabs" />
+  <Motion keys=":tabs" name="List tabs" />
+  <Motion keys="Ctrl-w T" name="Move current window to new tab" />
+</MotionList>
+
+## When to use tabs
+
+- Separate contexts (docs vs code vs tests layout)
+- Different split arrangements you want to keep
+
+For most file hopping, use buffers + fuzzy finders instead.
