@@ -1,73 +1,186 @@
 ---
 title: Text Objects
-description: Operate on words, sentences, paragraphs, quotes, brackets, and tags.
+description: "Every built-in text object with before/after buffer examples — iw aw i( a\" it and more"
 ---
 
-Text objects answer: *what thing am I editing?* Use them **after** an operator (or in Visual mode).
+Text objects answer: *what thing am I editing?* Use them **after** an operator, or in Visual mode (`:help object-select`).
 
-```text
-d i w     delete inner word
-c a "     change a quoted string (includes quotes)
-v i [     visually select inside brackets
-y a p     yank a paragraph
-```
+Highlighted cell = cursor. Examples show the **edit** result (usually with `d` / `c`).
 
 ## Inner vs a (around)
 
 | Prefix | Meaning |
 | --- | --- |
-| <Keys keys="i" /> | **Inner** — contents only |
-| <Keys keys="a" /> | **A / around** — contents + delimiters / whitespace |
+| <Keys keys="i" link /> | **Inner** — contents only |
+| <Keys keys="a" link /> | **A / around** — contents + delimiters / whitespace |
 
-## Word & paragraph
+## Words
 
 <MotionList>
   <Motion keys="iw" name="Inner word" />
   <Motion keys="aw" name="A word (with surrounding space)" />
   <Motion keys="iW" name="Inner WORD" />
   <Motion keys="aW" name="A WORD" />
+</MotionList>
+
+<Buffer
+  keys="diw"
+  before={'rename |userName|Today'}
+  after={'rename |Today'}
+  note="Cursor anywhere in userName — iw targets the whole word."
+/>
+
+<Buffer
+  keys="daw"
+  before={'keep |drop| keep'}
+  after={'keep |keep'}
+  note="aw also eats a neighboring space."
+/>
+
+## Sentences & paragraphs
+
+<MotionList>
   <Motion keys="is" name="Inner sentence" />
   <Motion keys="as" name="A sentence" />
   <Motion keys="ip" name="Inner paragraph" />
   <Motion keys="ap" name="A paragraph" />
 </MotionList>
 
-## Quotes & brackets
+<Buffer
+  keys="das"
+  before={'Intro. |Delete this sentence. |Keep this.'}
+  after={'Intro. |Keep this.'}
+/>
+
+## Parentheses `()`
 
 <MotionList>
-  <Motion keys='i" a"' name="Double quotes" example='ci" — change inside "..."' />
-  <Motion keys="i' a'" name="Single quotes" />
-  <Motion keys="i` a`" name="Backticks" />
-  <Motion keys="i) a) / ib ab" name="Parentheses" example="Also i( a(" />
-  <Motion keys="i] a]" name="Square brackets" example="Also i[ a[" />
-  <Motion keys="i} a} / iB aB" name="Curly braces" example="Also i{ a{" />
-  <Motion keys="i> a>" name="Angle brackets" example="Also i&lt; a&lt;" />
+  <Motion keys="ib" name="Inner () block (ib)" />
+  <Motion keys="ab" name="A () block (ab)" />
+  <Motion keys="i(" name="Inner () — same as ib" sameAs="ib" sameAsLabel="Same as" />
+  <Motion keys="i)" name="Inner () — same as ib" sameAs="ib" sameAsLabel="Same as" />
+  <Motion keys="a(" name="A () — same as ab" sameAs="ab" sameAsLabel="Same as" />
+  <Motion keys="a)" name="A () — same as ab" sameAs="ab" sameAsLabel="Same as" />
 </MotionList>
 
-## Tags & more
+<Buffer
+  keys="di("
+  before={'print(|hello|)'}
+  after={'print(|)'}
+  note="Inner — keeps the parentheses."
+/>
+
+<Buffer
+  keys="da("
+  before={'print(|hello|)'}
+  after={'|'}
+  note="Around — removes the parentheses too."
+/>
+
+## Square brackets `[]`
 
 <MotionList>
-  <Motion keys="it at" name="HTML/XML tags" example="cit — change inside &lt;div&gt;...&lt;/div&gt;" />
-  <Motion keys="i&lt;space&gt;" name="(plugin) often: argument text objects" example="Many setups add ia/aa for function args via targets.vim / mini.ai / nvim-treesitter-textobjects" />
+  <Motion keys="i[" name="Inner [] block" />
+  <Motion keys="i]" name="Inner [] — same as i[" sameAs="i[" sameAsLabel="Same as" />
+  <Motion keys="a[" name="A [] block" />
+  <Motion keys="a]" name="A [] — same as a[" sameAs="a[" sameAsLabel="Same as" />
 </MotionList>
 
-## Visual mode
+<Buffer
+  keys="ci["
+  before={'items = [|a, b|]'}
+  after={'items = [|]'}
+  note="Deletes inside [] and enters Insert."
+/>
 
-Press <Keys keys="v" /> then a text object: <Keys keys="vi{" />, <Keys keys={'va"'} />. Extend with `o` to swap ends, or another object.
+## Curly braces `{}`
+
+<MotionList>
+  <Motion keys="iB" name="Inner {} block (iB)" />
+  <Motion keys="aB" name="A {} block (aB)" />
+  <Motion keys="i{" name="Inner {} — same as iB" sameAs="iB" sameAsLabel="Same as" />
+  <Motion keys="i}" name="Inner {} — same as iB" sameAs="iB" sameAsLabel="Same as" />
+  <Motion keys="a{" name="A {} — same as aB" sameAs="aB" sameAsLabel="Same as" />
+  <Motion keys="a}" name="A {} — same as aB" sameAs="aB" sameAsLabel="Same as" />
+</MotionList>
+
+<Buffer
+  keys="di{"
+  before={'fn() {\n  |return 1\n}'}
+  after={'fn() {\n|}\n'}
+  note="Clears the block body; braces remain."
+/>
+
+## Angle brackets `<>`
+
+<MotionList>
+  <Motion keys="i<" name="Inner <> block" />
+  <Motion keys="i>" name="Inner <> — same as i<" sameAs="i<" sameAsLabel="Same as" />
+  <Motion keys="a<" name="A <> block" />
+  <Motion keys="a>" name="A <> — same as a<" sameAs="a<" sameAsLabel="Same as" />
+</MotionList>
+
+## Quotes
+
+<MotionList>
+  <Motion keys={'i"'} name={'Inner double quotes i"'} />
+  <Motion keys={'a"'} name={'A double-quoted string a"'} />
+  <Motion keys="i'" name="Inner single quotes i'" />
+  <Motion keys="a'" name="A single-quoted string a'" />
+  <Motion keys="i`" name="Inner backticks i`" />
+  <Motion keys="a`" name="A backtick string a`" />
+</MotionList>
+
+<Buffer
+  keys='ci"'
+  before={'msg = "|hello|"'}
+  after={'msg = "|"'}
+  note="Classic: change inside quotes, type replacement, Esc."
+/>
+
+<Buffer
+  keys='da"'
+  before={'msg = "|hello|"'}
+  after={'msg = |'}
+  note="Around — removes the quote characters too."
+/>
+
+## Tags
+
+<MotionList>
+  <Motion keys="it" name="Inner tag block" />
+  <Motion keys="at" name="A tag block" />
+</MotionList>
+
+<Buffer
+  keys="dit"
+  before={'<div>|title|</div>'}
+  after={'<div>|</div>'}
+/>
+
+<Buffer
+  keys="dat"
+  before={'<div>|title|</div>'}
+  after={'|'}
+  note="Removes the tags and their contents."
+/>
+
+## Search match as object
+
+<Buffer
+  keys="dgn"
+  before={'fix |foo| and foo again'}
+  after={'fix | and foo again'}
+  note="After * or /foo — dgn deletes the match under/after the cursor."
+/>
 
 ## Everyday combos
 
 | Combo | Result |
 | --- | --- |
-| <Keys keys='ci"' /> | Replace string contents |
-| <Keys keys="ci(" /> | Replace inside call/args |
+| <Keys keys={'ci"'} /> | Replace string contents |
+| <Keys keys="ci(" link /> | Replace inside call/args |
 | <Keys keys="ca{" /> | Replace block including braces |
-| <Keys keys="dit" /> | Delete tag contents |
-| <Keys keys="yap" /> | Copy paragraph |
-| <Keys keys="=ip" /> | Re-indent paragraph |
-| <Keys keys=">ap" /> | Indent paragraph |
-| <Keys keys="gUiw" /> | Uppercase word |
-
-## Nesting
-
-With nested brackets, Vim picks the **smallest** object containing the cursor. Move inside the pair you want first, or use Visual and expand.
+| <Keys keys="cit" link /> | Change inside HTML tag |
+| <Keys keys="yap" link /> | Copy paragraph |
+| <Keys keys="cgn" /> | Change next search match |

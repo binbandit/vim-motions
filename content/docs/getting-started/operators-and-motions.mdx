@@ -15,6 +15,35 @@ or:
 [count][operator][text-object]
 ```
 
+## See it in a buffer
+
+<Buffer
+  keys="dw"
+  before={"const |userName = 1"}
+  after={"const | = 1"}
+  note="Operator d + motion w — delete to next word."
+/>
+
+<Buffer
+  keys="ciw"
+  before={"const |userName = 1"}
+  after={"const |id = 1"}
+  note="Operator c + text object iw — change the word, type id, Esc."
+/>
+
+<Buffer
+  keys="d$"
+  before={"keep |delete the rest"}
+  after={"keep |"}
+/>
+
+<Buffer
+  keys={'yi"'}
+  before={'msg = "|hello|"'}
+  after={'msg = "|hello|"'}
+  note="Yank leaves the buffer alone — hello is now in a register for p."
+/>
+
 ## Operators you use daily
 
 | Operator | Meaning |
@@ -31,6 +60,12 @@ or:
 | <Keys keys="!" /> | Filter through external program |
 
 Doubling an operator acts on the current line: <Keys keys="dd" />, <Keys keys="cc" />, <Keys keys="yy" />, <Keys keys=">>" />.
+
+<Buffer
+  keys="dd"
+  before={"keep\n|drop me\nkeep"}
+  after={"keep\n|keep"}
+/>
 
 ## Motions feed operators
 
@@ -50,4 +85,6 @@ After pressing <Keys keys="d" />, Vim waits for a motion. Wrong motion? Hit <Key
 
 ## Visual vs operator
 
-Visual mode is useful when you need to see the range. Operators are faster when you already know the motion. Prefer operators for speed; use Visual when discovering.
+Visual mode is useful when you need to see the range. Operators are faster when
+you already know the motion. Prefer operators for speed; use Visual when
+discovering.

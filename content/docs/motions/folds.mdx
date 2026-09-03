@@ -1,0 +1,75 @@
+---
+title: Folds
+description: "[z ]z zj zk — move by folds."
+---
+
+Fold motions live in `:help fold.txt`. They move the cursor relative to fold
+structure. Examples use marker-style folds (`{{{` / `}}}`) for clarity:
+
+```
+// {{{ helpers
+fn a() {}
+fn b() {}
+// }}}
+
+// {{{ main
+fn run() {}
+// }}}
+```
+
+<Motion
+  keys="[z"
+  name="To start of current open fold"
+  before={"// {{{ helpers\nfn a() {}\n|fn b() {}\n// }}}"}
+  after={"|// {{{ helpers\nfn a() {}\nfn b() {}\n// }}}"}
+  note="Jumps to the first line of the open fold containing the cursor."
+/>
+
+<Motion
+  keys="]z"
+  name="To end of current open fold"
+  before={"// {{{ helpers\n|fn a() {}\nfn b() {}\n// }}}"}
+  after={"// {{{ helpers\nfn a() {}\nfn b() {}\n|// }}}"}
+/>
+
+<Motion
+  keys="zj"
+  name="Down to start of next fold"
+  before={"|// {{{ helpers\nfn a() {}\n// }}}\n\n// {{{ main\nfn run() {}\n// }}}"}
+  after={"// {{{ helpers\nfn a() {}\n// }}}\n\n|// {{{ main\nfn run() {}\n// }}}"}
+  note="Closed folds count — hop fold-to-fold."
+/>
+
+<Motion
+  keys="zk"
+  name="Up to end of previous fold"
+  before={"// {{{ helpers\nfn a() {}\n// }}}\n\n|// {{{ main\nfn run() {}\n// }}}"}
+  after={"// {{{ helpers\nfn a() {}\n|// }}}\n\n// {{{ main\nfn run() {}\n// }}}"}
+/>
+
+## With an operator
+
+<Buffer
+  keys="dzj"
+  before={"keep\n|// {{{ drop\nsecret()\n// }}}\n\n// {{{ keep\nok()\n// }}}"}
+  after={"keep\n|// {{{ keep\nok()\n// }}}"}
+  note="Delete from here through the start of the next fold (range depends on exclusive rules)."
+/>
+
+## Notes
+
+- These work whether you use manual, indent, syntax, or marker folds.
+- They are cursor motions — usable after operators when the fold range is what
+  you want (often you open/close folds instead: `zo` `zc` `za` … — those are
+  fold **commands**, not motions).
+
+## Related fold commands (not motions)
+
+| Keys | Action |
+| --- | --- |
+| <Keys keys="zo" /> | Open fold |
+| <Keys keys="zc" /> | Close fold |
+| <Keys keys="za" /> | Toggle fold |
+| <Keys keys="zR" /> | Open all folds |
+| <Keys keys="zM" /> | Close all folds |
+| <Keys keys="zf{motion}" /> | Create fold over motion |

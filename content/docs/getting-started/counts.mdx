@@ -5,22 +5,47 @@ description: Prefix numbers to multiply motions and operators.
 
 Type a number before a command to repeat it.
 
+<Motion
+  keys="3w"
+  name="Move 3 words forward"
+  before={"|one two three four five"}
+  after={"one two three |four five"}
+/>
+
+<Motion
+  keys="2dw"
+  name="Delete 2 words"
+  before={"|one two three four"}
+  after={"|three four"}
+  note="Count on the operator — equivalent to d2w."
+/>
+
+<Motion
+  keys="3dd"
+  name="Delete 3 lines"
+  before={"keep\n|a\nb\nc\nkeep"}
+  after={"keep\n|keep"}
+/>
+
+<Motion
+  keys="2fx"
+  name="Find the 2nd x on the line"
+  before={"|axbxcx"}
+  after={"axb|xcx"}
+/>
+
 <MotionList>
-  <Motion keys="3w" name="Move 3 words forward" />
   <Motion keys="5j" name="Move down 5 lines" />
-  <Motion keys="2dw" name="Delete 2 words" example="Same as d2w" />
-  <Motion keys="3dd" name="Delete 3 lines" />
   <Motion keys="10." name="Repeat last change 10 times" />
   <Motion keys="3p" name="Paste 3 times" />
-  <Motion keys="2fx" name="Find the 2nd 'x' on the line" />
 </MotionList>
 
 ## Count placement
 
 Both of these work:
 
-- <Keys keys="2dw" /> — count on the operator
-- <Keys keys="d2w" /> — count on the motion
+- <Keys keys="2dw" link /> — count on the operator
+- <Keys keys="d2w" link /> — count on the motion
 
 They usually mean the same thing. Prefer whichever you type more fluently.
 

@@ -1,40 +1,129 @@
 ---
 title: Basic Motions
-description: Character and directional movement — hjkl and friends.
+description: "Left-right and up-down cursor steps — with before/after buffer examples"
 ---
 
-These are the smallest cursor steps. Master them before anything else.
+Character and line steps from `:help left-right-motions` and `:help up-down-motions`.
 
-## Directional
+Highlighted cell = cursor (`|` in the source).
 
-<MotionList>
-  <Motion keys="h" name="Left" example="One character left (same as ←)" />
-  <Motion keys="j" name="Down" example="One line down (same as ↓)" />
-  <Motion keys="k" name="Up" example="One line up (same as ↑)" />
-  <Motion keys="l" name="Right" example="One character right (same as →)" />
-</MotionList>
-
-Prefer <Keys keys="h j k l" /> over arrow keys — your hands stay on home row.
-
-## Character / screen cell
+## Left / right
 
 <MotionList>
-  <Motion keys="Space" name="Right (like l)" />
-  <Motion keys="Backspace" name="Left (like h), can cross lines" />
-  <Motion keys="Ctrl-h" name="Same as Backspace in Normal" />
+  <Motion
+    keys="h"
+    name="Left"
+    before={'vim| rocks'}
+    after={'vi|m rocks'}
+  />
+  <Motion
+    keys="l"
+    name="Right"
+    before={'vi|m rocks'}
+    after={'vim| rocks'}
+  />
+  <Motion
+    keys="Space"
+    name="Right"
+    sameAs="l"
+    before={'vi|m rocks'}
+    after={'vim| rocks'}
+  />
+  <Motion
+    keys="BS"
+    name="Left"
+    also={['Ctrl-h']}
+    before={'vim| rocks'}
+    after={'vi|m rocks'}
+    note="Can cross lines depending on 'whichwrap'."
+  />
+  <Motion keys="Ctrl-h" name="Backspace alias" sameAs="BS" sameAsLabel="Same as" />
 </MotionList>
 
-## Useful habits
+Prefer <Keys keys="h j k l" /> over arrows so hands stay on the home row.
 
-| Goal | Prefer |
-| --- | --- |
-| Next word | <Keys keys="w" /> not many <Keys keys="l" /> |
-| End of line | <Keys keys="$" /> not holding <Keys keys="l" /> |
-| Matching paren | <Keys keys="%" /> |
-| Find on line | <Keys keys="f" /> / <Keys keys="t" /> |
+## Up / down
+
+<MotionList>
+  <Motion
+    keys="k"
+    name="Up one line"
+    also={['Ctrl-p']}
+    before={'line one\nline |two'}
+    after={'line |one\nline two'}
+  />
+  <Motion
+    keys="j"
+    name="Down one line"
+    also={['Ctrl-j', 'Ctrl-n']}
+    before={'line |one\nline two'}
+    after={'line one\nline |two'}
+  />
+  <Motion
+    keys="gk"
+    name="Up one screen line"
+    example="Respects wrap; also g↑"
+  />
+  <Motion
+    keys="gj"
+    name="Down one screen line"
+    example="Also g↓ — use when 'wrap' is on"
+  />
+  <Motion
+    keys="-"
+    name="Up [count] lines to first non-blank"
+    before={'  alpha\n  |bravo'}
+    after={'  |alpha\n  bravo'}
+  />
+  <Motion
+    keys="+"
+    name="Down [count] lines to first non-blank"
+    also={['Enter', 'Ctrl-m']}
+    before={'  |alpha\n  bravo'}
+    after={'  alpha\n  |bravo'}
+  />
+  <Motion
+    keys="_"
+    name="Down [count]-1 lines to first non-blank"
+    before={'    |indented'}
+    after={'    |indented'}
+    note="Alone, _ jumps to the first non-blank of the current line."
+  />
+</MotionList>
+
+## Soft wrap
+
+When `'wrap'` is on, <Keys keys="j" link />/<Keys keys="k" link /> move by **buffer lines**. Use <Keys keys="gj" link />/<Keys keys="gk" link /> for **screen rows**.
 
 ## With operators
 
-<Keys keys="dl" /> deletes the character under the cursor (same idea as <Keys keys="x" />).
-<Keys keys="dh" /> deletes the character to the left (same idea as <Keys keys="X" />).
-<Keys keys="dj" /> deletes this line and the next.
+<Buffer
+  keys="dl"
+  before={'xa|bc'}
+  after={'xa|c'}
+  note="Deletes the character under the cursor (≈ x)."
+/>
+
+<Buffer
+  keys="dh"
+  before={'xa|bc'}
+  after={'x|bc'}
+  note="Deletes the character to the left (≈ X)."
+/>
+
+<Buffer
+  keys="dj"
+  before={'keep\n|drop me\ndrop too\nkeep'}
+  after={'keep\n|keep'}
+  note="Deletes this line and the next (linewise)."
+/>
+
+## Habits
+
+| Goal | Prefer |
+| --- | --- |
+| Next word | <Keys keys="w" link /> not many <Keys keys="l" link /> |
+| End of line | <Keys keys="$" link /> |
+| Matching paren | <Keys keys="%" link /> |
+| Find on line | <Keys keys="f" /> / <Keys keys="t" /> |
+| Screen row | <Keys keys="gj" link /> / <Keys keys="gk" link /> |

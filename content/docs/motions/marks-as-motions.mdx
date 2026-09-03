@@ -1,0 +1,158 @@
+---
+title: Marks as Motions
+description: Every mark jump that moves the cursor — including automatic marks.
+---
+
+Setting a mark (`m{a-z}`) is not a motion. **Jumping** to a mark is.
+
+For workflows and `:marks`, see also [Navigation → Marks](/docs/navigation/marks).
+
+## User marks
+
+Set mark `a` on `userName`, move away, then jump back:
+
+<Motion
+  keys="'a"
+  name="Jump to mark line (first non-blank)"
+  before={"const userName = 1\nprint(|x|)"}
+  after={"|const userName = 1\nprint(x)"}
+  note="After ma on the first line, 'a returns to that line."
+/>
+
+<Motion
+  keys="`a"
+  name="Jump to exact mark position"
+  before={"const userName = 1\nprint(|x|)"}
+  after={"const |userName = 1\nprint(x)"}
+  note="Restores column too — cursor lands on the marked character."
+/>
+
+<MotionList>
+  <Motion keys="m{a-z}" name="Set local mark (not a motion)" />
+  <Motion keys="m{A-Z}" name="Set global mark (file + position)" />
+  <Motion keys="g'{mark}" name="Jump to mark line without adding a jumplist entry" />
+  <Motion keys="g`{mark}" name="Exact jump without adding a jumplist entry" />
+</MotionList>
+
+## Jump history marks
+
+After `G` from the top:
+
+<Motion
+  keys="''"
+  name="Line of position before latest jump"
+  before={"one\ntwo\n|three"}
+  after={"|one\ntwo\nthree"}
+/>
+
+<Motion
+  keys="``"
+  name="Exact position before latest jump"
+  before={"one\ntwo\n|three"}
+  after={"o|ne\ntwo\nthree"}
+  note="If you left from column 1 of `one`, `` restores that column."
+/>
+
+## Change / Insert / Visual / yank marks
+
+After `ciw` replaced `old` with `newName`:
+
+<Motion
+  keys="`["
+  name="Start of last change or yank"
+  before={"const newName| = 1"}
+  after={"const |newName = 1"}
+/>
+
+<Motion
+  keys="`]"
+  name="End of last change or yank"
+  before={"const |newName = 1"}
+  after={"const newNam|e = 1"}
+/>
+
+<Motion
+  keys="`."
+  name="Exact last change"
+  before={"const newName = 1\nprint(|x|)"}
+  after={"const newNam|e = 1\nprint(x)"}
+/>
+
+<MotionList>
+  <Motion keys="'[" name="Start of last change or yank (line)" />
+  <Motion keys="']" name="End of last change or yank (line)" />
+  <Motion keys="'<" name="Start of last Visual selection (line)" />
+  <Motion keys="`<" name="Start of last Visual selection (exact)" />
+  <Motion keys="'>" name="End of last Visual selection (line)" />
+  <Motion keys="`>" name="End of last Visual selection (exact)" />
+  <Motion keys="'." name="Line of last change" />
+  <Motion keys="'^" name="Line where Insert mode was last left" />
+  <Motion keys="`^" name="Exact Insert exit position" />
+</MotionList>
+
+## Sentence / paragraph marks
+
+<Motion
+  keys="`("
+  name="Start of current sentence"
+  before={"Hello there. How |are you?"}
+  after={"Hello there. |How are you?"}
+/>
+
+<Motion
+  keys="`{"
+  name="Start of current paragraph"
+  before={"para one\n\nline a\n|line b"}
+  after={"para one\n\n|line a\nline b"}
+/>
+
+<MotionList>
+  <Motion keys="'(" name="Start of current sentence (line)" />
+  <Motion keys="')" name="End of current sentence (line)" />
+  <Motion keys="`)" name="End of current sentence (exact)" />
+  <Motion keys="'{" name="Start of current paragraph (line)" />
+  <Motion keys="'}" name="End of current paragraph (line)" />
+  <Motion keys="`}" name="End of current paragraph (exact)" />
+</MotionList>
+
+## Walk lowercase marks
+
+With marks `a` on line 1 and `b` on line 3:
+
+<Motion
+  keys="]'"
+  name="Next lowercase mark (line)"
+  before={"|const a = 1\nmiddle\nconst b = 2"}
+  after={"const a = 1\nmiddle\n|const b = 2"}
+/>
+
+<Motion
+  keys="['"
+  name="Previous lowercase mark (line)"
+  before={"const a = 1\nmiddle\n|const b = 2"}
+  after={"|const a = 1\nmiddle\nconst b = 2"}
+/>
+
+<MotionList>
+  <Motion keys="[`" name="Previous lowercase mark (exact)" />
+  <Motion keys="]`" name="Next lowercase mark (exact)" />
+</MotionList>
+
+## With an operator
+
+<Buffer
+  keys="d'a"
+  before={"keep\n|drop line\nalso drop\nmark a here\nkeep"}
+  after={"keep\n|mark a here\nkeep"}
+  note="Deletes from the current line through the line of mark a (linewise)."
+/>
+
+## Ex helpers
+
+| Command | Meaning |
+| --- | --- |
+| `:marks` | List marks |
+| `:delmarks a b p-z` | Delete marks |
+| `:delmarks!` | Delete all lowercase marks |
+| `:lockmarks {cmd}` | Run `{cmd}` without moving marks |
+| `:keepjumps {cmd}` | Run `{cmd}` without adding jumplist entries |

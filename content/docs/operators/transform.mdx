@@ -1,18 +1,22 @@
 ---
 title: Transform
-description: Indent, case, formatting, and external filters.
+description: "Indent, case, formatting, and external filters."
 ---
 
 ## Indent
 
+<Motion keys=">>" name="Indent line" before={"|foo()"} after={"\t|foo()"} note="Adds one 'shiftwidth' of indent (shown as a tab here)." />
+
+<Motion keys="<<" name="Outdent line" before={"\t|foo()"} after={"|foo()"} />
+
+<Motion keys=">i{" name="Indent inside braces" before={"fn() {\n|  a()\n  b()\n}"} after={"fn() {\n|\t  a()\n\t  b()\n}"} note="Indents every line inside the {} block." />
+
+<Motion keys="==" name="Auto-indent line" before={"fn() {\n|bad indent\n}"} after={"fn() {\n|  bad indent\n}"} note="Uses 'indentexpr' / cindent — exact spaces depend on filetype." />
+
 <MotionList>
-  <Motion keys=">{motion}" name="Indent right" />
-  <Motion keys="<{motion}" name="Indent left" />
-  <Motion keys=">>" name="Indent line" />
-  <Motion keys="<<" name="Outdent line" />
+  <Motion keys=">{motion}" name="Indent right over motion" />
+  <Motion keys="<{motion}" name="Indent left over motion" />
   <Motion keys="={motion}" name="Auto-indent / format range" />
-  <Motion keys="==" name="Auto-indent line" />
-  <Motion keys=">i{" name="Indent inside braces" />
   <Motion keys="=ap" name="Re-indent a paragraph" />
   <Motion keys="gg=G" name="Re-indent whole file" example="Careful in huge files / mixed styles" />
 </MotionList>
@@ -21,18 +25,32 @@ In Visual mode: <Keys keys=">" />, <Keys keys="<" />, <Keys keys="=" />. Use `.`
 
 ## Case
 
+<Motion keys="~" name="Toggle case of character" before={"|Hello"} after={"h|ello"} />
+
+<Motion keys="gUl" name="Uppercase character" before={"|hello"} after={"|Hello"} />
+
+<Motion keys="guiw" name="Lowercase word" before={"const |UserName = 1"} after={"const |username = 1"} />
+
+<Motion keys="gUiw" name="Uppercase word" before={"const |userName = 1"} after={"const |USERNAME = 1"} />
+
+<Motion keys='gUi"' name="Uppercase inside quotes" before={'msg = "|hello|"'} after={'msg = "|HELLO|"'} />
+
 <MotionList>
-  <Motion keys="~" name="Toggle case of character" />
   <Motion keys="g~{motion}" name="Toggle case over motion" />
-  <Motion keys="gu{motion}" name="Lowercase" example="guiw — lowercase word" />
-  <Motion keys="gU{motion}" name="Uppercase" example='gUi" — uppercase inside quotes' />
   <Motion keys="g~~" name="Toggle case on line" />
 </MotionList>
 
 ## Filter & format
 
+<Buffer
+  keys="!}sort"
+  before={"|banana\napple\ncherry\n\nkeep"}
+  after={"|apple\nbanana\ncherry\n\nkeep"}
+  note="Filter from cursor to next paragraph through sort."
+/>
+
 <MotionList>
-  <Motion keys="!{motion}" name="Filter range through shell cmd" example="!}sort — sort to next paragraph" />
+  <Motion keys="!{motion}" name="Filter range through shell cmd" />
   <Motion keys="!!" name="Filter current line" example="!!date" />
   <Motion keys="gq{motion}" name="Format lines to textwidth" />
   <Motion keys="gw{motion}" name="Format, keep cursor" />

@@ -1,0 +1,67 @@
+---
+title: Sentences & Paragraphs
+description: "( ) { } — move by sentence and paragraph, with before/after examples"
+---
+
+These are **text object motions** (they move the cursor). For operating on a sentence/paragraph under the cursor, prefer text objects <Keys keys="is" link /> / <Keys keys="as" link /> / <Keys keys="ip" link /> / <Keys keys="ap" link />.
+
+## Sentence motions
+
+<MotionList>
+  <Motion
+    keys="("
+    name="Sentence(s) backward"
+    before={'One. Two. |Three.'}
+    after={'One. |Two. Three.'}
+  />
+  <Motion
+    keys=")"
+    name="Sentence(s) forward"
+    before={'One. |Two. Three.'}
+    after={'One. Two. |Three.'}
+  />
+</MotionList>
+
+A **sentence** ends at `.` `!` or `?` followed by EOL, space, or tab.
+
+## Paragraph motions
+
+<MotionList>
+  <Motion
+    keys="{"
+    name="Paragraph(s) backward"
+    before={'para one\n\npara |two\n\npara three'}
+    after={'para one\n\n|para two\n\npara three'}
+    note="{ jumps to the blank-line boundary above."
+  />
+  <Motion
+    keys="}"
+    name="Paragraph(s) forward"
+    before={'para |one\n\npara two\n\npara three'}
+    after={'para one\n\n|para two\n\npara three'}
+  />
+</MotionList>
+
+A **paragraph** begins after each **empty** line (not merely whitespace-only).
+
+## With operators
+
+<Buffer
+  keys="d)"
+  before={'Keep. |Delete this sentence. Stay.'}
+  after={'Keep. |Stay.'}
+/>
+
+<Buffer
+  keys="y}"
+  before={'|# include header\n\nbody text'}
+  after={'|# include header\n\nbody text'}
+  note="Yanks from the cursor through the next paragraph boundary into the default register."
+/>
+
+<Buffer
+  keys="dap"
+  before={'keep\n\n|delete this paragraph\nstill here\n\nkeep'}
+  after={'keep\n\n|keep'}
+  note="Usually better than d} when you want the whole paragraph including surrounding blank lines."
+/>

@@ -1,0 +1,101 @@
+---
+title: Matching & Structure
+description: "%, unmatched brackets, methods, #if, and C comments — with before/after examples"
+---
+
+## Match item under cursor
+
+<MotionList>
+  <Motion
+    keys="%"
+    name="Jump to matching item"
+    before={'if |(ready) {\n  run()\n}'}
+    after={'if (ready|) {\n  run()\n}'}
+    note="From (, % jumps to ). Also works for [], {}, /* */, and #if/#endif."
+  />
+</MotionList>
+
+<Buffer
+  keys="%"
+  before={'items = [|a, b, c|]'}
+  after={'items = [a, b, c|]'}
+/>
+
+**Note:** Bare <Keys keys="%" link /> does **not** take a count for matching. <Keys keys="50%" /> means “50% of the file” ([Lines](/docs/motions/lines)).
+
+## Unmatched brackets (from inside a block)
+
+<MotionList>
+  <Motion
+    keys="[("
+    name="Previous unmatched ("
+    before={'call(outer(|inner|))'}
+    after={'call|(outer(inner))'}
+  />
+  <Motion
+    keys="[{"
+    name="Previous unmatched {"
+    before={'switch (x) {\n  case 1:\n    |break\n}'}
+    after={'switch (x) |{\n  case 1:\n    break\n}'}
+    note="From inside a case, [{ often finds the switch brace."
+  />
+  <Motion
+    keys="])"
+    name="Next unmatched )"
+    before={'call|(outer(inner))'}
+    after={'call(outer(inner)|)'}
+  />
+  <Motion
+    keys="]}"
+    name="Next unmatched }"
+    before={'fn() |{\n  return 1\n}'}
+    after={'fn() {\n  return 1\n|}'}
+  />
+</MotionList>
+
+Unlike <Keys keys="%" link />, these work from **anywhere inside** the block.
+
+## Methods (Java-like class / method braces)
+
+<MotionList>
+  <Motion keys="]m" name="Next method start" />
+  <Motion keys="]M" name="Next method end" />
+  <Motion keys="[m" name="Previous method start" />
+  <Motion keys="[M" name="Previous method end" />
+</MotionList>
+
+## Preprocessor conditionals
+
+<MotionList>
+  <Motion
+    keys="[#"
+    name="Previous unmatched #if / #else"
+    before={'#if DEBUG\n  |log()\n#endif'}
+    after={'|#if DEBUG\n  log()\n#endif'}
+  />
+  <Motion
+    keys="]#"
+    name="Next unmatched #else / #endif"
+    before={'|#if DEBUG\n  log()\n#endif'}
+    after={'#if DEBUG\n  log()\n|#endif'}
+  />
+</MotionList>
+
+## C comments
+
+<MotionList>
+  <Motion
+    keys="[/"
+    name="Previous /* start"
+    also={['[*']}
+    before={'/* docs */\nint |x;'}
+    after={'|/* docs */\nint x;'}
+  />
+  <Motion
+    keys="]/"
+    name="Next */ end"
+    also={[']*']}
+    before={'|/* docs */\nint x;'}
+    after={'/* docs *|/\nint x;'}
+  />
+</MotionList>

@@ -1,45 +1,112 @@
 ---
 title: Word Motions
-description: w e b and WORD variants for code-speed navigation.
+description: "w e b ge and WORD variants — with before/after buffer examples"
 ---
 
-Vim has two notions of “word”:
+Vim has two notions of “word” (`:help word-motions`):
 
-- **word** (`w`/`e`/`b`) — letters, digits, underscores as one class; punctuation is separate
-- **WORD** (`W`/`E`/`B`) — any non-blank sequence separated only by whitespace
+- **word** (`w`/`e`/`b`/`ge`) — letters, digits, underscores as one class; punctuation is separate
+- **WORD** (`W`/`E`/`B`/`gE`) — non-blank sequences separated only by whitespace
+
+Cursor shown as the highlighted cell (`|` in the source).
 
 ## Forward / back
 
 <MotionList>
-  <Motion keys="w" name="Next word start" example={"foo|Bar.baz  →  w  →  fooBar|.baz"} />
-  <Motion keys="W" name="Next WORD start" example="Skips over punctuation groups as one unit" />
-  <Motion keys="e" name="End of word" example="Lands on last character of the word" />
-  <Motion keys="E" name="End of WORD" />
-  <Motion keys="b" name="Previous word start" />
-  <Motion keys="B" name="Previous WORD start" />
-  <Motion keys="ge" name="End of previous word" />
-  <Motion keys="gE" name="End of previous WORD" />
+  <Motion
+    keys="w"
+    name="Next word start"
+    also={['Shift-→']}
+    before={'const |userName = 1'}
+    after={'const userName| = 1'}
+    note="From u, w jumps to = (punctuation is its own word)."
+  />
+  <Motion
+    keys="W"
+    name="Next WORD start"
+    also={['Ctrl-→']}
+    before={'foo|.bar baz'}
+    after={'foo.bar |baz'}
+    note="W treats foo.bar as one WORD — skips the dot."
+  />
+  <Motion
+    keys="e"
+    name="End of word"
+    before={'const |userName = 1'}
+    after={'const userNam|e = 1'}
+    note="Inclusive — cursor lands on the last character of the word."
+  />
+  <Motion
+    keys="E"
+    name="End of WORD"
+    before={'|foo.bar baz'}
+    after={'foo.ba|r baz'}
+  />
+  <Motion
+    keys="b"
+    name="Previous word start"
+    also={['Shift-←']}
+    before={'const userName| = 1'}
+    after={'const |userName = 1'}
+  />
+  <Motion
+    keys="B"
+    name="Previous WORD start"
+    also={['Ctrl-←']}
+    before={'foo.bar |baz'}
+    after={'|foo.bar baz'}
+  />
+  <Motion
+    keys="ge"
+    name="End of previous word"
+    before={'const userName| = 1'}
+    after={'const userNam|e = 1'}
+    note="From =, ge lands on e of userName."
+  />
+  <Motion
+    keys="gE"
+    name="End of previous WORD"
+    before={'foo.bar |baz'}
+    after={'foo.ba|r baz'}
+  />
 </MotionList>
+
+## With operators
+
+<Buffer
+  keys="dw"
+  before={'delete |word here'}
+  after={'delete |here'}
+  note="Deletes from the cursor to the next word start (often includes the trailing space)."
+/>
+
+<Buffer
+  keys="de"
+  before={'delete |word here'}
+  after={'delete | here'}
+  note="Deletes through the end of the word — keeps the following space."
+/>
+
+<Buffer
+  keys="diw"
+  before={'edit the |userName| now'}
+  after={'edit the | now'}
+  note="Text object — deletes the whole word under the cursor regardless of where in the word you are."
+/>
+
+<Buffer
+  keys="daw"
+  before={'edit the |userName| now'}
+  after={'edit the |now'}
+  note="Deletes the word and a neighboring space."
+/>
 
 ## Operator tips
 
 | Combo | Why |
 | --- | --- |
-| <Keys keys="dw" /> | Deletes from cursor to next word start (often includes trailing space) |
-| <Keys keys="de" /> | Deletes through end of word (keeps following space) |
-| <Keys keys="diw" /> | Deletes the whole word under cursor (text object — usually what you want) |
-| <Keys keys="daw" /> | Deletes word **and** surrounding whitespace |
-| <Keys keys="cw" /> | Change to next word (classic; often similar to `ce`) |
-
-## Code example
-
-```text
-const userName = fetchUser();
-     ^
-```
-
-- Cursor on `u` of `userName`
-- <Keys keys="w" /> → `=`
-- <Keys keys="W" /> → `fetchUser();` start (depends on spacing)
-- <Keys keys="diw" /> → deletes `userName`
-- <Keys keys="daw" /> → deletes `userName` and a neighboring space
+| <Keys keys="dw" /> | To next word start (often includes trailing space) |
+| <Keys keys="de" /> | Through end of word (keeps following space) |
+| <Keys keys="diw" link /> | Whole word under cursor |
+| <Keys keys="daw" link /> | Word **and** surrounding whitespace |
+| <Keys keys="cw" /> | Change to next word (often similar to <Keys keys="e" link /> with <Keys keys="c" link />) |

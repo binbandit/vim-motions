@@ -16,9 +16,9 @@ export function Provider({ children }: { children: ReactNode }) {
         SearchDialog,
         options: {
           links: [
-            ['Basic Motions', '/docs/motions/basic'],
+            ['All motions', '/docs/motions/all'],
+            ['* and # search', '/docs/motions/search'],
             ['Text Objects', '/docs/motions/text-objects'],
-            ['Operators', '/docs/operators'],
             ['Cheatsheet', '/docs/cheatsheet'],
           ],
         },

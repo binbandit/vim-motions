@@ -1,26 +1,51 @@
 ---
 title: Yank & Put
-description: Copy and paste with y, p, P, and registers.
+description: "Copy and paste with y, p, P, and registers."
 ---
+
+Yank copies into a register without deleting. Put pastes. Characterwise vs
+linewise paste depends on **what** you yanked.
 
 ## Yank
 
-<MotionList>
-  <Motion keys="y{motion}" name="Yank (copy) over motion" />
-  <Motion keys="yy / Y" name="Yank line" />
-  <Motion keys="yiw" name="Yank inner word" />
-  <Motion keys="yap" name="Yank a paragraph" />
-  <Motion keys='yi"' name="Yank inside quotes" />
-</MotionList>
+<Motion keys="yiw" name="Yank inner word" before={"const |userName = 1"} after={"const |userName = 1"} note="Buffer unchanged — word is now in the unnamed register." />
+
+<Motion keys="yy / Y" name="Yank line" before={"a()\n|b()\nc()"} after={"a()\n|b()\nc()"} note="Linewise yank — p will paste as a new line below." />
+
+<Motion keys="y$" name="Yank to end of line" before={"const |name = value"} after={"const |name = value"} note="Characterwise — p pastes after the cursor on the same line." />
+
+<Motion keys='yi"' name="Yank inside quotes" before={'msg = "|hello|"'} after={'msg = "|hello|"'} />
+
+<Motion keys="yap" name="Yank a paragraph" before={"keep\n\n|para one\nstill\n\nkeep"} after={"keep\n\n|para one\nstill\n\nkeep"} />
 
 ## Put (paste)
 
+Assume the unnamed register holds `userName` (from `yiw` above):
+
+<Motion keys="p" name="Put after cursor" before={"const |x = 1"} after={"const x|userName = 1"} note="Characterwise put inserts after the cursor." />
+
+<Motion keys="P" name="Put before cursor" before={"const |x = 1"} after={"const |userNamex = 1"} note="Inserts before the cursor." />
+
+Linewise put — after `yy` on `b()`:
+
+<Buffer
+  keys="p"
+  before={"a()\n|b()\nc()"}
+  after={"a()\nb()\n|b()\nc()"}
+  note="Linewise yank + p → duplicate below current line."
+/>
+
+<Buffer
+  keys="P"
+  before={"a()\n|b()\nc()"}
+  after={"a()\n|b()\nb()\nc()"}
+  note="Linewise P → duplicate above."
+/>
+
 <MotionList>
-  <Motion keys="p" name="Put after cursor / below line" example="Characterwise vs linewise depends on what was yanked" />
-  <Motion keys="P" name="Put before cursor / above line" />
   <Motion keys="gp" name="Put after, cursor after new text" />
   <Motion keys="gP" name="Put before, cursor after new text" />
-  <Motion keys="]p" name="Put and adjust indent" />
+  <Motion keys="]p" name="Put and adjust indent" example="Useful when pasting into a differently indented block" />
 </MotionList>
 
 ## Registers (quick)
@@ -35,8 +60,6 @@ description: Copy and paste with y, p, P, and registers.
 | <Keys keys='"+' /> | System clipboard (when available) |
 | <Keys keys='"*' /> | Primary selection (Linux) |
 | <Keys keys='"_' /> | Black hole — discard |
-
-Examples:
 
 ```text
 "ayy      yank line into a

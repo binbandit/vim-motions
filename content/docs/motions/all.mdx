@@ -1,0 +1,221 @@
+---
+title: All Motions
+description: "Complete inventory of every built-in Vim motion: h j k l w e b * # % ( ) { } [[ ]] iw ap f t / ? gn H M L and more"
+full: true
+---
+
+Canonical list aligned with Vim 9 [`:help motion.txt`](https://vimhelp.org/motion.txt.html) plus search commands from [`:help pattern.txt`](https://vimhelp.org/pattern.txt.html) and fold motions from [`:help fold.txt`](https://vimhelp.org/fold.txt.html).
+
+Each row below is a real motion entry (searchable). Symbol keys include plain-language names so `*` / `#` / `%` are easy to find.
+
+## Symbol & hard-to-type keys
+
+<MotionList>
+  <Motion keys="*" name="Star (*) — word under cursor forward" />
+  <Motion keys="#" name="Hash / pound (#) — word under cursor backward" />
+  <Motion keys="g*" name="g-star — forward search, not whole-word" />
+  <Motion keys="g#" name="g-hash — backward search, not whole-word" />
+  <Motion keys="/" name="Slash (/) — search forward" />
+  <Motion keys="?" name="Question (?) — search backward" />
+  <Motion keys="%" name="Percent (%) — matching paren/bracket/comment/#if" />
+  <Motion keys="|" name="Bar (|) — go to screen column" />
+  <Motion keys="^" name="Caret (^) — first non-blank of line" />
+  <Motion keys="$" name="Dollar ($) — end of line" />
+  <Motion keys="0" name="Zero (0) — first column" />
+  <Motion keys="{" name="Open brace ({) — paragraph backward" />
+  <Motion keys="}" name="Close brace (}) — paragraph forward" />
+  <Motion keys="(" name="Open paren (() — sentence backward" />
+  <Motion keys=")" name="Close paren ()) — sentence forward" />
+</MotionList>
+
+## Left-right
+
+<MotionList>
+  <Motion keys="h" name="Left" also={["Ctrl-h"]} />
+  <Motion keys="l" name="Right" also={["Space"]} />
+  <Motion keys="0" name="First column" />
+  <Motion keys="^" name="First non-blank" />
+  <Motion keys="$" name="End of line" />
+  <Motion keys="g_" name="Last non-blank" />
+  <Motion keys="g0" name="First char of screen line (wrap)" />
+  <Motion keys="g^" name="First non-blank of screen line (wrap)" />
+  <Motion keys="gm" name="Middle of screen line" />
+  <Motion keys="gM" name="Middle of text line" />
+  <Motion keys="g$" name="Last char of screen line (wrap)" />
+  <Motion keys="|" name="Screen column [count]" />
+  <Motion keys="f{char}" name="Find char forward (inclusive)" />
+  <Motion keys="F{char}" name="Find char backward" />
+  <Motion keys="t{char}" name="Till before char forward" />
+  <Motion keys="T{char}" name="Till after char backward" />
+  <Motion keys=";" name="Repeat last f/F/t/T" />
+  <Motion keys="," name="Repeat last f/F/t/T opposite way" />
+</MotionList>
+
+## Up-down
+
+<MotionList>
+  <Motion keys="k" name="Up one line" also={["Ctrl-p"]} />
+  <Motion keys="j" name="Down one line" also={["Ctrl-j", "Ctrl-n"]} />
+  <Motion keys="gk" name="Up one screen line (wrap)" />
+  <Motion keys="gj" name="Down one screen line (wrap)" />
+  <Motion keys="-" name="Up [count] lines to first non-blank" />
+  <Motion keys="+" name="Down [count] lines to first non-blank" also={["Enter", "Ctrl-m"]} />
+  <Motion keys="_" name="Down [count]-1 lines to first non-blank" />
+  <Motion keys="gg" name="Line [count] (default first)" also={["Ctrl-Home"]} />
+  <Motion keys="G" name="Line [count] (default last)" />
+  <Motion keys="Ctrl-End" name="Last line, last character" sameAs="G" sameAsThen="$" />
+  <Motion keys="{count}%" name="Go to [count] percent of the file" />
+  <Motion keys="go" name="Go to byte [count] in the buffer" />
+</MotionList>
+
+## Words
+
+<MotionList>
+  <Motion keys="w" name="Next word start" />
+  <Motion keys="W" name="Next WORD start" />
+  <Motion keys="e" name="End of word" />
+  <Motion keys="E" name="End of WORD" />
+  <Motion keys="b" name="Previous word start" />
+  <Motion keys="B" name="Previous WORD start" />
+  <Motion keys="ge" name="End of previous word" />
+  <Motion keys="gE" name="End of previous WORD" />
+</MotionList>
+
+## Sentences, paragraphs, sections
+
+<MotionList>
+  <Motion keys="(" name="Sentence(s) backward" />
+  <Motion keys=")" name="Sentence(s) forward" />
+  <Motion keys="{" name="Paragraph(s) backward" />
+  <Motion keys="}" name="Paragraph(s) forward" />
+  <Motion keys="]]" name="Next section / next { in column 1" />
+  <Motion keys="][" name="Next section / next } in column 1" />
+  <Motion keys="[[" name="Previous section / previous { in column 1" />
+  <Motion keys="[]" name="Previous section / previous } in column 1" />
+</MotionList>
+
+## Search
+
+<MotionList>
+  <Motion keys="/" name="Search forward" />
+  <Motion keys="?" name="Search backward" />
+  <Motion keys="n" name="Next match" />
+  <Motion keys="N" name="Previous match" />
+  <Motion keys="*" name="Star (*) — word under cursor forward" />
+  <Motion keys="#" name="Hash (#) — word under cursor backward" />
+  <Motion keys="g*" name="g* — forward, not whole-word" />
+  <Motion keys="g#" name="g# — backward, not whole-word" />
+  <Motion keys="gd" name="Local declaration" />
+  <Motion keys="gD" name="Global declaration" />
+  <Motion keys="1gd" name="gd ignoring earlier matches" sameAs="gd" />
+  <Motion keys="gN" name="Previous search match as object" />
+  <Motion keys="gn" name="Next search match as object" />
+</MotionList>
+
+## Text objects
+
+<MotionList>
+  <Motion keys="iw" name="Inner word" />
+  <Motion keys="aw" name="A word" />
+  <Motion keys="iW" name="Inner WORD" />
+  <Motion keys="aW" name="A WORD" />
+  <Motion keys="is" name="Inner sentence" />
+  <Motion keys="as" name="A sentence" />
+  <Motion keys="ip" name="Inner paragraph" />
+  <Motion keys="ap" name="A paragraph" />
+  <Motion keys="ib" name="Inner ()" />
+  <Motion keys="ab" name="A ()" />
+  <Motion keys="i(" name="Inner () alias" sameAs="ib" sameAsLabel="Same as" />
+  <Motion keys="a(" name="A () alias" sameAs="ab" sameAsLabel="Same as" />
+  <Motion keys="i[" name="Inner []" />
+  <Motion keys="a[" name="A []" />
+  <Motion keys="iB" name="Inner {}" />
+  <Motion keys="aB" name="A {}" />
+  <Motion keys="i{" name="Inner {} alias" sameAs="iB" sameAsLabel="Same as" />
+  <Motion keys="a{" name="A {} alias" sameAs="aB" sameAsLabel="Same as" />
+  <Motion keys="i<" name="Inner <>" />
+  <Motion keys="a<" name="A <>" />
+  <Motion keys={'i"'} name={'Inner "..."'} />
+  <Motion keys={'a"'} name={'A "..."'} />
+  <Motion keys="i'" name="Inner '...'" />
+  <Motion keys="a'" name="A '...'" />
+  <Motion keys="i`" name="Inner backticks" />
+  <Motion keys="a`" name="A backticks" />
+  <Motion keys="it" name="Inner tag" />
+  <Motion keys="at" name="A tag" />
+</MotionList>
+
+## Matching & structure
+
+<MotionList>
+  <Motion keys="%" name="Match item under/after cursor" />
+  <Motion keys="[(" name="Previous unmatched (" />
+  <Motion keys="[{" name="Previous unmatched {" />
+  <Motion keys="])" name="Next unmatched )" />
+  <Motion keys="]}" name="Next unmatched }" />
+  <Motion keys="]m" name="Next method start" />
+  <Motion keys="]M" name="Next method end" />
+  <Motion keys="[m" name="Previous method start" />
+  <Motion keys="[M" name="Previous method end" />
+  <Motion keys="[#" name="Previous unmatched #if/#else" />
+  <Motion keys="]#" name="Next unmatched #else/#endif" />
+  <Motion keys="[/" name="Previous /* comment start" also={["[*"]} />
+  <Motion keys="]/" name="Next */ comment end" also={["]*"]} />
+</MotionList>
+
+## Marks (as motions)
+
+<MotionList>
+  <Motion keys="'{a-z}" name="Jump to mark line (local)" />
+  <Motion keys="`{a-z}" name="Jump to mark exact (local)" />
+  <Motion keys="'{A-Z}" name="Jump to global mark line" />
+  <Motion keys="`{A-Z}" name="Jump to global mark exact" />
+  <Motion keys="''" name="Line before latest jump" />
+  <Motion keys="``" name="Exact position before latest jump" />
+  <Motion keys="'[" name="Start of last change/yank (line)" />
+  <Motion keys="']" name="End of last change/yank (line)" />
+  <Motion keys="'<" name="Start of last Visual (line)" />
+  <Motion keys="'>" name="End of last Visual (line)" />
+  <Motion keys="'." name="Last change line" />
+  <Motion keys="'^" name="Last Insert-exit line" />
+  <Motion keys="'(" name="Start of current sentence" />
+  <Motion keys="')" name="End of current sentence" />
+  <Motion keys="'{" name="Start of current paragraph" />
+  <Motion keys="'}" name="End of current paragraph" />
+  <Motion keys="['" name="Previous lowercase mark" />
+  <Motion keys="]'" name="Next lowercase mark" />
+  <Motion keys="g'{mark}" name="Jump to mark without jumplist entry" />
+</MotionList>
+
+## Jump list & change list
+
+<MotionList>
+  <Motion keys="Ctrl-o" name="Older jump" />
+  <Motion keys="Ctrl-i" name="Newer jump" also={["Tab"]} />
+  <Motion keys="g;" name="Older change position" />
+  <Motion keys="g," name="Newer change position" />
+</MotionList>
+
+## Window-relative
+
+<MotionList>
+  <Motion keys="H" name="Home — [count]th line from top of window" />
+  <Motion keys="M" name="Middle line of window" />
+  <Motion keys="L" name="Low — [count]th line from bottom of window" />
+</MotionList>
+
+## Folds
+
+<MotionList>
+  <Motion keys="[z" name="Start of current open fold" />
+  <Motion keys="]z" name="End of current open fold" />
+  <Motion keys="zj" name="Next fold start" />
+  <Motion keys="zk" name="Previous fold end" />
+</MotionList>
+
+## Not motions (nearby)
+
+View-only scroll: <Keys keys="Ctrl-e" />, <Keys keys="Ctrl-y" />, <Keys keys="zh" />, <Keys keys="zl" />.  
+Cursor+view page moves: <Keys keys="Ctrl-d" link />, <Keys keys="Ctrl-u" link />, <Keys keys="Ctrl-f" link />, <Keys keys="Ctrl-b" link /> — [Scrolling](/docs/motions/scrolling).  
+Redraw: <Keys keys="zz" link />, <Keys keys="zt" link />, <Keys keys="zb" link />.  
+Setting marks (`m{a-z}`) is not a motion; jumping to them is.
