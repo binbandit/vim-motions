@@ -2,8 +2,7 @@
   "title": "Motions",
   "pages": [
     "index",
-    "all",
-    "---By family---",
+    "---Learn by family---",
     "basic",
     "words",
     "lines",
@@ -15,6 +14,8 @@
     "marks-as-motions",
     "jumps",
     "scrolling",
-    "folds"
+    "folds",
+    "---Lookup---",
+    "all"
   ]
 }

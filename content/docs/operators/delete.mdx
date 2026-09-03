@@ -17,42 +17,40 @@ change/yank.
 
 <Motion keys="dd" name="Delete line" before={"a()\n|b()\nc()"} after={"a()\n|c()"} note="Removes the whole current line; cursor lands on the next line." />
 
-<Motion keys="D" name="Delete to end of line" sameAs="d$" before={"const |name = value"} after={"const |"} note="Keeps everything left of the cursor." />
+<Motion keys="D" name="Delete to end of line" sameAs="d$" before={"const |name = value"} after={"const| "} note="Keeps everything left of the cursor (including the space before the deleted text)." />
 
 ## Motions with d
 
-<Motion keys="dw" name="Delete word" before={"const |userName = 1"} after={"const | = 1"} note="Deletes from cursor through the end of the word (space often remains)." />
+<Motion keys="dw" name="Delete word" before={"const |userName = 1"} after={"const |= 1"} note="Deletes from the cursor to the next word start — usually includes the trailing space (exclusive w)." />
 
-<Motion keys="diw" name="Delete inner word" before={"const |userName = 1"} after={"const | = 1"} note="Deletes the whole word under the cursor, regardless of where you are in it." />
+<Motion keys="de" name="Delete to end of word" before={"const |userName = 1"} after={"const | = 1"} note="Inclusive e — keeps the space after the word." />
 
-<Motion keys="daw" name="Delete a word" before={"const |userName = 1"} after={"const |= 1"} note="Like diw but also eats the trailing space (or leading space if at EOL)." />
+<Motion keys="diw" name="Delete inner word" before={"const |userName = 1"} after={"const | = 1"} note="Deletes the whole word under the cursor, wherever you are in it." />
 
-<Motion keys="d$" name="Delete to end of line" before={"let |x = 1; // keep"} after={"let |"} />
+<Motion keys="daw" name="Delete a word" before={"const |userName = 1"} after={"const |= 1"} note="Like diw but also eats a neighboring space." />
+
+<Motion keys="d$" name="Delete to end of line" before={"let |x = 1; // keep"} after={"let| "} />
 
 <Motion keys="d0" name="Delete to start of line" before={"    let |x = 1"} after={"|x = 1"} />
 
-<Motion keys="d^" name="Delete to first non-blank" before={"    |let x = 1"} after={"    |x = 1"} note="Leaves leading indent if the cursor started after it." />
+<Motion keys="d^" name="Delete to first non-blank" before={"    let |x = 1"} after={"    |x = 1"} note="Cursor must start after the first non-blank — otherwise ^ does not move and nothing is deleted." />
 
 <Motion keys="dgg" name="Delete to first line" before={"a\nb\n|c\nd"} after={"|d"} note="Deletes from the current line up through line 1." />
 
 <Motion keys="dG" name="Delete to last line" before={"a\n|b\nc\nd"} after={"|a"} note="Deletes from the current line through EOF." />
 
-<Motion keys="d%" name="Delete to matching pair" before={"foo(|bar, baz)"} after={"foo|"} note="Deletes through the matching `)`." />
+<Motion keys="d%" name="Delete to matching pair" before={"foo(|bar, baz)"} after={"fo|o"} note="Deletes through the matching `)` — cursor lands on the last remaining character." />
 
 ## Counts
 
 `3dd` deletes three lines. `2dw` deletes two words. Counts multiply the motion
 (or the linewise repeat for `dd`).
 
-```
-|one two three four
-```
-
-After `2dw`:
-
-```
-|three four
-```
+<Buffer
+  keys="2dw"
+  before={"|one two three four"}
+  after={"|three four"}
+/>
 
 ## Visual delete
 

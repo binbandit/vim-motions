@@ -6,7 +6,8 @@ description: "c, s, C, S — delete a range and enter Insert mode."
 **Change** = delete + Insert. Prefer change over delete+`i` when replacing text.
 After the operator, you type the replacement and hit <Keys keys="Esc" />.
 
-Buffer demos show the buffer **after Esc** (replacement already typed).
+Buffer demos show the buffer **after Esc**. Cursor lands on the **last character
+you typed** (Vim’s normal Insert-exit behavior).
 
 ## Character & line
 
@@ -16,17 +17,25 @@ Buffer demos show the buffer **after Esc** (replacement already typed).
 
 <Motion keys="~" name="Toggle case and move right" before={"|Hello"} after={"h|ello"} />
 
-<Motion keys="C" name="Change to end of line" sameAs="c$" before={"const |name = value"} after={"const |done"} note="Deleted from cursor to EOL, typed done, Esc." />
+<Motion keys="C" name="Change to end of line" sameAs="c$" before={"const |name = value"} after={"const don|e"} note="Deleted from cursor to EOL, typed done, Esc." />
 
-<Motion keys="cc / S" name="Change whole line" before={"keep\n|old line\nkeep"} after={"keep\n|new line\nkeep"} />
+<Motion keys="cc / S" name="Change whole line" before={"keep\n|old line\nkeep"} after={"keep\nnew lin|e\nkeep"} />
 
 ## Motions with c
 
-<Motion keys="cw" name="Change word" before={"const |userName = 1"} after={"const |id = 1"} note="Leaves the trailing space; type the new word then Esc." />
+<Motion keys="cw" name="Change word" before={"|word here"} after={"|X here"} note="Special case: in a word, cw acts like ce — it does **not** eat the trailing space (unlike dw)." />
 
-<Motion keys="ciw" name="Change inner word" before={"const |userName = 1"} after={"const |id = 1"} note="Whole word under cursor, wherever you are in it." />
+<Motion keys="ciw" name="Change inner word" before={"const |userName = 1"} after={"const i|d = 1"} note="Whole word under cursor, wherever you are in it." />
 
-<Motion keys="ct;" name="Change till ;" before={"x = |foo + bar;"} after={"x = |42;"} note="Deletes up to (not including) `;`." />
+<Motion keys="ct;" name="Change till ;" before={"x = |foo + bar;"} after={"x = 4|2;"} note="Deletes up to (not including) `;`." />
+
+## cw vs dw vs ciw
+
+| Keys | On `\|word here` |
+| --- | --- |
+| <Keys keys="dw" /> | `\|here` — deletes word **and** following space |
+| <Keys keys="cw" /> | `\|X here` — changes word, **keeps** the space |
+| <Keys keys="ciw" /> | Same idea as cw when you’re inside the word, but works from any column in it |
 
 ## Best text-object combos
 
@@ -34,25 +43,25 @@ Buffer demos show the buffer **after Esc** (replacement already typed).
   keys={'ci"'}
   before={'msg = "|hello world|"'}
   after={'msg = "|hi|"'}
-  note="Change inside quotes — delimiters stay."
+  note="Change inside quotes — delimiters stay. Cursor ends on last typed char."
 />
 
 <Buffer
   keys="ci("
   before={"print(|hello, world|)"}
-  after={"print(|ok|)"}
+  after={"print(o|k)"}
 />
 
 <Buffer
   keys="cit"
   before={"<div>|old title|</div>"}
-  after={"<div>|new title|</div>"}
+  after={"<div>new titl|e</div>"}
 />
 
 <Buffer
   keys="c$"
   before={"keep |change the rest"}
-  after={"keep |OK"}
+  after={"keep O|K"}
 />
 
 ## After change
@@ -67,5 +76,5 @@ same change (including typed text) elsewhere.
 After `ciw` + `qux` + Esc on `foo`, then `w.`:
 
 ```
-qux |qux baz
+qux qu|x baz
 ```

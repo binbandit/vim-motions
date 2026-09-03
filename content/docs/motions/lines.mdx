@@ -45,7 +45,7 @@ Highlighted cell = cursor (`|` in the source).
   <Motion keys="g0" name="First character of soft-wrapped screen line" />
   <Motion keys="g^" name="First non-blank of soft-wrapped screen line" />
   <Motion keys="g$" name="Last character of soft-wrapped screen line" />
-  <Motion keys="gm" name="Middle of screen line" sameAs="g0" example="Then half of 'columns' to the right" />
+  <Motion keys="gm" name="Middle of screen line" example="Like g0, then half of 'columns' to the right — not the same as g0 alone" />
   <Motion keys="gM" name="Middle of text line" />
 </MotionList>
 
@@ -70,8 +70,8 @@ Highlighted cell = cursor (`|` in the source).
     keys="{count}%"
     name="To count% through the file"
     before={'|aaaa\nbbbb\ncccc\ndddd'}
-    after={'aaaa\nbbbb\n|cccc\ndddd'}
-    note="50% on a 4-line file lands near the middle. Bare % without a count is matching — see Matching."
+    after={'aaaa\n|bbbb\ncccc\ndddd'}
+    note="Vim uses ((linecount * count) + 99) / 100 — so 50% of 4 lines is line 2. Bare % without a count is matching — see Matching."
   />
   <Motion keys=":{n}" name="Ex goto line n" example=":80 then Enter" />
   <Motion keys="go" name="Goto byte [count] in the buffer" example="Also :go[to] · default 1" />
@@ -89,8 +89,8 @@ Highlighted cell = cursor (`|` in the source).
 <Buffer
   keys="C"
   before={'keep |change me'}
-  after={'keep |'}
-  note="C is like c$ — deletes to EOL and enters Insert."
+  after={'keep don|e'}
+  note="C is like c$ — deletes to EOL, type done, Esc."
 />
 
 | Keys | Meaning |

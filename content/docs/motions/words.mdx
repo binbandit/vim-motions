@@ -18,7 +18,7 @@ Cursor shown as the highlighted cell (`|` in the source).
     name="Next word start"
     also={['Shift-→']}
     before={'const |userName = 1'}
-    after={'const userName| = 1'}
+    after={'const userName |= 1'}
     note="From u, w jumps to = (punctuation is its own word)."
   />
   <Motion
@@ -59,7 +59,7 @@ Cursor shown as the highlighted cell (`|` in the source).
   <Motion
     keys="ge"
     name="End of previous word"
-    before={'const userName| = 1'}
+    before={'const userName |= 1'}
     after={'const userNam|e = 1'}
     note="From =, ge lands on e of userName."
   />
@@ -77,7 +77,7 @@ Cursor shown as the highlighted cell (`|` in the source).
   keys="dw"
   before={'delete |word here'}
   after={'delete |here'}
-  note="Deletes from the cursor to the next word start (often includes the trailing space)."
+  note="Deletes from the cursor to the next word start — includes the trailing space."
 />
 
 <Buffer
@@ -85,6 +85,13 @@ Cursor shown as the highlighted cell (`|` in the source).
   before={'delete |word here'}
   after={'delete | here'}
   note="Deletes through the end of the word — keeps the following space."
+/>
+
+<Buffer
+  keys="cw"
+  before={'delete |word here'}
+  after={'delete |X here'}
+  note="Special: cw acts like ce inside a word — keeps the trailing space (unlike dw)."
 />
 
 <Buffer
@@ -105,8 +112,8 @@ Cursor shown as the highlighted cell (`|` in the source).
 
 | Combo | Why |
 | --- | --- |
-| <Keys keys="dw" /> | To next word start (often includes trailing space) |
+| <Keys keys="dw" /> | To next word start (includes trailing space) |
 | <Keys keys="de" /> | Through end of word (keeps following space) |
+| <Keys keys="cw" /> | Like <Keys keys="ce" /> — keeps trailing space |
 | <Keys keys="diw" link /> | Whole word under cursor |
 | <Keys keys="daw" link /> | Word **and** surrounding whitespace |
-| <Keys keys="cw" /> | Change to next word (often similar to <Keys keys="e" link /> with <Keys keys="c" link />) |

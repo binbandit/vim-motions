@@ -3,7 +3,9 @@ title: Sentences & Paragraphs
 description: "( ) { } — move by sentence and paragraph, with before/after examples"
 ---
 
-These are **text object motions** (they move the cursor). For operating on a sentence/paragraph under the cursor, prefer text objects <Keys keys="is" link /> / <Keys keys="as" link /> / <Keys keys="ip" link /> / <Keys keys="ap" link />.
+These are **cursor motions**. For operating on the sentence/paragraph *under* the
+cursor, prefer text objects <Keys keys="is" link /> / <Keys keys="as" link /> /
+<Keys keys="ip" link /> / <Keys keys="ap" link />.
 
 ## Sentence motions
 
@@ -26,19 +28,23 @@ A **sentence** ends at `.` `!` or `?` followed by EOL, space, or tab.
 
 ## Paragraph motions
 
+`{` / `}` land on the **blank line** that separates paragraphs (not on the
+paragraph text itself).
+
 <MotionList>
   <Motion
     keys="{"
     name="Paragraph(s) backward"
     before={'para one\n\npara |two\n\npara three'}
-    after={'para one\n\n|para two\n\npara three'}
-    note="{ jumps to the blank-line boundary above."
+    after={'para one\n|\npara two\n\npara three'}
+    note="Jumps to the empty line above the current paragraph."
   />
   <Motion
     keys="}"
     name="Paragraph(s) forward"
     before={'para |one\n\npara two\n\npara three'}
-    after={'para one\n\n|para two\n\npara three'}
+    after={'para one\n|\npara two\n\npara three'}
+    note="Jumps to the empty line below the current paragraph."
   />
 </MotionList>
 

@@ -8,7 +8,7 @@ description: "A dark, searchable reference for every Vim motion — keep it open
 ## How to use this site
 
 1. Press <Kbd>⌘</Kbd><Kbd>K</Kbd> / <Kbd>Ctrl</Kbd><Kbd>K</Kbd> and type a key or idea (`word`, `delete inside`, `f`, `ci"`).
-2. Browse by category in the sidebar: motions → operators → text objects.
+2. Follow [Getting started](/docs/getting-started) if you’re learning; use the sidebar families when you already know the name.
 3. Keep the [cheatsheet](/docs/cheatsheet) pinned for dense lookup.
 
 ## The mental model
@@ -19,20 +19,27 @@ Vim editing is **operator + motion** (or **operator + text object**):
 d    w     → delete a word
 c    i"    → change inside quotes
 y    ap    → yank a paragraph
->    }
-     → indent to next paragraph
+>    }     → indent to next paragraph
 ```
+
+<Buffer
+  keys={'ci"'}
+  before={'name = "|Alice|"'}
+  after={'name = "Bo|b"'}
+  note="Change inside quotes — the pattern you’ll use constantly."
+/>
 
 Learn motions once. Every operator becomes more powerful.
 
 ## Start here
 
 <Cards>
-  <Card title="All motions" href="/docs/motions/all" description="Complete inventory of every built-in motion" />
-  <Card title="Modes" href="/docs/getting-started/modes" description="Normal, Insert, Visual, and when to use each" />
+  <Card title="Getting started" href="/docs/getting-started" description="Modes, grammar, and a clear learning path" />
   <Card title="Basic motions" href="/docs/motions/basic" description="hjkl, gj/gk, -/+ — the daily drivers" />
+  <Card title="Operators & motions" href="/docs/getting-started/operators-and-motions" description="See d/c/y compose with before/after buffers" />
   <Card title="Text objects" href="/docs/motions/text-objects" description="iw, i(, at — edit by meaning, not by counting" />
   <Card title="Cheatsheet" href="/docs/cheatsheet" description="Dense table while you code" />
+  <Card title="All motions" href="/docs/motions/all" description="Complete inventory when you need to look something up" />
 </Cards>
 
 ## Tip

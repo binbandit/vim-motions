@@ -31,13 +31,20 @@ Highlighted cell = cursor (`|` in the source).
   />
   <Motion
     keys="BS"
-    name="Left"
-    also={['Ctrl-h']}
+    name="Left / backspace"
     before={'vim| rocks'}
     after={'vi|m rocks'}
     note="Can cross lines depending on 'whichwrap'."
   />
-  <Motion keys="Ctrl-h" name="Backspace alias" sameAs="BS" sameAsLabel="Same as" />
+  <Motion
+    keys="Ctrl-h"
+    name="Left"
+    sameAs="h"
+    sameAsLabel="Same as"
+    before={'vim| rocks'}
+    after={'vi|m rocks'}
+    note="In Normal mode Ctrl-h is h (not Backspace). Terminals may remap it."
+  />
 </MotionList>
 
 Prefer <Keys keys="h j k l" /> over arrows so hands stay on the home row.

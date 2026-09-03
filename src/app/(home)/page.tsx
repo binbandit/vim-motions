@@ -1,6 +1,12 @@
 import Link from 'next/link';
+import { Buffer } from '@/components/buffer';
 
 const categories = [
+  {
+    href: '/docs/getting-started',
+    label: 'Start learning',
+    detail: 'Modes, grammar, counts',
+  },
   {
     href: '/docs/motions/basic',
     label: 'hjkl & words',
@@ -16,11 +22,6 @@ const categories = [
     label: 'Operators',
     detail: 'd, c, y, >, g~, and more',
   },
-  {
-    href: '/docs/cheatsheet',
-    label: 'Cheatsheet',
-    detail: 'Dense lookup while you code',
-  },
 ];
 
 export default function HomePage() {
@@ -28,7 +29,7 @@ export default function HomePage() {
     <main className="landing-shell flex flex-1 flex-col">
       <div className="landing-grid" aria-hidden />
 
-      <section className="relative mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center px-6 pb-16 pt-10 md:pt-16">
+      <section className="relative mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center px-6 pb-12 pt-10 md:pb-16 md:pt-16">
         <p className="animate-rise font-mono text-sm tracking-[0.18em] text-[color:var(--vim-accent)] uppercase">
           developer reference
         </p>
@@ -39,33 +40,43 @@ export default function HomePage() {
         </h1>
 
         <p className="animate-rise-delay-2 mt-6 max-w-xl text-lg leading-relaxed text-fd-muted-foreground md:text-xl">
-          Every motion, operator, and text object in one dark, searchable
-          place — keep it open while you code and get faster every day.
+          Every motion, operator, and text object — with before/after buffers so
+          you can see what each key does.
         </p>
 
-        <div className="animate-rise-delay-3 mt-9 flex flex-wrap items-center gap-3">
+        <div className="animate-rise-delay-3 mt-8 max-w-2xl">
+          <Buffer
+            keys="dw"
+            before={'const |userName = 1'}
+            after={'const |= 1'}
+            note="Operator + motion: delete to the next word."
+          />
+        </div>
+
+        <div className="animate-rise-delay-3 mt-8 flex flex-wrap items-center gap-3">
           <Link
-            href="/docs"
+            href="/docs/getting-started"
             className="inline-flex items-center rounded-md bg-[color:var(--vim-accent)] px-5 py-2.5 font-medium text-[color:var(--vim-ink)] transition hover:brightness-110"
           >
-            Open the reference
+            Start learning
           </Link>
           <Link
             href="/docs/cheatsheet"
             className="inline-flex items-center rounded-md border border-[color:var(--vim-border)] bg-[color:var(--vim-panel)] px-5 py-2.5 text-fd-foreground transition hover:border-[color:var(--vim-accent)]"
           >
-            Jump to cheatsheet
+            Cheatsheet
           </Link>
-          <span className="ms-1 hidden font-mono text-xs text-fd-muted-foreground sm:inline">
-            Press <kbd className="kbd">⌘</kbd>
-            <kbd className="kbd">K</kbd> to search
-          </span>
         </div>
+        <p className="mt-4 font-mono text-xs text-fd-muted-foreground">
+          Press <kbd className="kbd">⌘</kbd>
+          <kbd className="kbd">K</kbd> / <kbd className="kbd">Ctrl</kbd>
+          <kbd className="kbd">K</kbd> to search anywhere
+        </p>
       </section>
 
       <section className="relative border-t border-[color:var(--vim-border)] bg-[color:color-mix(in_oklab,var(--vim-panel)_80%,transparent)]">
         <div className="hero-glow pointer-events-none absolute -top-24 left-1/2 h-40 w-[36rem] -translate-x-1/2 rounded-full bg-[color:color-mix(in_oklab,var(--vim-accent)_18%,transparent)] blur-3xl" />
-        <div className="relative mx-auto grid w-full max-w-5xl gap-8 px-6 py-12 md:grid-cols-4">
+        <div className="relative mx-auto grid w-full max-w-5xl gap-8 px-6 py-12 sm:grid-cols-2 md:grid-cols-4">
           {categories.map((item) => (
             <Link
               key={item.href}

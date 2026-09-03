@@ -27,12 +27,32 @@ Prefix yank/delete/put with <Keys keys='"{reg}' />.
 
 ## Examples
 
+<Buffer
+  keys={'"ayiw'}
+  before={'const |userName = 1'}
+  after={'const |userName = 1'}
+  note={'Yanks the word into register a — buffer unchanged.'}
+/>
+
+<Buffer
+  keys={'"ap'}
+  before={'const |x = 1'}
+  after={'const xuserNam|e = 1'}
+  note={'Puts register a after the cursor (after a prior "ayiw).'}
+/>
+
+<Buffer
+  keys={'"_dd'}
+  before={'keep\n|drop\nkeep'}
+  after={'keep\n|keep'}
+  note={'Black-hole delete — does not overwrite the last yank in "0.'}
+/>
+
 ```text
 "ayiw      yank word → a
 "Ayy       append line to a
 "ap        put a
 "+yg_      yank to clipboard till last non-blank
-:_dd       wait — black hole is "_dd
 "_dd       delete line, keep "0 yank
 Ctrl-r a   (Insert) paste register a
 :reg       list registers

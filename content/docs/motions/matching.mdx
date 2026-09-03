@@ -3,7 +3,12 @@ title: Matching & Structure
 description: "%, unmatched brackets, methods, #if, and C comments — with before/after examples"
 ---
 
+Jump between paired structures — parentheses, braces, comments, and `#if` blocks.
+
 ## Match item under cursor
+
+Cursor must be **on** a matchable item (`(`, `[`, `{`, `/*`, `#if`, …). From
+inside the pair on ordinary text, `%` finds the nearest item and jumps from there.
 
 <MotionList>
   <Motion
@@ -17,8 +22,9 @@ description: "%, unmatched brackets, methods, #if, and C comments — with befor
 
 <Buffer
   keys="%"
-  before={'items = [|a, b, c|]'}
+  before={'items = |[a, b, c]'}
   after={'items = [a, b, c|]'}
+  note="Start on the bracket itself."
 />
 
 **Note:** Bare <Keys keys="%" link /> does **not** take a count for matching. <Keys keys="50%" /> means “50% of the file” ([Lines](/docs/motions/lines)).
@@ -30,7 +36,8 @@ description: "%, unmatched brackets, methods, #if, and C comments — with befor
     keys="[("
     name="Previous unmatched ("
     before={'call(outer(|inner|))'}
-    after={'call|(outer(inner))'}
+    after={'call(outer|(inner))'}
+    note="Finds the nearest unmatched ( — here the one opening inner. Press [( again for the outer call(."
   />
   <Motion
     keys="[{"

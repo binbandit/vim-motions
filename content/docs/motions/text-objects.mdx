@@ -5,7 +5,8 @@ description: "Every built-in text object with before/after buffer examples — i
 
 Text objects answer: *what thing am I editing?* Use them **after** an operator, or in Visual mode (`:help object-select`).
 
-Highlighted cell = cursor. Examples show the **edit** result (usually with `d` / `c`).
+Highlighted cell = cursor. `|region|` shows the span the object targets. Examples
+show the **edit** result (usually with `d` / `c`).
 
 ## Inner vs a (around)
 
@@ -17,17 +18,28 @@ Highlighted cell = cursor. Examples show the **edit** result (usually with `d` /
 ## Words
 
 <MotionList>
-  <Motion keys="iw" name="Inner word" />
-  <Motion keys="aw" name="A word (with surrounding space)" />
+  <Motion
+    keys="iw"
+    name="Inner word"
+    before={'edit the |user_name| now'}
+    after={'edit the |user_name| now'}
+    note="Selects the whole iskeyword word — user_name is one word; userNameToday would be too (no camelCase split)."
+  />
+  <Motion
+    keys="aw"
+    name="A word (with surrounding space)"
+    before={'keep |drop| keep'}
+    after={'keep |drop| keep'}
+  />
   <Motion keys="iW" name="Inner WORD" />
   <Motion keys="aW" name="A WORD" />
 </MotionList>
 
 <Buffer
   keys="diw"
-  before={'rename |userName|Today'}
-  after={'rename |Today'}
-  note="Cursor anywhere in userName — iw targets the whole word."
+  before={'edit the |user_name| now'}
+  after={'edit the | now'}
+  note="Cursor anywhere in user_name — iw targets the whole word."
 />
 
 <Buffer
@@ -73,8 +85,8 @@ Highlighted cell = cursor. Examples show the **edit** result (usually with `d` /
 <Buffer
   keys="da("
   before={'print(|hello|)'}
-  after={'|'}
-  note="Around — removes the parentheses too."
+  after={'prin|t'}
+  note="Around — removes `(hello)` only; cursor lands on the last remaining character."
 />
 
 ## Square brackets `[]`
@@ -90,7 +102,7 @@ Highlighted cell = cursor. Examples show the **edit** result (usually with `d` /
   keys="ci["
   before={'items = [|a, b|]'}
   after={'items = [|]'}
-  note="Deletes inside [] and enters Insert."
+  note="Deletes inside [] and enters Insert (Esc with nothing typed)."
 />
 
 ## Curly braces `{}`
@@ -107,7 +119,7 @@ Highlighted cell = cursor. Examples show the **edit** result (usually with `d` /
 <Buffer
   keys="di{"
   before={'fn() {\n  |return 1\n}'}
-  after={'fn() {\n|}\n'}
+  after={'fn() {\n|}'}
   note="Clears the block body; braces remain."
 />
 
@@ -120,7 +132,17 @@ Highlighted cell = cursor. Examples show the **edit** result (usually with `d` /
   <Motion keys="a>" name="A <> — same as a<" sameAs="a<" sameAsLabel="Same as" />
 </MotionList>
 
+<Buffer
+  keys="di<"
+  before={'vec<|string|> items'}
+  after={'vec<|> items'}
+/>
+
 ## Quotes
+
+Quote objects are **single-line only**. If the cursor sits on a quote character,
+Vim picks the pair counting from the start of the line. `a"` may include a
+**leading** space when there is no trailing space after the closing quote.
 
 <MotionList>
   <Motion keys={'i"'} name={'Inner double quotes i"'} />
@@ -141,8 +163,8 @@ Highlighted cell = cursor. Examples show the **edit** result (usually with `d` /
 <Buffer
   keys='da"'
   before={'msg = "|hello|"'}
-  after={'msg = |'}
-  note="Around — removes the quote characters too."
+  after={'msg |='}
+  note="Around — removes the quotes; cursor lands on `=`."
 />
 
 ## Tags

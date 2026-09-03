@@ -55,7 +55,7 @@ html::before {
   position: fixed;
   inset: 0;
   z-index: 50;
-  opacity: 0.035;
+  opacity: 0.022;
   background-image: linear-gradient(
     to bottom,
     transparent 50%,
@@ -63,6 +63,24 @@ html::before {
   );
   background-size: 100% 3px;
   mix-blend-mode: multiply;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-rise,
+  .animate-rise-delay-1,
+  .animate-rise-delay-2,
+  .animate-rise-delay-3 {
+    animation: none;
+  }
+
+  .vim-cursor,
+  .hero-glow {
+    animation: none;
+  }
+
+  .vim-cursor {
+    opacity: 1;
+  }
 }
 
 html > body[data-scroll-locked] {
@@ -202,6 +220,13 @@ a.motion-ref:hover .kbd {
   border-bottom: 1px solid color-mix(in oklab, var(--vim-accent) 10%, transparent);
 }
 
+@media (max-width: 560px) {
+  .motion-row {
+    grid-template-columns: 1fr;
+    gap: 0.45rem;
+  }
+}
+
 .motion-row:last-child {
   border-bottom: none;
 }
@@ -290,7 +315,7 @@ a.motion-ref:hover .kbd {
 .buffer-gutter {
   flex: 0 0 1.5rem;
   text-align: right;
-  color: color-mix(in oklab, var(--vim-accent) 35%, transparent);
+  color: color-mix(in oklab, var(--vim-accent) 55%, hsl(140 8% 55%));
   user-select: none;
 }
 
