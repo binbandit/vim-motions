@@ -54,7 +54,8 @@ html::before {
   pointer-events: none;
   position: fixed;
   inset: 0;
-  z-index: 50;
+  /* Stay behind sticky nav / drawers (those use z-30+) */
+  z-index: 0;
   opacity: 0.022;
   background-image: linear-gradient(
     to bottom,
@@ -63,6 +64,39 @@ html::before {
   );
   background-size: 100% 3px;
   mix-blend-mode: multiply;
+}
+
+/* Frosted glass for translucent mobile menus & chrome */
+#nd-nav > *,
+#nd-subnav {
+  background-color: color-mix(in oklab, var(--vim-panel) 92%, transparent) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.4) !important;
+  backdrop-filter: blur(20px) saturate(1.4) !important;
+  border-color: color-mix(in oklab, var(--vim-accent) 16%, transparent);
+}
+
+#nd-sidebar-mobile {
+  background-color: color-mix(in oklab, var(--vim-panel) 94%, black) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.45) !important;
+  backdrop-filter: blur(24px) saturate(1.45) !important;
+  border-color: color-mix(in oklab, var(--vim-accent) 22%, transparent);
+  box-shadow:
+    -16px 0 48px color-mix(in oklab, black 55%, transparent),
+    inset 1px 0 0 color-mix(in oklab, var(--vim-accent) 12%, transparent);
+}
+
+/* Dim + blur the page behind the drawer */
+div.fixed.inset-0.z-40[data-state='open'] {
+  background-color: color-mix(in oklab, var(--vim-ink) 62%, transparent);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  backdrop-filter: blur(12px) saturate(1.2);
+}
+
+/* Search / nav popovers */
+[class*='bg-fd-popover'] {
+  background-color: color-mix(in oklab, var(--vim-panel) 92%, transparent) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.35) !important;
+  backdrop-filter: blur(20px) saturate(1.35) !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -80,6 +114,15 @@ html::before {
 
   .vim-cursor {
     opacity: 1;
+  }
+
+  #nd-nav > *,
+  #nd-subnav,
+  #nd-sidebar-mobile,
+  [class*='bg-fd-popover'] {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    background-color: var(--vim-panel) !important;
   }
 }
 
