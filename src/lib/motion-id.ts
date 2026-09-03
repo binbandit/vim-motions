@@ -33,8 +33,10 @@ const CHAR_MAP: Record<string, string> = {
 
 /** Stable HTML id for a motion/operator key sequence. */
 export function motionId(keys: string): string {
+  // Placeholders like f{char} → fchar for readable anchors
+  const normalized = keys.trim().replace(/\{([^}]+)\}/g, '$1');
   let out = '';
-  for (const ch of keys.trim()) {
+  for (const ch of normalized) {
     if (/[A-Z]/.test(ch)) {
       out += `u${ch.toLowerCase()}`;
       continue;

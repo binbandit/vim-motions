@@ -7,44 +7,62 @@ Vim is modal. The same keys do different things depending on mode. Most of this 
 
 ## Mode overview
 
-<MotionList>
-  <Motion keys="Esc" name="Normal mode">
-    Default mode. Move, delete, yank, jump, run counts and operators. Press Esc (or Ctrl-[) to return here.
-  </Motion>
-  <Motion keys="i a o O" name="Insert mode">
-    Type text. Prefer short insert bursts, then Esc back to Normal.
-  </Motion>
-  <Motion keys="v V Ctrl-v" name="Visual mode">
-    Select character-wise, line-wise, or block-wise, then operate on the selection.
-  </Motion>
-  <Motion keys="R" name="Replace mode">
-    Overwrite characters as you type. Useful for fixed-width edits.
-  </Motion>
-  <Motion keys=":" name="Command-line mode">
-    Ex commands: write, quit, substitute, global, set options.
-  </Motion>
-</MotionList>
+| Mode | Enter | For |
+| --- | --- | --- |
+| **Normal** | <Keys keys="Esc" /> | Move, delete, yank, operators |
+| **Insert** | <Keys keys="i" /> <Keys keys="a" /> <Keys keys="o" /> … | Type text |
+| **Visual** | <Keys keys="v" /> <Keys keys="V" /> <Keys keys="Ctrl-v" /> | Select, then operate |
+| **Replace** | <Keys keys="R" /> | Overwrite as you type |
+| **Command-line** | <Keys keys=":" /> | Ex commands |
 
 ## Entering Insert mode
 
+<Motion
+  keys="i"
+  name="Insert before cursor"
+  before={"hel|lo"}
+  after={"heX|llo"}
+  note="After i, type X, then Esc — cursor ends on the last inserted character."
+/>
+
+<Motion
+  keys="a"
+  name="Append after cursor"
+  before={"hel|lo"}
+  after={"helX|lo"}
+  note="Inserts after the character under the cursor."
+/>
+
+<Motion
+  keys="o"
+  name="Open line below"
+  before={"alpha\n|bravo"}
+  after={"alpha\nbravo\n|"}
+  note="Creates a blank line below and enters Insert."
+/>
+
 <MotionList>
-  <Motion keys="i" name="Insert before cursor" example={"hello| world  →  i → type"} />
   <Motion keys="I" name="Insert at first non-blank" />
-  <Motion keys="a" name="Append after cursor" />
   <Motion keys="A" name="Append at end of line" />
-  <Motion keys="o" name="Open line below" />
   <Motion keys="O" name="Open line above" />
-  <Motion keys="s" name="Substitute character" example="Deletes current char and enters Insert" />
-  <Motion keys="S" name="Substitute line" sameAs="cc" example="Clear line, stay on it in Insert" />
+  <Motion keys="s" name="Substitute character" sameAs="cl" />
+  <Motion keys="S" name="Substitute line" sameAs="cc" />
   <Motion keys="c{motion}" name="Change" example="ciw — change inner word" />
 </MotionList>
 
 ## Visual modes
 
+<Buffer
+  keys="V"
+  before={"keep\n|drop me\nkeep"}
+  after={"keep\n|drop me\nkeep"}
+  note="Line-wise Visual highlights the whole line — then d deletes it like dd."
+/>
+
 <MotionList>
   <Motion keys="v" name="Character-wise visual" />
   <Motion keys="V" name="Line-wise visual" />
-  <Motion keys="Ctrl-v" name="Block visual" example="Edit columns, multi-cursor-like inserts with I/A" />
+  <Motion keys="Ctrl-v" name="Block visual" example="Edit columns; I/A insert on every line" />
   <Motion keys="gv" name="Reselect last visual selection" />
   <Motion keys="o" name="Swap visual ends" example="In Visual mode, jump to the other end of the selection" />
 </MotionList>
@@ -54,3 +72,5 @@ Vim is modal. The same keys do different things depending on mode. Most of this 
 - <Keys keys="Esc" /> or <Keys keys="Ctrl-[" /> → Normal
 - In Command-line: <Keys keys="Esc" /> cancels; <Keys keys="Enter" /> runs
 - In Insert: <Keys keys="Ctrl-o" /> runs one Normal command, then returns to Insert
+
+**Next:** [Operators & motions](/docs/getting-started/operators-and-motions) · [Basic motions](/docs/motions/basic)

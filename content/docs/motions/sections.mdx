@@ -3,48 +3,49 @@ title: Sections
 description: "[[ ]] [] ][ — section and column-1 brace motions."
 ---
 
-Section motions jump by **sections** (form-feed / nroff section macros) or, in
-practice for code, by `{` / `}` in **column 1**.
+Section motions jump by **sections** (form-feed / nroff macros) or, in code, by
+`{` / `}` that sit in **column 1**.
 
-These examples use top-level braces in column 1 (typical C / Go style):
+Braces mid-line (`fn a() {`) do **not** count — only a `{` or `}` as the first
+character of the line.
 
 ```
-fn a() {
-  …
+{          ← column 1
+  body
 }
 
-fn b() {
-  …
+{
+  next
 }
 ```
 
 <Motion
   keys="]]"
-  name="Next section / next { in column 1"
-  before={"fn a() |{\n  return 1\n}\n\nfn b() {\n  return 2\n}"}
-  after={"fn a() {\n  return 1\n}\n\nfn b() |{\n  return 2\n}"}
-  note="From inside / on a column-1 `{`, jump to the next column-1 `{`."
+  name="Next section start / next { in column 1"
+  before={"|{\n  a()\n}\n\n{\n  b()\n}"}
+  after={"{\n  a()\n}\n\n|{\n  b()\n}"}
+  note="From a column-1 `{`, jump to the next column-1 `{`."
 />
 
 <Motion
   keys="]["
   name="Next } in column 1"
-  before={"fn a() |{\n  return 1\n}\n\nfn b() {\n  return 2\n}"}
-  after={"fn a() {\n  return 1\n|}\n\nfn b() {\n  return 2\n}"}
+  before={"|{\n  a()\n}\n\n{\n  b()\n}"}
+  after={"{\n  a()\n|}\n\n{\n  b()\n}"}
 />
 
 <Motion
   keys="[["
   name="Previous { in column 1"
-  before={"fn a() {\n  return 1\n}\n\nfn b() |{\n  return 2\n}"}
-  after={"fn a() |{\n  return 1\n}\n\nfn b() {\n  return 2\n}"}
+  before={"{\n  a()\n}\n\n|{\n  b()\n}"}
+  after={"|{\n  a()\n}\n\n{\n  b()\n}"}
 />
 
 <Motion
   keys="[]"
   name="Previous } in column 1"
-  before={"fn a() {\n  return 1\n}\n\nfn b() |{\n  return 2\n}"}
-  after={"fn a() {\n  return 1\n|}\n\nfn b() {\n  return 2\n}"}
+  before={"{\n  a()\n}\n\n|{\n  b()\n}"}
+  after={"{\n  a()\n|}\n\n{\n  b()\n}"}
 />
 
 These are exclusive; with operators they often become **exclusive-linewise**.
@@ -53,9 +54,9 @@ These are exclusive; with operators they often become **exclusive-linewise**.
 
 <Buffer
   keys="d]]"
-  before={"fn a() |{\n  keep()\n}\n\nfn b() {\n  drop()\n}\n\nfn c() {\n  keep()\n}"}
-  after={"fn a() |{\n  keep()\n}\n\nfn c() {\n  keep()\n}"}
-  note="Deletes from here through the line before the next section start — exact range depends on exclusive-linewise rules."
+  before={"|{\n  keep()\n}\n\n{\n  drop()\n}\n\n{\n  keep2()\n}"}
+  after={"|{\n  drop()\n}\n\n{\n  keep2()\n}"}
+  note="Deletes from here through the line before the next section start (exclusive-linewise)."
 />
 
 ## What is a section?
@@ -63,7 +64,8 @@ These are exclusive; with operators they often become **exclusive-linewise**.
 A section begins after a form-feed (`Ctrl-l`) in column 1, and at macros listed
 in the `'sections'` option (default nroff-style `.SH`, `.NH`, …).
 
-In C-like code without those macros, think “next/previous top-level `{`/`}`”.
+In C-like code without those macros, put opening braces on their own line (or
+accept that mid-line `{` won’t be found).
 
 ## Related
 

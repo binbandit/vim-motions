@@ -5,6 +5,13 @@ description: "u, Ctrl-r, ., and repeating macros."
 
 ## Undo tree basics
 
+<Buffer
+  keys="u"
+  before={"const i|d = 1"}
+  after={"const |userName = 1"}
+  note="After changing userName → id with ciw, u restores the previous text."
+/>
+
 <MotionList>
   <Motion keys="u" name="Undo" />
   <Motion keys="Ctrl-r" name="Redo" />
@@ -16,6 +23,13 @@ description: "u, Ctrl-r, ., and repeating macros."
 Modern Vim/Neovim keep an undo tree — branches exist if you undo then make a new change. Plugins like `undotree` help visualize.
 
 ## Repeat
+
+<Buffer
+  keys="."
+  before={"qux |bar baz"}
+  after={"qux qu|x baz"}
+  note="After ciw+qux+Esc on a previous word, . repeats that change on bar."
+/>
 
 <MotionList>
   <Motion keys="." name="Repeat last change" example="The most important key after hjkl" />

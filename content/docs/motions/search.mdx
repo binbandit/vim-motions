@@ -27,17 +27,16 @@ In examples, the highlighted block is the **cursor** position (`|` in the source
   <Motion
     keys="g*"
     name="g-star (g*) — search forward, not whole-word"
-    sameAs="*"
     before={'id = user_id\nprint(|user|)'}
     after={'id = |user|_id\nprint(user)'}
-    note="Matches user inside user_id because there are no \< \> boundaries."
+    note="Matches user inside user_id because there are no \< \> boundaries. Related to *, not the same."
   />
   <Motion
     keys="g#"
     name="g-hash (g#) — search backward, not whole-word"
-    sameAs="#"
     before={'id = user_id\nprint(|user|)'}
     after={'id = |user|_id\nprint(user)'}
+    note="Backward sibling of g* — related to #, not identical."
   />
 </MotionList>
 
@@ -62,14 +61,15 @@ In examples, the highlighted block is the **cursor** position (`|` in the source
     keys="t{char}"
     name="Till before char forward"
     before={'href=|"/docs"'}
-    after={'href="|/docs"'}
-    note="t&quot; stops on the character before the quote — perfect for dt&quot; / ct&quot;."
+    after={'href="/doc|s"'}
+    note="From the opening quote, t&quot; stops on the character before the closing quote (s). Great for dt&quot; / ct&quot; when you start earlier on the line."
   />
   <Motion
     keys="T{char}"
     name="Till after char backward"
     before={'href="/docs|"'}
-    after={'href="/docs"|'}
+    after={'href="|/docs"'}
+    note="From the closing quote, T&quot; lands just after the opening quote."
   />
   <Motion
     keys=";"
@@ -115,8 +115,8 @@ In examples, the highlighted block is the **cursor** position (`|` in the source
     name="Search backward"
     id="qmark"
     before={'TODO: wire auth\nfix login\n|TODO: tests'}
-    after={'TODO: wire auth\nfix login\n|TODO: tests'}
-    note="?TODO searches upward from the cursor."
+    after={'|TODO: wire auth\nfix login\nTODO: tests'}
+    note="?TODO&lt;CR&gt; searches upward (wraps with 'wrapscan'). From the start of line 3 it finds line 1."
   />
   <Motion
     keys="n"
@@ -138,8 +138,8 @@ In examples, the highlighted block is the **cursor** position (`|` in the source
     note="From a use of count, gd jumps to the local declaration (same here if already on it)."
   />
   <Motion keys="gD" name="Go to global declaration" />
-  <Motion keys="1gd" name="Like gd, ignore matches before cursor" sameAs="gd" />
-  <Motion keys="1gD" name="Like gD, ignore matches before cursor" sameAs="gD" />
+  <Motion keys="1gd" name="Like gd, ignore matches before cursor" example="Variant of gd — skips earlier matches on the line/file" />
+  <Motion keys="1gD" name="Like gD, ignore matches before cursor" example="Variant of gD" />
 </MotionList>
 
 Offsets after a search still count as part of the motion, e.g. `/foo/e` (end of match), `/bar/+1` (line below). See `:help search-offset`.
@@ -159,9 +159,9 @@ Offsets after a search still count as part of the motion, e.g. `/foo/e` (end of 
 
 <Buffer
   keys="cgn"
-  before={'oldName = 1\nprint(|oldName|)'}
-  after={'oldName = 1\nprint(|newName|)'}
-  note="Workflow: * on oldName → cgn → type newName → Esc → n . to repeat."
+  before={'rename |oldName| here and oldName there'}
+  after={'rename newNam|e here and oldName there'}
+  note="On a search match: cgn → type newName → Esc. Then n . repeats on the next match."
 />
 
 ## Search as a motion

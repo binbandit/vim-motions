@@ -38,8 +38,8 @@ Start at `count`, jump with `G` to the last line, then come back:
   keys="``"
   name="Exact position before the latest jump"
   before={"count = 1\nextra = 2\nprint(|count|)"}
-  after={"count = 1\nextra = 2\nprint(|count|)"}
-  note="Same idea as '', but restores column too — after jumping away and back."
+  after={"co|unt = 1\nextra = 2\nprint(count)"}
+  note="After jumping away from column 3 of line 1, `` restores that exact position (not just the line)."
 />
 
 <MotionList>

@@ -13,10 +13,17 @@ Stay in Insert only while typing. These keys help without fully escaping.
   <Motion keys="Ctrl-o" name="One Normal command, then return to Insert" example="Ctrl-o A — jump end of line, still Insert after" />
 </MotionList>
 
-## Insert / indent
+## Delete while typing
+
+<Buffer
+  keys="Ctrl-w"
+  before={"const userName|"}
+  after={"const |"}
+  note="In Insert mode — deletes the previous word (like a mini daw backward)."
+/>
 
 <MotionList>
-  <Motion keys="Ctrl-h" name="Backspace" />
+  <Motion keys="Ctrl-h" name="Backspace (Insert mode)" />
   <Motion keys="Ctrl-w" name="Delete previous word" />
   <Motion keys="Ctrl-u" name="Delete to start of line (insert start)" />
   <Motion keys="Ctrl-t" name="Indent line in Insert" />

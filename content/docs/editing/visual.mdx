@@ -3,6 +3,9 @@ title: Visual Mode
 description: "Character, line, and block selections."
 ---
 
+Visual mode lets you **see** the range before you act. Prefer operators when you
+already know the motion; use Visual when discovering or for block edits.
+
 ## Enter Visual
 
 <MotionList>
@@ -11,6 +14,22 @@ description: "Character, line, and block selections."
   <Motion keys="Ctrl-v" name="Block / column" />
   <Motion keys="gv" name="Reselect last selection" />
 </MotionList>
+
+## Character & line examples
+
+<Buffer
+  keys="vwd"
+  before={"keep |drop this word now"}
+  after={"keep | this word now"}
+  note="v → w → d deletes the visually selected word (same idea as dw)."
+/>
+
+<Buffer
+  keys="Vd"
+  before={"keep\n|drop me\nkeep"}
+  after={"keep\n|keep"}
+  note="V selects the whole line; d deletes it."
+/>
 
 ## While selecting
 
@@ -29,10 +48,19 @@ description: "Character, line, and block selections."
 
 ## Block editing
 
-1. <Keys keys="Ctrl-v" /> select a column.
-2. <Keys keys="I" /> insert at start of each line (or <Keys keys="A" /> at end).
-3. Type text, <Keys keys="Esc" /> — applies to all lines.
+The classic column-insert workflow:
+
+1. <Keys keys="Ctrl-v" /> select a column across lines.
+2. <Keys keys="I" /> insert at the start of each line (or <Keys keys="A" /> at the end).
+3. Type text, <Keys keys="Esc" /> — applies to all lines in the block.
 4. <Keys keys="x" /> / <Keys keys="d" /> delete a column; <Keys keys="r" /> replace column chars.
+
+<Buffer
+  keys="Ctrl-v j I"
+  before={"|one\ntwo\nthree"}
+  after={"X|one\nXtwo\nthree"}
+  note="Block-select two lines, I, type X, Esc — prefixes each selected line."
+/>
 
 ## Select all
 

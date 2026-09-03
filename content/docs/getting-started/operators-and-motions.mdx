@@ -20,21 +20,21 @@ or:
 <Buffer
   keys="dw"
   before={"const |userName = 1"}
-  after={"const | = 1"}
-  note="Operator d + motion w — delete to next word."
+  after={"const |= 1"}
+  note="Operator d + motion w — deletes to the next word start (includes the trailing space)."
 />
 
 <Buffer
   keys="ciw"
   before={"const |userName = 1"}
-  after={"const |id = 1"}
-  note="Operator c + text object iw — change the word, type id, Esc."
+  after={"const i|d = 1"}
+  note="Operator c + text object iw — change the word, type id, Esc (cursor ends on d)."
 />
 
 <Buffer
   keys="d$"
   before={"keep |delete the rest"}
-  after={"keep |"}
+  after={"keep| "}
 />
 
 <Buffer
@@ -88,3 +88,5 @@ After pressing <Keys keys="d" />, Vim waits for a motion. Wrong motion? Hit <Key
 Visual mode is useful when you need to see the range. Operators are faster when
 you already know the motion. Prefer operators for speed; use Visual when
 discovering.
+
+**Next:** [Counts](/docs/getting-started/counts) · [Delete](/docs/operators/delete) · [Text objects](/docs/motions/text-objects)
