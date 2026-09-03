@@ -8,11 +8,11 @@ Deleted text goes to a register (default unnamed `"`). Use black-hole <Keys keys
 ## Core delete
 
 <MotionList>
-  <Motion keys="x" name="Delete character under cursor" example="Like dl" />
-  <Motion keys="X" name="Delete character before cursor" example="Like dh" />
-  <Motion keys="d{motion}" name="Delete over motion" />
+  <Motion keys="x" name="Delete character under cursor" sameAs="dl" />
+  <Motion keys="X" name="Delete character before cursor" sameAs="dh" />
+  <Motion keys="d" name="Delete over motion" example="Follow with a motion or text object: dw, diw, d$, …" />
   <Motion keys="dd" name="Delete line" />
-  <Motion keys="D" name="Delete to end of line" example="Like d$" />
+  <Motion keys="D" name="Delete to end of line" sameAs="d$" />
   <Motion keys="J" name="Join lines" example="Deletes newline; spaces smartly" />
   <Motion keys="gJ" name="Join without spaces" />
 </MotionList>

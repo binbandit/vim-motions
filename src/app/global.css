@@ -172,6 +172,27 @@ body {
   gap: 0.28rem;
 }
 
+a.motion-ref .kbd {
+  border-color: color-mix(in oklab, var(--vim-accent) 45%, transparent);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    color 0.15s ease;
+}
+
+a.motion-ref:hover .kbd {
+  border-color: var(--vim-accent);
+  color: color-mix(in oklab, var(--vim-accent) 85%, white);
+  box-shadow:
+    inset 0 -1px 0 color-mix(in oklab, black 45%, transparent),
+    0 0 0 1px color-mix(in oklab, var(--vim-accent) 25%, transparent),
+    0 0 16px color-mix(in oklab, var(--vim-accent) 18%, transparent);
+}
+
+.same-as {
+  font-family: var(--font-sans);
+}
+
 .motion-row {
   display: grid;
   grid-template-columns: minmax(5.5rem, auto) 1fr;

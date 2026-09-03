@@ -44,7 +44,7 @@ Use <Kbd>⌘</Kbd><Kbd>K</Kbd> to search any key on this site.
 | <Keys keys="_" /> | `[count]-1` lines down, first non-blank |
 | <Keys keys="G" /> | Line `[count]` (default last line) |
 | <Keys keys="gg" /> / <Keys keys="Ctrl-Home" /> | Line `[count]` (default first line) |
-| <Keys keys="Ctrl-End" /> | Like `G` then `$` |
+| <Keys keys="Ctrl-End" link /> | <SameAs keys="G" then="$" /> |
 | <Keys keys="{count}%" /> | To `{count}` percent through the file |
 | <Keys keys=":{line}" /> | Ex goto line (also a jump) |
 | <Keys keys="go" /> / <Keys keys=":go" /> | To byte offset `[count]` in the buffer |
@@ -85,8 +85,8 @@ Use <Kbd>⌘</Kbd><Kbd>K</Kbd> to search any key on this site.
 | <Keys keys="N" /> | Previous match (opposite direction) |
 | <Keys keys="*" /> | Search forward for word under cursor (`\<word\>`) |
 | <Keys keys="#" /> | Search backward for word under cursor |
-| <Keys keys="g*" /> | Like `*` without word boundaries |
-| <Keys keys="g#" /> | Like `#` without word boundaries |
+| <Keys keys="g*" link /> | <SameAs keys="*" /> without word boundaries |
+| <Keys keys="g#" link /> | <SameAs keys="#" /> without word boundaries |
 | <Keys keys="gd" /> | Goto local declaration |
 | <Keys keys="gD" /> | Goto global declaration |
 | <Keys keys="gn" /> | Select / operate on next search match |

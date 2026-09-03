@@ -8,10 +8,10 @@ description: "c, s, C, S — delete a range and enter Insert mode."
 ## Core change
 
 <MotionList>
-  <Motion keys="c{motion}" name="Change over motion" />
+  <Motion keys="c" name="Change over motion" example="Follow with a motion or text object: cw, ciw, c$, …" />
   <Motion keys="cc / S" name="Change whole line" />
-  <Motion keys="C" name="Change to end of line" example="Like c$" />
-  <Motion keys="s" name="Substitute character" example="Like cl" />
+  <Motion keys="C" name="Change to end of line" sameAs="c$" />
+  <Motion keys="s" name="Substitute character" sameAs="cl" />
   <Motion keys="r{char}" name="Replace single character" example="Does not enter Insert" />
   <Motion keys="R" name="Replace mode" example="Overwrites until Esc" />
   <Motion keys="~" name="Toggle case of character and move right" />

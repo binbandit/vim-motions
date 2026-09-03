@@ -1,6 +1,6 @@
 import defaultMdxComponents from 'fumadocs-ui/mdx';
 import type { MDXComponents } from 'mdx/types';
-import { Kbd, Keys, Motion, MotionList } from '@/components/motion';
+import { Kbd, Keys, Motion, MotionList, SameAs } from '@/components/motion';
 
 export function getMDXComponents(components?: MDXComponents) {
   return {
@@ -9,6 +9,7 @@ export function getMDXComponents(components?: MDXComponents) {
     Keys,
     Motion,
     MotionList,
+    SameAs,
     ...components,
   } satisfies MDXComponents;
 }

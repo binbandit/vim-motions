@@ -14,16 +14,16 @@ description: "0 ^ $ g_ | gg G go {count}% and soft-wrap line helpers."
   <Motion keys="g0" name="First character of soft-wrapped screen line" />
   <Motion keys="g^" name="First non-blank of soft-wrapped screen line" />
   <Motion keys="g$" name="Last character of soft-wrapped screen line" />
-  <Motion keys="gm" name="Middle of screen line" example="Like g0 then half 'columns'" />
+  <Motion keys="gm" name="Middle of screen line" sameAs="g0" example="Then half of 'columns' to the right" />
   <Motion keys="gM" name="Middle of text line" />
 </MotionList>
 
 ## Across the file
 
 <MotionList>
-  <Motion keys="gg" name="Line [count] (default 1)" example="Also Ctrl-Home · linewise · adds to jumplist" />
+  <Motion keys="gg" name="Line [count] (default 1)" also={["Ctrl-Home"]} example="Linewise · adds to jumplist" />
   <Motion keys="G" name="Line [count] (default last)" example="Linewise · jumplist" />
-  <Motion keys="Ctrl-End" name="Like G then $" />
+  <Motion keys="Ctrl-End" name="Go to last character of last line" sameAs="G" sameAsThen="$" />
   <Motion keys="{count}%" name="To count% through the file" example="Linewise · formula: (count * lines + 99) / 100" />
   <Motion keys=":{n}" name="Ex goto line n" example=":80 then Enter" />
   <Motion keys="go" name="Goto byte [count] in the buffer" example="Also :go[to] · default 1 · respects 'fileformat' EOL size" />
@@ -38,8 +38,8 @@ description: "0 ^ $ g_ | gg G go {count}% and soft-wrap line helpers."
 | <Keys keys="dd" /> | Delete line |
 | <Keys keys="cc" /> / <Keys keys="S" /> | Change line |
 | <Keys keys="yy" /> / <Keys keys="Y" /> | Yank line |
-| <Keys keys="D" /> | Delete to end of line (`d$`) |
-| <Keys keys="C" /> | Change to end of line (`c$`) |
+| <Keys keys="D" link /> | Delete to end of line (<SameAs keys="d$" />) |
+| <Keys keys="C" link /> | Change to end of line (<SameAs keys="c$" />) |
 | <Keys keys="I" /> | Insert at first non-blank |
 | <Keys keys="A" /> | Append at end of line |
 

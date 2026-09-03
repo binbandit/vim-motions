@@ -10,9 +10,9 @@ Character and line steps from `:help left-right-motions` and `:help up-down-moti
 <MotionList>
   <Motion keys="h" name="Left" example="Also ← · exclusive" />
   <Motion keys="l" name="Right" example="Also → · exclusive; stops at EOL unless 'whichwrap'" />
-  <Motion keys="Space" name="Right (like l)" />
-  <Motion keys="BS" name="Left" example="Also Ctrl-h; can cross lines depending on 'whichwrap'" />
-  <Motion keys="Ctrl-h" name="Same as Backspace" />
+  <Motion keys="Space" name="Right" sameAs="l" />
+  <Motion keys="BS" name="Left" also={["Ctrl-h"]} example="Can cross lines depending on 'whichwrap'" />
+  <Motion keys="Ctrl-h" name="Backspace alias" sameAs="BS" sameAsLabel="Same as" />
 </MotionList>
 
 Prefer <Keys keys="h j k l" /> over arrows so hands stay on the home row.
@@ -20,12 +20,12 @@ Prefer <Keys keys="h j k l" /> over arrows so hands stay on the home row.
 ## Up / down
 
 <MotionList>
-  <Motion keys="k" name="Up one line" example="Also ↑ · Ctrl-p" />
-  <Motion keys="j" name="Down one line" example="Also ↓ · Ctrl-j · Ctrl-n · NL" />
+  <Motion keys="k" name="Up one line" also={["Ctrl-p"]} example="Also ↑" />
+  <Motion keys="j" name="Down one line" also={["Ctrl-j", "Ctrl-n"]} example="Also ↓ · NL" />
   <Motion keys="gk" name="Up one screen line" example="Respects wrap; also g↑" />
   <Motion keys="gj" name="Down one screen line" example="Also g↓" />
   <Motion keys="-" name="Up [count] lines to first non-blank" example="Linewise" />
-  <Motion keys="+" name="Down [count] lines to first non-blank" example="Also Enter · Ctrl-m · linewise" />
+  <Motion keys="+" name="Down [count] lines to first non-blank" also={["Enter", "Ctrl-m"]} example="Linewise" />
   <Motion keys="_" name="Down [count]-1 lines to first non-blank" example="Alone, _ is first non-blank of this line" />
 </MotionList>
 
@@ -37,8 +37,8 @@ When `'wrap'` is on, <Keys keys="j" />/<Keys keys="k" /> move by **buffer lines*
 
 | Combo | Result |
 | --- | --- |
-| <Keys keys="dl" /> | Delete character under cursor (≈ <Keys keys="x" />) |
-| <Keys keys="dh" /> | Delete character to the left (≈ <Keys keys="X" />) |
+| <Keys keys="dl" link /> | Delete character under cursor (≈ <Keys keys="x" link />) |
+| <Keys keys="dh" link /> | Delete character to the left (≈ <Keys keys="X" link />) |
 | <Keys keys="dj" /> | Delete this line and the next |
 | <Keys keys="d+" /> | Delete through next line (to first non-blank target) |
 
