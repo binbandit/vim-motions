@@ -1,0 +1,46 @@
+---
+title: Sentences & Paragraphs
+description: "( ) { } — move by sentence and paragraph."
+---
+
+These are **text object motions** (they move the cursor). For operating on a sentence/paragraph under the cursor, prefer text objects <Keys keys="is" /> / <Keys keys="as" /> / <Keys keys="ip" /> / <Keys keys="ap" />.
+
+## Sentence motions
+
+<MotionList>
+  <Motion keys="(" name="Sentence(s) backward" example="[count]( — exclusive" />
+  <Motion keys=")" name="Sentence(s) forward" />
+</MotionList>
+
+A **sentence** ends at `.` `!` or `?` followed by EOL, space, or tab. Closing `)` `]` `"` `'` may appear after the punctuation. Paragraph and section boundaries also count as sentence boundaries.
+
+## Paragraph motions
+
+<MotionList>
+  <Motion keys="{" name="Paragraph(s) backward" />
+  <Motion keys="}" name="Paragraph(s) forward" />
+</MotionList>
+
+A **paragraph** begins after each **empty** line (not merely a blank whitespace-only line), and at nroff-style macros from the `'paragraphs'` option. Section boundaries are also paragraph boundaries.
+
+## With operators
+
+| Combo | Result |
+| --- | --- |
+| <Keys keys="d)" /> | Delete to next sentence |
+| <Keys keys="c(" /> | Change back through previous sentence |
+| <Keys keys="y}" /> | Yank to next paragraph |
+| <Keys keys=">}" /> | Indent through next paragraph |
+| <Keys keys="dap" /> | Delete **a** paragraph (usually better than `d}`) |
+| <Keys keys="vip" /> | Visually select inner paragraph |
+
+## Related mark motions
+
+| Keys | Meaning |
+| --- | --- |
+| `` `( `` / <Keys keys="'(" /> | Start of current sentence |
+| `` `) `` / <Keys keys="')" /> | End of current sentence |
+| `` `{ `` / <Keys keys="'{" /> | Start of current paragraph |
+| `` `} `` / <Keys keys="'}" /> | End of current paragraph |
+
+See [Marks as motions](/docs/motions/marks-as-motions).

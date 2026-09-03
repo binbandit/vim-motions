@@ -2,12 +2,19 @@
   "title": "Motions",
   "pages": [
     "index",
+    "all",
+    "---By family---",
     "basic",
     "words",
     "lines",
+    "sentences",
+    "sections",
     "search",
     "text-objects",
+    "matching",
+    "marks-as-motions",
     "jumps",
-    "scrolling"
+    "scrolling",
+    "folds"
   ]
 }

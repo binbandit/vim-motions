@@ -1,0 +1,193 @@
+---
+title: All Motions
+description: "Complete inventory of every built-in Vim cursor motion from :help motion.txt (plus fold motions)."
+full: true
+---
+
+Canonical list aligned with Vim 9 [`:help motion.txt`](https://vimhelp.org/motion.txt.html). Fold motions come from `:help fold.txt`. Mouse clicks are included for completeness.
+
+Use <Kbd>⌘</Kbd><Kbd>K</Kbd> to search any key on this site.
+
+## Left-right
+
+| Keys | Motion |
+| --- | --- |
+| <Keys keys="h" /> / <Keys keys="←" /> / <Keys keys="Ctrl-h" /> / <Keys keys="BS" /> | Left one character |
+| <Keys keys="l" /> / <Keys keys="→" /> / <Keys keys="Space" /> | Right one character |
+| <Keys keys="0" /> / <Keys keys="Home" /> | First column of the line |
+| <Keys keys="^" /> | First non-blank of the line |
+| <Keys keys="$" /> / <Keys keys="End" /> | End of line (`[count]$` → end of count-1 lines down) |
+| <Keys keys="g_" /> | Last non-blank of the line |
+| <Keys keys="g0" /> | First character of the screen line (wrap) |
+| <Keys keys="g^" /> | First non-blank of the screen line (wrap) |
+| <Keys keys="gm" /> | Middle of the screen line |
+| <Keys keys="gM" /> | Middle of the text line |
+| <Keys keys="g$" /> | Last character of the screen line (wrap) |
+| <Keys keys="\|" /> | To screen column `[count]` (default 1) |
+| <Keys keys="f{char}" /> | Find `{char}` forward on the line (inclusive) |
+| <Keys keys="F{char}" /> | Find `{char}` backward on the line |
+| <Keys keys="t{char}" /> | Till before `{char}` forward |
+| <Keys keys="T{char}" /> | Till after `{char}` backward |
+| <Keys keys=";" /> | Repeat last `f`/`F`/`t`/`T` |
+| <Keys keys="," /> | Repeat last `f`/`F`/`t`/`T` opposite direction |
+
+## Up-down
+
+| Keys | Motion |
+| --- | --- |
+| <Keys keys="k" /> / <Keys keys="↑" /> / <Keys keys="Ctrl-p" /> | Up one line |
+| <Keys keys="j" /> / <Keys keys="↓" /> / <Keys keys="Ctrl-j" /> / <Keys keys="Ctrl-n" /> / <Keys keys="NL" /> | Down one line |
+| <Keys keys="gk" /> / <Keys keys="g↑" /> | Up one **screen** line (wrap-aware) |
+| <Keys keys="gj" /> / <Keys keys="g↓" /> | Down one **screen** line |
+| <Keys keys="-" /> | `[count]` lines up, first non-blank |
+| <Keys keys="+" /> / <Keys keys="Enter" /> / <Keys keys="Ctrl-m" /> | `[count]` lines down, first non-blank |
+| <Keys keys="_" /> | `[count]-1` lines down, first non-blank |
+| <Keys keys="G" /> | Line `[count]` (default last line) |
+| <Keys keys="gg" /> / <Keys keys="Ctrl-Home" /> | Line `[count]` (default first line) |
+| <Keys keys="Ctrl-End" /> | Like `G` then `$` |
+| <Keys keys="{count}%" /> | To `{count}` percent through the file |
+| <Keys keys=":{line}" /> | Ex goto line (also a jump) |
+| <Keys keys="go" /> / <Keys keys=":go" /> | To byte offset `[count]` in the buffer |
+
+## Words
+
+| Keys | Motion |
+| --- | --- |
+| <Keys keys="w" /> / <Keys keys="Shift-→" /> | Next word start |
+| <Keys keys="W" /> / <Keys keys="Ctrl-→" /> | Next WORD start |
+| <Keys keys="e" /> | End of word |
+| <Keys keys="E" /> | End of WORD |
+| <Keys keys="b" /> / <Keys keys="Shift-←" /> | Previous word start |
+| <Keys keys="B" /> / <Keys keys="Ctrl-←" /> | Previous WORD start |
+| <Keys keys="ge" /> | End of previous word |
+| <Keys keys="gE" /> | End of previous WORD |
+
+## Sentences, paragraphs, sections
+
+| Keys | Motion |
+| --- | --- |
+| <Keys keys="(" /> | `[count]` sentences backward |
+| <Keys keys=")" /> | `[count]` sentences forward |
+| <Keys keys="{" /> | `[count]` paragraphs backward |
+| <Keys keys="}" /> | `[count]` paragraphs forward |
+| <Keys keys="]]" /> | Next section / `{` in column 1 |
+| <Keys keys="][" /> | Next section / `}` in column 1 |
+| <Keys keys="[[" /> | Previous section / `{` in column 1 |
+| <Keys keys="[]" /> | Previous section / `}` in column 1 |
+
+## Search
+
+| Keys | Motion |
+| --- | --- |
+| <Keys keys="/{pat}" /> | Search forward |
+| <Keys keys="?{pat}" /> | Search backward |
+| <Keys keys="n" /> | Next match (same direction) |
+| <Keys keys="N" /> | Previous match (opposite direction) |
+| <Keys keys="*" /> | Search forward for word under cursor (`\<word\>`) |
+| <Keys keys="#" /> | Search backward for word under cursor |
+| <Keys keys="g*" /> | Like `*` without word boundaries |
+| <Keys keys="g#" /> | Like `#` without word boundaries |
+| <Keys keys="gd" /> | Goto local declaration |
+| <Keys keys="gD" /> | Goto global declaration |
+| <Keys keys="gn" /> | Select / operate on next search match |
+| <Keys keys="gN" /> | Select / operate on previous search match |
+
+## Text object selection (`i` / `a` after operator or Visual)
+
+| Keys | Object |
+| --- | --- |
+| <Keys keys="iw" /> / <Keys keys="aw" /> | Inner / a word |
+| <Keys keys="iW" /> / <Keys keys="aW" /> | Inner / a WORD |
+| <Keys keys="is" /> / <Keys keys="as" /> | Inner / a sentence |
+| <Keys keys="ip" /> / <Keys keys="ap" /> | Inner / a paragraph |
+| <Keys keys="i)" /> / <Keys keys="a)" /> / <Keys keys="ib" /> / <Keys keys="ab" /> | `()` block (`i(` `a(` same) |
+| <Keys keys="i]" /> / <Keys keys="a]" /> | `[]` block (`i[` `a[` same) |
+| <Keys keys="i}" /> / <Keys keys="a}" /> / <Keys keys="iB" /> / <Keys keys="aB" /> | `{}` block (`i{` `a{` same) |
+| <Keys keys="i>" /> / <Keys keys="a>" /> | `<>` block (`i<` `a<` same) |
+| <Keys keys='i"' /> / <Keys keys='a"' /> | Double-quoted string |
+| <Keys keys="i'" /> / <Keys keys="a'" /> | Single-quoted string |
+| <Keys keys="i`" /> / <Keys keys="a`" /> | Backtick string |
+| <Keys keys="it" /> / <Keys keys="at" /> | XML/HTML tag block |
+
+## Matching & structure
+
+| Keys | Motion |
+| --- | --- |
+| <Keys keys="%" /> | Next item under/after cursor → its match `([{/* #if…` |
+| <Keys keys="[(" /> | Previous unmatched `(` |
+| <Keys keys="[{" /> | Previous unmatched `{` |
+| <Keys keys="])" /> | Next unmatched `)` |
+| <Keys keys="]}" /> | Next unmatched `}` |
+| <Keys keys="]m" /> | Next method start (Java-like `{` nesting) |
+| <Keys keys="]M" /> | Next method end |
+| <Keys keys="[m" /> | Previous method start |
+| <Keys keys="[M" /> | Previous method end |
+| <Keys keys="[#" /> | Previous unmatched `#if` / `#else` |
+| <Keys keys="]#" /> | Next unmatched `#else` / `#endif` |
+| <Keys keys="[/" /> / <Keys keys="[*" /> | Previous start of `/*` comment |
+| <Keys keys="]/" /> / <Keys keys="]*" /> | Next end of `*/` comment |
+
+## Marks (as motions)
+
+| Keys | Motion |
+| --- | --- |
+| <Keys keys="'{a-z}" /> | Jump to mark line (first non-blank) |
+| <Keys keys="`{a-z}" /> | Jump to mark exact position |
+| <Keys keys="'{A-Z}" /> / <Keys keys="`{A-Z}" /> | Global mark (may switch files) |
+| <Keys keys="'{0-9}" /> / <Keys keys="`{0-9}" /> | Viminfo file marks |
+| <Keys keys="''" /> / <Keys keys="``" /> | Position before the latest jump |
+| <Keys keys="'[" /> / <Keys keys="`[" /> | Start of last change or yank |
+| <Keys keys="']" /> / <Keys keys="`]" /> | End of last change or yank |
+| <Keys keys="'<" /> / <Keys keys="`<" /> | Start of last Visual selection |
+| <Keys keys="'>" /> / <Keys keys="`>" /> | End of last Visual selection |
+| <Keys keys="'." /> / `` `. `` | Position of last change |
+| <Keys keys="'^" /> / `` `^ `` | Position of last Insert exit |
+| <Keys keys="'(" /> / `` `( `` | Start of current sentence |
+| <Keys keys="')" /> / `` `) `` | End of current sentence |
+| <Keys keys="'{" /> / `` `{ `` | Start of current paragraph |
+| <Keys keys="'}" /> / `` `} `` | End of current paragraph |
+| <Keys keys="['" /> / <Keys keys="[`" /> | Previous lowercase mark |
+| <Keys keys="]'" /> / <Keys keys="]`" /> | Next lowercase mark |
+| <Keys keys="g'{mark}" /> / <Keys keys="g`{mark}" /> | Jump to mark **without** changing the jumplist |
+
+## Jump list & change list
+
+| Keys | Motion |
+| --- | --- |
+| <Keys keys="Ctrl-o" /> | Older position in jump list |
+| <Keys keys="Ctrl-i" /> / <Keys keys="Tab" /> | Newer position in jump list |
+| <Keys keys="g;" /> | Older position in change list |
+| <Keys keys="g," /> | Newer position in change list |
+
+## Window-relative
+
+| Keys | Motion |
+| --- | --- |
+| <Keys keys="H" /> | To `[count]`th line from top of window |
+| <Keys keys="M" /> | Middle line of window |
+| <Keys keys="L" /> | To `[count]`th line from bottom of window |
+
+## Folds (`:help fold.txt`)
+
+| Keys | Motion |
+| --- | --- |
+| <Keys keys="[z" /> | Start of current open fold |
+| <Keys keys="]z" /> | End of current open fold |
+| <Keys keys="zj" /> | Down to start of next fold |
+| <Keys keys="zk" /> | Up to end of previous fold |
+
+## Mouse
+
+| Keys | Motion |
+| --- | --- |
+| <Keys keys="LeftMouse" /> | Move cursor to click position |
+
+## Not motions (but nearby)
+
+These move the **view** or edit text; they are documented under scrolling / editing, not as operator targets:
+
+- Scroll only: <Keys keys="Ctrl-e" />, <Keys keys="Ctrl-y" />, <Keys keys="zh" />, <Keys keys="zl" />, …
+- Half/full page that also move the cursor: <Keys keys="Ctrl-d" />, <Keys keys="Ctrl-u" />, <Keys keys="Ctrl-f" />, <Keys keys="Ctrl-b" /> — see [Scrolling](/docs/motions/scrolling)
+- Redraw cursor line: <Keys keys="zz" />, <Keys keys="zt" />, <Keys keys="zb" />
+
+Setting marks (`m{a-z}`) is not a motion; jumping to them is.

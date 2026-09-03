@@ -1,43 +1,57 @@
 ---
-title: Scrolling
-description: Move the viewport — Ctrl-d/u/f/b, zz, and window-relative jumps.
+title: Scrolling & Window Motions
+description: H M L plus viewport scrolling — what is a motion vs view-only.
 ---
 
-Scrolling moves the **window**; some commands also move the cursor.
+## Window-relative motions
 
-## Page & half-page
+These **are** motions (usable with operators: `yH`, `dL`, …):
+
+<MotionList>
+  <Motion keys="H" name="To [count]th line from top of window" example="Default first visible · linewise · Home" />
+  <Motion keys="M" name="Middle line of window" example="Linewise" />
+  <Motion keys="L" name="To [count]th line from bottom of window" example="Default last visible · linewise · Low" />
+</MotionList>
+
+Cursor lands on the first non-blank (see `'startofline'`). Adjusted for `'scrolloff'` unless an operator is pending.
+
+## Page & half-page (move cursor + view)
+
+From `:help scroll.txt` — these move the cursor as they scroll:
 
 <MotionList>
   <Motion keys="Ctrl-f" name="Page forward" />
   <Motion keys="Ctrl-b" name="Page backward" />
   <Motion keys="Ctrl-d" name="Half-page down" example="Also moves cursor down" />
   <Motion keys="Ctrl-u" name="Half-page up" />
-  <Motion keys="Ctrl-e" name="Scroll down one line" example="Cursor stays if possible" />
-  <Motion keys="Ctrl-y" name="Scroll up one line" />
 </MotionList>
 
-## Redraw cursor position
+## View-only scroll (not operator motions)
+
+Cursor tries to stay put:
+
+<MotionList>
+  <Motion keys="Ctrl-e" name="Scroll down one line" />
+  <Motion keys="Ctrl-y" name="Scroll up one line" />
+  <Motion keys="zh" name="Scroll left one character" />
+  <Motion keys="zl" name="Scroll right one character" />
+  <Motion keys="zH" name="Scroll half screen left" />
+  <Motion keys="zL" name="Scroll half screen right" />
+  <Motion keys="zs" name="Scroll: cursor to leftmost screen column" />
+  <Motion keys="ze" name="Scroll: cursor to rightmost screen column" />
+</MotionList>
+
+## Redraw cursor line
 
 <MotionList>
   <Motion keys="zz" name="Center cursor line" />
-  <Motion keys="zt" name="Cursor line to top" />
-  <Motion keys="zb" name="Cursor line to bottom" />
-  <Motion keys="zs" name="Scroll horizontally: cursor to left" />
-  <Motion keys="ze" name="Scroll horizontally: cursor to right" />
-  <Motion keys="zh zl" name="Scroll left / right one character" />
-  <Motion keys="zH zL" name="Scroll half screen left / right" />
+  <Motion keys="zt" name="Cursor line to top of window" />
+  <Motion keys="zb" name="Cursor line to bottom of window" />
+  <Motion keys="z." name="Like zz then go to first non-blank" />
+  <Motion keys="z-" name="Like zb then go to first non-blank" />
+  <Motion keys="zEnter" name="Like zt then go to first non-blank" example="z&lt;CR&gt;" />
 </MotionList>
 
-## Window-relative moves
+## Tip
 
-<MotionList>
-  <Motion keys="H" name="Top of window (Home)" />
-  <Motion keys="M" name="Middle of window" />
-  <Motion keys="L" name="Bottom of window (Low)" />
-</MotionList>
-
-With counts: <Keys keys="3H" /> → third line from top of window.
-
-## Relative line numbers tip
-
-Many configs use `relativenumber` so you can type <Keys keys="12j" /> instead of searching. Pair with <Keys keys="zz" /> after big jumps to stay oriented.
+With `'relativenumber'`, type <Keys keys="12j" /> instead of searching. Pair big jumps with <Keys keys="zz" /> to stay oriented.

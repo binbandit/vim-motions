@@ -1,0 +1,75 @@
+---
+title: Marks as Motions
+description: Every mark jump that moves the cursor — including automatic marks.
+---
+
+Setting a mark (`m{a-z}`) is not a motion. **Jumping** to a mark is.
+
+For workflows and `:marks`, see also [Navigation → Marks](/docs/navigation/marks).
+
+## User marks
+
+<MotionList>
+  <Motion keys="m{a-z}" name="Set local mark (not a motion)" />
+  <Motion keys="m{A-Z}" name="Set global mark (file + position)" />
+  <Motion keys="'{a-zA-Z0-9}" name="Jump to first non-blank of mark line" />
+  <Motion keys="`{a-zA-Z0-9}" name="Jump to exact mark position" />
+  <Motion keys="g'{mark}" name="Jump to mark line without adding a jumplist entry" />
+  <Motion keys="g`{mark}" name="Exact jump without adding a jumplist entry" />
+</MotionList>
+
+## Jump history marks
+
+<MotionList>
+  <Motion keys="''" name="Line of position before latest jump" />
+  <Motion keys="``" name="Exact position before latest jump" />
+</MotionList>
+
+## Change / Insert / Visual / yank marks
+
+<MotionList>
+  <Motion keys="'[" name="Start of last change or yank (line)" />
+  <Motion keys="`[" name="Start of last change or yank (exact)" />
+  <Motion keys="']" name="End of last change or yank (line)" />
+  <Motion keys="`]" name="End of last change or yank (exact)" />
+  <Motion keys="'<" name="Start of last Visual selection (line)" />
+  <Motion keys="`<" name="Start of last Visual selection (exact)" />
+  <Motion keys="'>" name="End of last Visual selection (line)" />
+  <Motion keys="`>" name="End of last Visual selection (exact)" />
+  <Motion keys="'." name="Line of last change" />
+  <Motion keys="`." name="Exact last change" />
+  <Motion keys="'^" name="Line where Insert mode was last left" />
+  <Motion keys="`^" name="Exact Insert exit position" />
+</MotionList>
+
+## Sentence / paragraph marks
+
+<MotionList>
+  <Motion keys="'(" name="Start of current sentence (line)" />
+  <Motion keys="`(" name="Start of current sentence (exact)" />
+  <Motion keys="')" name="End of current sentence (line)" />
+  <Motion keys="`)" name="End of current sentence (exact)" />
+  <Motion keys="'{" name="Start of current paragraph (line)" />
+  <Motion keys="`{" name="Start of current paragraph (exact)" />
+  <Motion keys="'}" name="End of current paragraph (line)" />
+  <Motion keys="`}" name="End of current paragraph (exact)" />
+</MotionList>
+
+## Walk lowercase marks
+
+<MotionList>
+  <Motion keys="['" name="Previous lowercase mark (line)" />
+  <Motion keys="[`" name="Previous lowercase mark (exact)" />
+  <Motion keys="]'" name="Next lowercase mark (line)" />
+  <Motion keys="]`" name="Next lowercase mark (exact)" />
+</MotionList>
+
+## Ex helpers
+
+| Command | Meaning |
+| --- | --- |
+| `:marks` | List marks |
+| `:delmarks a b p-z` | Delete marks |
+| `:delmarks!` | Delete all lowercase marks |
+| `:lockmarks {cmd}` | Run `{cmd}` without moving marks |
+| `:keepjumps {cmd}` | Run `{cmd}` without adding jumplist entries |

@@ -1,22 +1,45 @@
 ---
 title: Motions
-description: Move the cursor — alone, or as the target of an operator.
+description: "Every built-in Vim cursor motion — organized the same way as :help motion.txt."
 ---
 
 A **motion** moves the cursor. With an operator waiting, the same motion selects the range to act on.
 
+This section mirrors Vim’s own [`:help motion.txt`](https://vimhelp.org/motion.txt.html) so you can find anything that ships with Vim.
+
+## Complete inventory
+
+For a single page that lists **every** built-in motion: [All motions](/docs/motions/all).
+
 ## Families
 
 <Cards>
-  <Card title="Basic" href="/docs/motions/basic" description="h j k l, arrows, character steps" />
+  <Card title="Basic (left/right & up/down)" href="/docs/motions/basic" description="h j k l gj gk - + _ arrows Space BS" />
   <Card title="Words" href="/docs/motions/words" description="w W e E b B ge gE" />
-  <Card title="Lines" href="/docs/motions/lines" description="0 ^ $ gg G gm g_" />
-  <Card title="Search" href="/docs/motions/search" description="f t / ? * # n N ; ," />
+  <Card title="Lines & columns" href="/docs/motions/lines" description="0 ^ $ g_ | gg G go {count}%" />
+  <Card title="Sentences & paragraphs" href="/docs/motions/sentences" description="( ) { }" />
+  <Card title="Sections" href="/docs/motions/sections" description="[[ ]] [] ][" />
+  <Card title="Search" href="/docs/motions/search" description="f t / ? * # gn gN ; ," />
   <Card title="Text objects" href="/docs/motions/text-objects" description="iw ap i( at — with operators" />
-  <Card title="Jumps" href="/docs/motions/jumps" description="% gd [[ '' Ctrl-o" />
-  <Card title="Scrolling" href="/docs/motions/scrolling" description="Ctrl-d/u/f/b zz zt zb HML" />
+  <Card title="Matching & structure" href="/docs/motions/matching" description="% [( [{ ]m [# [/ HML helpers" />
+  <Card title="Marks as motions" href="/docs/motions/marks-as-motions" description="'a `a '' `` '. '^ and friends" />
+  <Card title="Jumps" href="/docs/motions/jumps" description="Ctrl-o Ctrl-i g; g, jump list" />
+  <Card title="Scrolling / window" href="/docs/motions/scrolling" description="H M L Ctrl-d/u zz zt zb" />
+  <Card title="Folds" href="/docs/motions/folds" description="[z ]z zj zk" />
 </Cards>
 
 ## Inclusive vs exclusive
 
-Some motions include the end character (inclusive); others stop before it (exclusive). You rarely need to memorize this — notice what <Keys keys="d" /> deletes and adjust (`t` vs `f`, `e` vs `w`).
+Some motions include the end character (**inclusive**); others stop before it (**exclusive**). Linewise motions operate on whole lines. You rarely memorize the formal rule — notice what <Keys keys="d" /> deletes and adjust (`t` vs `f`, `e` vs `w`).
+
+## Forced motion type
+
+After an operator, you can force the pending motion’s type:
+
+| Keys | Force |
+| --- | --- |
+| <Keys keys="v" /> | Characterwise |
+| <Keys keys="V" /> | Linewise |
+| <Keys keys="Ctrl-v" /> | Blockwise |
+
+Example: <Keys keys="dV}" /> deletes linewise to the next paragraph (see `:help o_v`).

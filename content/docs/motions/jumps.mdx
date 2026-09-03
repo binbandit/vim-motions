@@ -1,59 +1,52 @@
 ---
-title: Jumps & Matches
-description: Percent matching, section jumps, jump list, and change list.
+title: Jumps
+description: "Jump list, change list, and which motions create jumps."
 ---
 
-## Matching pairs
-
-<MotionList>
-  <Motion keys="%" name="Jump to matching pair" example="On (, ), [, ], {, }, /* */, #if/#endif, and more" />
-</MotionList>
-
-With a count, <Keys keys="%" /> jumps to that percentage of the file (`50%` → midpoint).
-
-## Section / method style jumps
-
-<MotionList>
-  <Motion keys="[[" name="Previous `{` in column 1" />
-  <Motion keys="]]" name="Next `{` in column 1" />
-  <Motion keys="[]" name="Previous `}` in column 1" />
-  <Motion keys="][" name="Next `}` in column 1" />
-  <Motion keys="[{" name="Previous unmatched `{`" />
-  <Motion keys="]}" name="Next unmatched `{`" />
-  <Motion keys="[(" name="Previous unmatched `(`" />
-  <Motion keys="])" name="Next unmatched `(`" />
-</MotionList>
-
-Exact behavior depends on `filetype` and definitions of sections — great in C-like code; languages may remap.
+Far motions push the previous position onto the **jump list**. Near motions (like `h`/`w`) usually do not.
 
 ## Jump list
 
-Motions that move “far” push to the jump list.
-
 <MotionList>
   <Motion keys="Ctrl-o" name="Older jump" example="Back through jump history" />
-  <Motion keys="Ctrl-i" name="Newer jump" example="Forward (Tab often sends this)" />
+  <Motion keys="Ctrl-i" name="Newer jump" example="Forward · Tab often sends this" />
   <Motion keys=":jumps" name="Show jump list" />
-  <Motion keys="''" name="Previous jump / last position line" example="Back to last line before a jump" />
-  <Motion keys="``" name="Exact previous position" />
+  <Motion keys=":clearjumps" name="Clear jump list" />
+  <Motion keys="''" name="Line before the latest jump" />
+  <Motion keys="``" name="Exact position before the latest jump" />
+</MotionList>
+
+Use <Keys keys="g'{mark}" /> / <Keys keys="g`{mark}" /> to jump to a mark **without** adding a jumplist entry.
+
+## Change list
+
+Positions of edits, separate from jumps:
+
+<MotionList>
   <Motion keys="g;" name="Older change position" />
   <Motion keys="g," name="Newer change position" />
   <Motion keys=":changes" name="Show change list" />
-</MotionList>
-
-## Marks as jumps
-
-<MotionList>
-  <Motion keys="m{a-z}" name="Set local mark" />
-  <Motion keys="m{A-Z}" name="Set global mark (across files)" />
-  <Motion keys="'{mark}" name="Jump to mark line" />
-  <Motion keys="`{mark}" name="Jump to mark exact position" />
   <Motion keys="'." name="Last change line" />
-  <Motion keys="`." name="Last change position" />
-  <Motion keys="'[" name="Start of last changed/yanked text" />
-  <Motion keys="']" name="End of last changed/yanked text" />
-  <Motion keys="'<" name="Start of last visual selection" />
-  <Motion keys="'>" name="End of last visual selection" />
+  <Motion keys="`." name="Last change exact position" />
 </MotionList>
 
-See [Marks](/docs/navigation/marks) for a fuller guide.
+## Motions that typically jump
+
+Examples that usually add jumplist entries (not exhaustive):
+
+- <Keys keys="'" /> / <Keys keys="`" /> marks
+- <Keys keys="G" /> <Keys keys="gg" /> <Keys keys="{count}%" /> <Keys keys="/" /> <Keys keys="?" /> <Keys keys="n" /> <Keys keys="N" />
+- <Keys keys="(" /> <Keys keys=")" /> <Keys keys="{" /> <Keys keys="}" />
+- <Keys keys="[[" /> <Keys keys="]]" /> <Keys keys="H" /> <Keys keys="L" /> <Keys keys="M" /> (often)
+- <Keys keys="%" /> when it moves far
+- <Keys keys="*" /> <Keys keys="#" /> <Keys keys="gd" /> <Keys keys="gD" />
+
+Exact rules: `:help jump-motions`.
+
+## Structure jumps elsewhere
+
+| Family | Page |
+| --- | --- |
+| Sections `[[` `]]` | [Sections](/docs/motions/sections) |
+| `%` `[(` `]m` `[#` | [Matching](/docs/motions/matching) |
+| All mark jumps | [Marks as motions](/docs/motions/marks-as-motions) |

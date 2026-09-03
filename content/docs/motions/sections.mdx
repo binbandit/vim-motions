@@ -1,0 +1,26 @@
+---
+title: Sections
+description: "[[ ]] [] ][ — section and column-1 brace motions."
+---
+
+Section motions jump by **sections** (form-feed / nroff section macros) or, in practice for code, by `{` / `}` in **column 1**.
+
+<MotionList>
+  <Motion keys="]]" name="Next section / next { in column 1" example="After an operator, also stops below a } in column 1" />
+  <Motion keys="][" name="Next section / next } in column 1" />
+  <Motion keys="[[" name="Previous section / previous { in column 1" />
+  <Motion keys="[]" name="Previous section / previous } in column 1" />
+</MotionList>
+
+These are exclusive; with operators they often become **exclusive-linewise**.
+
+## What is a section?
+
+A section begins after a form-feed (`Ctrl-l`) in column 1, and at macros listed in the `'sections'` option (default nroff-style `.SH`, `.NH`, …).
+
+In C-like code without those macros, think “next/previous top-level `{`/`}`”.
+
+## Related
+
+- Unmatched braces from **anywhere** in a block: <Keys keys="[{" /> <Keys keys="]}" /> — [Matching](/docs/motions/matching)
+- Method-oriented jumps in Java-like nesting: <Keys keys="]m" /> <Keys keys="[m" />

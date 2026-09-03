@@ -1,40 +1,53 @@
 ---
 title: Basic Motions
-description: Character and directional movement — hjkl and friends.
+description: "Left-right and up-down cursor steps — every built-in key from :help."
 ---
 
-These are the smallest cursor steps. Master them before anything else.
+Character and line steps from `:help left-right-motions` and `:help up-down-motions`.
 
-## Directional
-
-<MotionList>
-  <Motion keys="h" name="Left" example="One character left (same as ←)" />
-  <Motion keys="j" name="Down" example="One line down (same as ↓)" />
-  <Motion keys="k" name="Up" example="One line up (same as ↑)" />
-  <Motion keys="l" name="Right" example="One character right (same as →)" />
-</MotionList>
-
-Prefer <Keys keys="h j k l" /> over arrow keys — your hands stay on home row.
-
-## Character / screen cell
+## Left / right
 
 <MotionList>
+  <Motion keys="h" name="Left" example="Also ← · exclusive" />
+  <Motion keys="l" name="Right" example="Also → · exclusive; stops at EOL unless 'whichwrap'" />
   <Motion keys="Space" name="Right (like l)" />
-  <Motion keys="Backspace" name="Left (like h), can cross lines" />
-  <Motion keys="Ctrl-h" name="Same as Backspace in Normal" />
+  <Motion keys="BS" name="Left" example="Also Ctrl-h; can cross lines depending on 'whichwrap'" />
+  <Motion keys="Ctrl-h" name="Same as Backspace" />
 </MotionList>
 
-## Useful habits
+Prefer <Keys keys="h j k l" /> over arrows so hands stay on the home row.
+
+## Up / down
+
+<MotionList>
+  <Motion keys="k" name="Up one line" example="Also ↑ · Ctrl-p" />
+  <Motion keys="j" name="Down one line" example="Also ↓ · Ctrl-j · Ctrl-n · NL" />
+  <Motion keys="gk" name="Up one screen line" example="Respects wrap; also g↑" />
+  <Motion keys="gj" name="Down one screen line" example="Also g↓" />
+  <Motion keys="-" name="Up [count] lines to first non-blank" example="Linewise" />
+  <Motion keys="+" name="Down [count] lines to first non-blank" example="Also Enter · Ctrl-m · linewise" />
+  <Motion keys="_" name="Down [count]-1 lines to first non-blank" example="Alone, _ is first non-blank of this line" />
+</MotionList>
+
+## Soft wrap
+
+When `'wrap'` is on, <Keys keys="j" />/<Keys keys="k" /> move by **buffer lines**. Use <Keys keys="gj" />/<Keys keys="gk" /> for **screen rows**. Pair with <Keys keys="g0" /> <Keys keys="g$" /> on [Lines](/docs/motions/lines).
+
+## With operators
+
+| Combo | Result |
+| --- | --- |
+| <Keys keys="dl" /> | Delete character under cursor (≈ <Keys keys="x" />) |
+| <Keys keys="dh" /> | Delete character to the left (≈ <Keys keys="X" />) |
+| <Keys keys="dj" /> | Delete this line and the next |
+| <Keys keys="d+" /> | Delete through next line (to first non-blank target) |
+
+## Habits
 
 | Goal | Prefer |
 | --- | --- |
 | Next word | <Keys keys="w" /> not many <Keys keys="l" /> |
-| End of line | <Keys keys="$" /> not holding <Keys keys="l" /> |
+| End of line | <Keys keys="$" /> |
 | Matching paren | <Keys keys="%" /> |
 | Find on line | <Keys keys="f" /> / <Keys keys="t" /> |
-
-## With operators
-
-<Keys keys="dl" /> deletes the character under the cursor (same idea as <Keys keys="x" />).
-<Keys keys="dh" /> deletes the character to the left (same idea as <Keys keys="X" />).
-<Keys keys="dj" /> deletes this line and the next.
+| Screen row | <Keys keys="gj" /> / <Keys keys="gk" /> |

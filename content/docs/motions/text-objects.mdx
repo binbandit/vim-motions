@@ -1,15 +1,16 @@
 ---
 title: Text Objects
-description: Operate on words, sentences, paragraphs, quotes, brackets, and tags.
+description: "Every built-in i/a text object — words, sentences, quotes, brackets, tags."
 ---
 
-Text objects answer: *what thing am I editing?* Use them **after** an operator (or in Visual mode).
+Text objects answer: *what thing am I editing?* Use them **after** an operator, or in Visual mode. They are listed in `:help object-select`.
 
 ```text
 d i w     delete inner word
 c a "     change a quoted string (includes quotes)
 v i [     visually select inside brackets
 y a p     yank a paragraph
+d g n     delete next search match (see Search)
 ```
 
 ## Inner vs a (around)
@@ -19,7 +20,7 @@ y a p     yank a paragraph
 | <Keys keys="i" /> | **Inner** — contents only |
 | <Keys keys="a" /> | **A / around** — contents + delimiters / whitespace |
 
-## Word & paragraph
+## Word, sentence, paragraph
 
 <MotionList>
   <Motion keys="iw" name="Inner word" />
@@ -32,42 +33,55 @@ y a p     yank a paragraph
   <Motion keys="ap" name="A paragraph" />
 </MotionList>
 
-## Quotes & brackets
+## Brackets & blocks
+
+Any of the open/close forms work (`i(` same as `i)`):
 
 <MotionList>
-  <Motion keys='i" a"' name="Double quotes" example='ci" — change inside "..."' />
-  <Motion keys="i' a'" name="Single quotes" />
-  <Motion keys="i` a`" name="Backticks" />
-  <Motion keys="i) a) / ib ab" name="Parentheses" example="Also i( a(" />
-  <Motion keys="i] a]" name="Square brackets" example="Also i[ a[" />
-  <Motion keys="i} a} / iB aB" name="Curly braces" example="Also i{ a{" />
-  <Motion keys="i> a>" name="Angle brackets" example="Also i&lt; a&lt;" />
+  <Motion keys="ib / ab / i( / a(" name="Parentheses ()" />
+  <Motion keys="i[ / a[ / i] / a]" name="Square brackets []" />
+  <Motion keys="iB / aB / i{ / a{" name="Curly braces {}" />
+  <Motion keys="i< / a< / i> / a>" name="Angle brackets <>" />
 </MotionList>
 
-## Tags & more
+## Quotes
 
 <MotionList>
-  <Motion keys="it at" name="HTML/XML tags" example="cit — change inside &lt;div&gt;...&lt;/div&gt;" />
-  <Motion keys="i&lt;space&gt;" name="(plugin) often: argument text objects" example="Many setups add ia/aa for function args via targets.vim / mini.ai / nvim-treesitter-textobjects" />
+  <Motion keys={'i" / a"'} name="Double quotes" example={'ci" — change inside "..."'} />
+  <Motion keys="i' / a'" name="Single quotes" />
+  <Motion keys="i` / a`" name="Backticks" />
 </MotionList>
 
-## Visual mode
+## Tags
 
-Press <Keys keys="v" /> then a text object: <Keys keys="vi{" />, <Keys keys={'va"'} />. Extend with `o` to swap ends, or another object.
+<MotionList>
+  <Motion keys="it" name="Inner tag block" example="Inside &lt;div&gt;…&lt;/div&gt;" />
+  <Motion keys="at" name="A tag block" example="Includes the tags" />
+</MotionList>
+
+## Search match as object
+
+<Keys keys="gn" /> / <Keys keys="gN" /> select the next/previous search match and work with operators (`dgn`, `cgn`). Full detail: [Search](/docs/motions/search).
 
 ## Everyday combos
 
 | Combo | Result |
 | --- | --- |
-| <Keys keys='ci"' /> | Replace string contents |
+| <Keys keys={'ci"'} /> | Replace string contents |
 | <Keys keys="ci(" /> | Replace inside call/args |
 | <Keys keys="ca{" /> | Replace block including braces |
+| <Keys keys="cit" /> | Change inside HTML tag |
 | <Keys keys="dit" /> | Delete tag contents |
 | <Keys keys="yap" /> | Copy paragraph |
 | <Keys keys="=ip" /> | Re-indent paragraph |
 | <Keys keys=">ap" /> | Indent paragraph |
 | <Keys keys="gUiw" /> | Uppercase word |
+| <Keys keys="cgn" /> | Change next search match |
 
 ## Nesting
 
 With nested brackets, Vim picks the **smallest** object containing the cursor. Move inside the pair you want first, or use Visual and expand.
+
+## Plugins (not built-in)
+
+Argument objects (`ia`/`aa`), function bodies, etc. come from plugins (targets.vim, mini.ai, nvim-treesitter-textobjects). This site documents **built-in** objects only.

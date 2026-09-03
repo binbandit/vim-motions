@@ -1,0 +1,29 @@
+---
+title: Folds
+description: "[z ]z zj zk — move by folds."
+---
+
+Fold motions live in `:help fold.txt`. They move the cursor relative to fold structure.
+
+<MotionList>
+  <Motion keys="[z" name="To start of current open fold" example="If already there, to start of containing fold" />
+  <Motion keys="]z" name="To end of current open fold" />
+  <Motion keys="zj" name="Down to start of next fold" example="Closed folds count; useful to hop fold-to-fold" />
+  <Motion keys="zk" name="Up to end of previous fold" />
+</MotionList>
+
+## Notes
+
+- These work whether you use manual, indent, syntax, or marker folds.
+- They are cursor motions — usable after operators when the fold range is what you want (often you open/close folds instead: `zo` `zc` `za` … — those are fold **commands**, not motions).
+
+## Related fold commands (not motions)
+
+| Keys | Action |
+| --- | --- |
+| <Keys keys="zo" /> | Open fold |
+| <Keys keys="zc" /> | Close fold |
+| <Keys keys="za" /> | Toggle fold |
+| <Keys keys="zR" /> | Open all folds |
+| <Keys keys="zM" /> | Close all folds |
+| <Keys keys="zf{motion}" /> | Create fold over motion |

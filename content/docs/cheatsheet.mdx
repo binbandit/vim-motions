@@ -1,101 +1,99 @@
 ---
 title: Cheatsheet
-description: Dense lookup for Vim motions, operators, and text objects.
+description: "Dense lookup for every built-in Vim motion family, plus common operators."
 full: true
 ---
 
-Quick scan while you code. Search with <Kbd>⌘</Kbd><Kbd>K</Kbd> for details.
+Quick scan while you code. Full inventory: [All motions](/docs/motions/all). Search with <Kbd>⌘</Kbd><Kbd>K</Kbd>.
 
-## Motions
+## Left-right / up-down
 
 | Keys | Action |
 | --- | --- |
 | <Keys keys="h j k l" /> | Left / down / up / right |
-| <Keys keys="w W e E" /> | Next word/WORD / end |
-| <Keys keys="b B ge" /> | Back word / end of prev |
-| <Keys keys="0 ^ $" /> | Col1 / first non-blank / EOL |
-| <Keys keys="gg G" /> | File top / bottom (count → line) |
+| <Keys keys="gj gk" /> | Screen-line down / up |
+| <Keys keys="- + _" /> | Up/down to first non-blank |
+| <Keys keys="0 ^ $ g_" /> | Col1 / first non-blank / EOL / last non-blank |
+| <Keys keys="\|" /> | Column `[count]` |
+| <Keys keys="g0 g^ g$ gm gM" /> | Soft-wrap line helpers |
+
+## Words / sentences / paragraphs / sections
+
+| Keys | Action |
+| --- | --- |
+| <Keys keys="w W e E b B ge gE" /> | word / WORD moves |
+| <Keys keys="( )" /> | Sentence back / forward |
+| <Keys keys="{ }" /> | Paragraph back / forward |
+| <Keys keys="[[ ]] [] ][" /> | Sections / col-1 braces |
+
+## Lines / file
+
+| Keys | Action |
+| --- | --- |
+| <Keys keys="gg G" /> | First / last line (`[count]` → line) |
+| <Keys keys="{n}%" /> | `{n}` percent of file |
+| <Keys keys="go" /> | Byte offset `[count]` |
+| <Keys keys="H M L" /> | Window top / mid / bottom |
+
+## Search / find
+
+| Keys | Action |
+| --- | --- |
 | <Keys keys="f F t T ; ," /> | Find / till on line; repeat |
 | <Keys keys="/ ? n N" /> | Search; next / prev |
-| <Keys keys="* # g* g#" /> | Word under cursor search |
-| <Keys keys="%" /> | Matching pair / `{count}%` |
-| <Keys keys="H M L" /> | Window top / mid / bottom |
-| <Keys keys="Ctrl-d/u/f/b" /> | Half / full page scroll |
-| <Keys keys="zz zt zb" /> | Center / top / bottom cursor |
-| <Keys keys="gd gD" /> | Local / global definition |
-| <Keys keys="Ctrl-o Ctrl-i" /> | Jump list back / forward |
-| <Keys keys="'' ``" /> | Prev jump line / exact |
+| <Keys keys="* # g* g#" /> | Word under cursor |
+| <Keys keys="gd gD" /> | Local / global declaration |
+| <Keys keys="gn gN" /> | Next / prev match as text object |
 
-## Text objects (after operator or `v`)
+## Text objects
 
 | Keys | Object |
 | --- | --- |
 | <Keys keys="iw aw iW aW" /> | word / WORD |
 | <Keys keys="is as ip ap" /> | sentence / paragraph |
+| <Keys keys="ib ab iB aB" /> | `()` / `{}` |
+| <Keys keys="i[ a[ i< a<" /> | `[]` / `<>` |
 | <Keys keys={'i" a" i\' a\' i` a`'} /> | quotes |
-| <Keys keys="i) a) ib ab" /> | parentheses |
-| <Keys keys="i] a] i} a}" /> | `[]` / `{}` (`iB aB`) |
-| <Keys keys="it at" /> | XML/HTML tags |
-| <Keys keys="i> a>" /> | angle brackets |
+| <Keys keys="it at" /> | tags |
 
-## Operators
+## Matching / structure
+
+| Keys | Action |
+| --- | --- |
+| <Keys keys="%" /> | Match `([{`, comment, `#if` |
+| <Keys keys="[( [{" /> | Prev unmatched `(` / `{` |
+| <Keys keys="]) ]}" /> | Next unmatched `)` / `}` |
+| <Keys keys="]m [m ]M [M" /> | Method start/end |
+| <Keys keys="[# ]#" /> | `#if` / `#endif` |
+| <Keys keys="[/ ]/" /> | `/*` / `*/` |
+
+## Marks / jumps / folds
+
+| Keys | Action |
+| --- | --- |
+| <Keys keys="m{a} '{a} `{a}" /> | Set / line jump / exact |
+| <Keys keys="'' ``" /> | Before latest jump |
+| <Keys keys="'[ '] '< '>" /> | Change/yank/visual ends |
+| <Keys keys="Ctrl-o Ctrl-i" /> | Jump list |
+| <Keys keys="g; g," /> | Change list |
+| <Keys keys="[z ]z zj zk" /> | Fold motions |
+
+## Operators (not motions)
 
 | Keys | Action |
 | --- | --- |
 | <Keys keys="d c y" /> | Delete / change / yank |
 | <Keys keys="dd cc yy" /> | Whole line |
-| <Keys keys="D C Y" /> | To EOL / line yank |
-| <Keys keys="x X s S" /> | Del char / sub char / sub line |
 | <Keys keys="> < =" /> | Indent / outdent / format |
-| <Keys keys="g~ gu gU" /> | Toggle / lower / upper case |
-| <Keys keys="! gq" /> | Filter / format text |
-| <Keys keys="p P" /> | Put after / before |
+| <Keys keys="g~ gu gU" /> | Case |
+| <Keys keys="p P ." /> | Put / put / repeat |
 
-## Insert & edit
-
-| Keys | Action |
-| --- | --- |
-| <Keys keys="i a I A" /> | Insert / append (BOL nonblank / EOL) |
-| <Keys keys="o O" /> | Open line below / above |
-| <Keys keys="r R" /> | Replace char / Replace mode |
-| <Keys keys="u Ctrl-r" /> | Undo / redo |
-| <Keys keys="." /> | Repeat change |
-| <Keys keys="q{a} @{a}" /> | Record / play macro |
-| <Keys keys="Esc Ctrl-o" /> | Normal / one Normal from Insert |
-
-## Visual
+## Insert / visual / windows (quick)
 
 | Keys | Action |
 | --- | --- |
-| <Keys keys="v V Ctrl-v" /> | Char / line / block |
-| <Keys keys="gv o" /> | Reselect / other end |
-| <Keys keys="I A" /> | Block insert / append (after Esc) |
-
-## Windows / buffers / tabs
-
-| Keys | Action |
-| --- | --- |
-| <Keys keys="Ctrl-w s/v" /> | Split horiz / vert |
+| <Keys keys="i a I A o O" /> | Enter Insert |
+| <Keys keys="v V Ctrl-v gv" /> | Visual modes / reselect |
 | <Keys keys="Ctrl-w h/j/k/l" /> | Focus window |
-| <Keys keys="Ctrl-w q/o" /> | Quit window / only |
-| <Keys keys=":bn :bp Ctrl-^" /> | Next / prev / alternate buffer |
-| <Keys keys="gt gT {n}gt" /> | Tabs |
-
-## Marks & registers
-
-| Keys | Action |
-| --- | --- |
-| <Keys keys="m{a} '{a} `{a}" /> | Set / line jump / exact jump |
-| <Keys keys='"{a}y "{a}p' /> | Yank / put named register |
-| <Keys keys='"+y "+p' /> | Clipboard |
-| <Keys keys='"_d' /> | Black-hole delete |
-
-## Ex essentials
-
-```vim
-:w :q :wq :x :q!
-:e {file}  :b {name}  :ls
-:%s/old/new/gc
-:noh
-:help {topic}
-```
+| <Keys keys=":bn :bp Ctrl-^" /> | Buffers |
+| <Keys keys="gt gT" /> | Tabs |

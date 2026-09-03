@@ -1,23 +1,23 @@
 ---
 title: Word Motions
-description: w e b and WORD variants for code-speed navigation.
+description: w e b ge and WORD variants — every built-in word motion.
 ---
 
-Vim has two notions of “word”:
+Vim has two notions of “word” (`:help word-motions`):
 
-- **word** (`w`/`e`/`b`) — letters, digits, underscores as one class; punctuation is separate
-- **WORD** (`W`/`E`/`B`) — any non-blank sequence separated only by whitespace
+- **word** (`w`/`e`/`b`/`ge`) — letters, digits, underscores as one class; punctuation is separate
+- **WORD** (`W`/`E`/`B`/`gE`) — non-blank sequences separated only by whitespace
 
 ## Forward / back
 
 <MotionList>
-  <Motion keys="w" name="Next word start" example={"foo|Bar.baz  →  w  →  fooBar|.baz"} />
-  <Motion keys="W" name="Next WORD start" example="Skips over punctuation groups as one unit" />
-  <Motion keys="e" name="End of word" example="Lands on last character of the word" />
+  <Motion keys="w" name="Next word start" example="Also Shift-→ · exclusive" />
+  <Motion keys="W" name="Next WORD start" example="Also Ctrl-→" />
+  <Motion keys="e" name="End of word" example="Inclusive" />
   <Motion keys="E" name="End of WORD" />
-  <Motion keys="b" name="Previous word start" />
-  <Motion keys="B" name="Previous WORD start" />
-  <Motion keys="ge" name="End of previous word" />
+  <Motion keys="b" name="Previous word start" example="Also Shift-← · exclusive" />
+  <Motion keys="B" name="Previous WORD start" example="Also Ctrl-←" />
+  <Motion keys="ge" name="End of previous word" example="Inclusive" />
   <Motion keys="gE" name="End of previous WORD" />
 </MotionList>
 
@@ -25,11 +25,12 @@ Vim has two notions of “word”:
 
 | Combo | Why |
 | --- | --- |
-| <Keys keys="dw" /> | Deletes from cursor to next word start (often includes trailing space) |
+| <Keys keys="dw" /> | Deletes to next word start (often includes trailing space) |
 | <Keys keys="de" /> | Deletes through end of word (keeps following space) |
-| <Keys keys="diw" /> | Deletes the whole word under cursor (text object — usually what you want) |
+| <Keys keys="diw" /> | Deletes the whole word under cursor (text object) |
 | <Keys keys="daw" /> | Deletes word **and** surrounding whitespace |
-| <Keys keys="cw" /> | Change to next word (classic; often similar to `ce`) |
+| <Keys keys="cw" /> | Change to next word (often similar to `ce`) |
+| <Keys keys="dge" /> | Delete back through end of previous word |
 
 ## Code example
 
@@ -39,7 +40,11 @@ const userName = fetchUser();
 ```
 
 - Cursor on `u` of `userName`
-- <Keys keys="w" /> → `=`
-- <Keys keys="W" /> → `fetchUser();` start (depends on spacing)
+- <Keys keys="w" /> → start of next word after `userName`
+- <Keys keys="e" /> → last char of `userName`
 - <Keys keys="diw" /> → deletes `userName`
 - <Keys keys="daw" /> → deletes `userName` and a neighboring space
+
+## Special empty-line behavior
+
+On an empty line, `w`/`W` move to the first word of the next non-empty line; `b`/`B` similarly go backward. See `:help word-motions` for edge cases with operators at EOL.

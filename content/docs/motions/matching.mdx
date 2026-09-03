@@ -1,0 +1,62 @@
+---
+title: Matching & Structure
+description: "%, unmatched brackets, methods, #if, and C comments."
+---
+
+## Match item under cursor
+
+<MotionList>
+  <Motion keys="%" name="Jump to matching item" example="([{ }]) · /* */ · #if/#else/#endif — inclusive; {count}% is percentage (see Lines)" />
+</MotionList>
+
+Items recognized:
+
+- Parentheses / brackets / braces (customize with `'matchpairs'`)
+- C comments `/*` `*/`
+- C preprocessor `#if` `#ifdef` `#else` `#elif` `#endif`
+
+**Note:** Bare <Keys keys="%" /> does **not** take a count for matching. <Keys keys="50%" /> means “50% of the file” ([Lines](/docs/motions/lines)).
+
+The **matchit** plugin extends `%` to more structures (HTML tags, `if`/`fi`, …).
+
+## Unmatched brackets (from inside a block)
+
+<MotionList>
+  <Motion keys="[(" name="Previous unmatched (" />
+  <Motion keys="[{" name="Previous unmatched {" example="From a case label, [{ often finds the switch {" />
+  <Motion keys="])" name="Next unmatched )" />
+  <Motion keys="]}" name="Next unmatched }" />
+</MotionList>
+
+Unlike <Keys keys="%" />, these work from **anywhere inside** the block.
+
+## Methods (Java-like class / method braces)
+
+Assumes class and methods each wrapped in `{` `}`:
+
+<MotionList>
+  <Motion keys="]m" name="Next method start" />
+  <Motion keys="]M" name="Next method end" />
+  <Motion keys="[m" name="Previous method start" />
+  <Motion keys="[M" name="Previous method end" />
+</MotionList>
+
+## Preprocessor conditionals
+
+<MotionList>
+  <Motion keys="[#" name="Previous unmatched #if / #else" />
+  <Motion keys="]#" name="Next unmatched #else / #endif" />
+</MotionList>
+
+Then <Keys keys="%" /> can jump to the matching preprocessor line.
+
+## C comments
+
+<MotionList>
+  <Motion keys="[/" name="Previous /* start" example="Also [* " />
+  <Motion keys="]/" name="Next */ end" example="Also ]* " />
+</MotionList>
+
+## Window lines (also here in motion.txt)
+
+<Keys keys="H" /> <Keys keys="M" /> <Keys keys="L" /> are documented under [Scrolling](/docs/motions/scrolling) — they are true motions (`yH`, `dL`, …).

@@ -1,30 +1,35 @@
 ---
-title: Line Motions
-description: Start, end, first non-blank, file top/bottom, and soft wrap helpers.
+title: Line & Column Motions
+description: "0 ^ $ g_ | gg G go {count}% and soft-wrap line helpers."
 ---
 
 ## Within a line
 
 <MotionList>
-  <Motion keys="0" name="First column" example="Column 1, even if blank/indent" />
-  <Motion keys="^" name="First non-blank character" />
-  <Motion keys="$" name="End of line" example="With count: 2$ → end of next line" />
-  <Motion keys="g_" name="Last non-blank character" />
-  <Motion keys="g0" name="First screen column of soft-wrapped line" />
-  <Motion keys="g^" name="First non-blank screen column (wrap)" />
-  <Motion keys="g$" name="Last screen column of soft-wrapped line" />
-  <Motion keys="gm" name="Middle of screen line" />
+  <Motion keys="0" name="First column" example="Column 1 · also Home · exclusive" />
+  <Motion keys="^" name="First non-blank character" example="Exclusive; count ignored" />
+  <Motion keys="$" name="End of line" example="Inclusive; 2$ → end of next line" />
+  <Motion keys="g_" name="Last non-blank character" example="Inclusive" />
+  <Motion keys="|" name="Screen column [count]" example="Default count 1 · exclusive · :help bar" />
+  <Motion keys="g0" name="First character of soft-wrapped screen line" />
+  <Motion keys="g^" name="First non-blank of soft-wrapped screen line" />
+  <Motion keys="g$" name="Last character of soft-wrapped screen line" />
+  <Motion keys="gm" name="Middle of screen line" example="Like g0 then half 'columns'" />
   <Motion keys="gM" name="Middle of text line" />
 </MotionList>
 
 ## Across the file
 
 <MotionList>
-  <Motion keys="gg" name="First line" example="With count: 42gg → line 42" />
-  <Motion keys="G" name="Last line" example="With count: 42G → line 42" />
-  <Motion keys=":{n}" name="Go to line n" example=":80 then Enter" />
-  <Motion keys="%" name="Go to matching pair / percentage" example="On (, ), [, ], {, }, or with count: 50% → half file" />
+  <Motion keys="gg" name="Line [count] (default 1)" example="Also Ctrl-Home · linewise · adds to jumplist" />
+  <Motion keys="G" name="Line [count] (default last)" example="Linewise · jumplist" />
+  <Motion keys="Ctrl-End" name="Like G then $" />
+  <Motion keys="{count}%" name="To count% through the file" example="Linewise · formula: (count * lines + 99) / 100" />
+  <Motion keys=":{n}" name="Ex goto line n" example=":80 then Enter" />
+  <Motion keys="go" name="Goto byte [count] in the buffer" example="Also :go[to] · default 1 · respects 'fileformat' EOL size" />
 </MotionList>
+
+**Reminder:** <Keys keys="%" /> without a count is **match item** ([Matching](/docs/motions/matching)), not percentage. Percentage always needs a count: <Keys keys="50%" />.
 
 ## Line operators (shorthand)
 
@@ -32,12 +37,12 @@ description: Start, end, first non-blank, file top/bottom, and soft wrap helpers
 | --- | --- |
 | <Keys keys="dd" /> | Delete line |
 | <Keys keys="cc" /> / <Keys keys="S" /> | Change line |
-| <Keys keys="yy" /> / <Keys keys="Y" /> | Yank line (`Y` is linewise like `yy` in Vim) |
+| <Keys keys="yy" /> / <Keys keys="Y" /> | Yank line |
 | <Keys keys="D" /> | Delete to end of line (`d$`) |
 | <Keys keys="C" /> | Change to end of line (`c$`) |
 | <Keys keys="I" /> | Insert at first non-blank |
 | <Keys keys="A" /> | Append at end of line |
 
-## Soft wrap note
+## Soft wrap
 
-When `wrap` is on, <Keys keys="j" />/<Keys keys="k" /> move by **buffer lines**. Use <Keys keys="gj" />/<Keys keys="gk" /> to move by **screen rows**.
+<Keys keys="j" />/<Keys keys="k" /> = buffer lines. <Keys keys="gj" />/<Keys keys="gk" /> = screen rows. See [Basic](/docs/motions/basic).
