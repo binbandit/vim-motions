@@ -1,0 +1,42 @@
+---
+title: Insert Mode
+description: Leave Insert faster — completion, indent, and one-shot Normal commands.
+---
+
+Stay in Insert only while typing. These keys help without fully escaping.
+
+## Leave / poke Normal
+
+<MotionList>
+  <Motion keys="Esc / Ctrl-[" name="Back to Normal" />
+  <Motion keys="Ctrl-c" name="Back to Normal (skips some Insert abbreviations)" />
+  <Motion keys="Ctrl-o" name="One Normal command, then return to Insert" example="Ctrl-o A — jump end of line, still Insert after" />
+</MotionList>
+
+## Insert / indent
+
+<MotionList>
+  <Motion keys="Ctrl-h" name="Backspace" />
+  <Motion keys="Ctrl-w" name="Delete previous word" />
+  <Motion keys="Ctrl-u" name="Delete to start of line (insert start)" />
+  <Motion keys="Ctrl-t" name="Indent line in Insert" />
+  <Motion keys="Ctrl-d" name="Outdent line in Insert" />
+  <Motion keys="Ctrl-j / Ctrl-m" name="Newline" />
+</MotionList>
+
+## Completion & paste
+
+<MotionList>
+  <Motion keys="Ctrl-n" name="Next completion match" />
+  <Motion keys="Ctrl-p" name="Previous completion match" />
+  <Motion keys="Ctrl-x Ctrl-f" name="Filename completion" />
+  <Motion keys="Ctrl-x Ctrl-l" name="Whole-line completion" />
+  <Motion keys="Ctrl-x Ctrl-o" name="Omni-completion (filetype)" />
+  <Motion keys="Ctrl-r {reg}" name="Insert register contents" example='Ctrl-r " — paste unnamed register' />
+  <Motion keys="Ctrl-r =" name="Insert expression result" />
+  <Motion keys="Ctrl-v" name="Insert next char literally / digraph entry point (with Ctrl-k)" />
+</MotionList>
+
+## Digraphs
+
+<Keys keys="Ctrl-k" /> then two chars inserts a digraph (`Ctrl-k a:` → ä). See `:digraphs`.

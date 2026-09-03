@@ -1,0 +1,73 @@
+---
+title: Text Objects
+description: Operate on words, sentences, paragraphs, quotes, brackets, and tags.
+---
+
+Text objects answer: *what thing am I editing?* Use them **after** an operator (or in Visual mode).
+
+```text
+d i w     delete inner word
+c a "     change a quoted string (includes quotes)
+v i [     visually select inside brackets
+y a p     yank a paragraph
+```
+
+## Inner vs a (around)
+
+| Prefix | Meaning |
+| --- | --- |
+| <Keys keys="i" /> | **Inner** — contents only |
+| <Keys keys="a" /> | **A / around** — contents + delimiters / whitespace |
+
+## Word & paragraph
+
+<MotionList>
+  <Motion keys="iw" name="Inner word" />
+  <Motion keys="aw" name="A word (with surrounding space)" />
+  <Motion keys="iW" name="Inner WORD" />
+  <Motion keys="aW" name="A WORD" />
+  <Motion keys="is" name="Inner sentence" />
+  <Motion keys="as" name="A sentence" />
+  <Motion keys="ip" name="Inner paragraph" />
+  <Motion keys="ap" name="A paragraph" />
+</MotionList>
+
+## Quotes & brackets
+
+<MotionList>
+  <Motion keys='i" a"' name="Double quotes" example='ci" — change inside "..."' />
+  <Motion keys="i' a'" name="Single quotes" />
+  <Motion keys="i` a`" name="Backticks" />
+  <Motion keys="i) a) / ib ab" name="Parentheses" example="Also i( a(" />
+  <Motion keys="i] a]" name="Square brackets" example="Also i[ a[" />
+  <Motion keys="i} a} / iB aB" name="Curly braces" example="Also i{ a{" />
+  <Motion keys="i> a>" name="Angle brackets" example="Also i&lt; a&lt;" />
+</MotionList>
+
+## Tags & more
+
+<MotionList>
+  <Motion keys="it at" name="HTML/XML tags" example="cit — change inside &lt;div&gt;...&lt;/div&gt;" />
+  <Motion keys="i&lt;space&gt;" name="(plugin) often: argument text objects" example="Many setups add ia/aa for function args via targets.vim / mini.ai / nvim-treesitter-textobjects" />
+</MotionList>
+
+## Visual mode
+
+Press <Keys keys="v" /> then a text object: <Keys keys="vi{" />, <Keys keys={'va"'} />. Extend with `o` to swap ends, or another object.
+
+## Everyday combos
+
+| Combo | Result |
+| --- | --- |
+| <Keys keys='ci"' /> | Replace string contents |
+| <Keys keys="ci(" /> | Replace inside call/args |
+| <Keys keys="ca{" /> | Replace block including braces |
+| <Keys keys="dit" /> | Delete tag contents |
+| <Keys keys="yap" /> | Copy paragraph |
+| <Keys keys="=ip" /> | Re-indent paragraph |
+| <Keys keys=">ap" /> | Indent paragraph |
+| <Keys keys="gUiw" /> | Uppercase word |
+
+## Nesting
+
+With nested brackets, Vim picks the **smallest** object containing the cursor. Move inside the pair you want first, or use Visual and expand.

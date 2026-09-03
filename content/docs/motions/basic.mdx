@@ -1,0 +1,40 @@
+---
+title: Basic Motions
+description: Character and directional movement — hjkl and friends.
+---
+
+These are the smallest cursor steps. Master them before anything else.
+
+## Directional
+
+<MotionList>
+  <Motion keys="h" name="Left" example="One character left (same as ←)" />
+  <Motion keys="j" name="Down" example="One line down (same as ↓)" />
+  <Motion keys="k" name="Up" example="One line up (same as ↑)" />
+  <Motion keys="l" name="Right" example="One character right (same as →)" />
+</MotionList>
+
+Prefer <Keys keys="h j k l" /> over arrow keys — your hands stay on home row.
+
+## Character / screen cell
+
+<MotionList>
+  <Motion keys="Space" name="Right (like l)" />
+  <Motion keys="Backspace" name="Left (like h), can cross lines" />
+  <Motion keys="Ctrl-h" name="Same as Backspace in Normal" />
+</MotionList>
+
+## Useful habits
+
+| Goal | Prefer |
+| --- | --- |
+| Next word | <Keys keys="w" /> not many <Keys keys="l" /> |
+| End of line | <Keys keys="$" /> not holding <Keys keys="l" /> |
+| Matching paren | <Keys keys="%" /> |
+| Find on line | <Keys keys="f" /> / <Keys keys="t" /> |
+
+## With operators
+
+<Keys keys="dl" /> deletes the character under the cursor (same idea as <Keys keys="x" />).
+<Keys keys="dh" /> deletes the character to the left (same idea as <Keys keys="X" />).
+<Keys keys="dj" /> deletes this line and the next.

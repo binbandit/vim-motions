@@ -1,0 +1,52 @@
+---
+title: Macros
+description: Record a sequence once, replay it across the file.
+---
+
+Macros store keystrokes in a register.
+
+## Record & play
+
+<MotionList>
+  <Motion keys="q{a-z}" name="Start recording into register" example="qa — record into a" />
+  <Motion keys="q" name="Stop recording" />
+  <Motion keys="@{a-z}" name="Play macro" example="@a" />
+  <Motion keys="@@" name="Replay last macro" />
+  <Motion keys="[count]@{a-z}" name="Play macro count times" example="10@a" />
+</MotionList>
+
+## Recipe
+
+1. Search or navigate to the first target.
+2. <Keys keys="qa" /> — start recording.
+3. Perform the edit; end with a motion to the **next** target (e.g. <Keys keys="n" />).
+4. <Keys keys="q" /> — stop.
+5. <Keys keys="@a" /> or <Keys keys="99@a" /> — replay.
+
+## Edit a macro
+
+Macros are just register text:
+
+```text
+"ap        put macro as text
+(edit)
+"ayy       yank line back (or use 0yank)
+```
+
+Or: `:let @a = "…keys…"` — use `\"` escapes carefully.
+
+## Recursive macros
+
+Clear a register, record a macro that ends with `@{that-register}`:
+
+```text
+qaq        clear a by recording empty
+qa...@aq   record; ends by calling a
+@a         runs until a motion fails
+```
+
+## Tips
+
+- Prefer text objects inside macros (`ciw`) over arrow spam.
+- Make macros fail-safe so a large count stops at file end.
+- Use a dedicated register (`q`, `w`, …) and don’t clobber yanks you need.

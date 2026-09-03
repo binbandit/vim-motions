@@ -1,0 +1,22 @@
+---
+title: Motions
+description: Move the cursor — alone, or as the target of an operator.
+---
+
+A **motion** moves the cursor. With an operator waiting, the same motion selects the range to act on.
+
+## Families
+
+<Cards>
+  <Card title="Basic" href="/docs/motions/basic" description="h j k l, arrows, character steps" />
+  <Card title="Words" href="/docs/motions/words" description="w W e E b B ge gE" />
+  <Card title="Lines" href="/docs/motions/lines" description="0 ^ $ gg G gm g_" />
+  <Card title="Search" href="/docs/motions/search" description="f t / ? * # n N ; ," />
+  <Card title="Text objects" href="/docs/motions/text-objects" description="iw ap i( at — with operators" />
+  <Card title="Jumps" href="/docs/motions/jumps" description="% gd [[ '' Ctrl-o" />
+  <Card title="Scrolling" href="/docs/motions/scrolling" description="Ctrl-d/u/f/b zz zt zb HML" />
+</Cards>
+
+## Inclusive vs exclusive
+
+Some motions include the end character (inclusive); others stop before it (exclusive). You rarely need to memorize this — notice what <Keys keys="d" /> deletes and adjust (`t` vs `f`, `e` vs `w`).

@@ -1,0 +1,42 @@
+---
+title: Delete
+description: d, x, D, and deleting with text objects.
+---
+
+Deleted text goes to a register (default unnamed `"`). Use black-hole <Keys keys='"_d' /> to delete without clobbering yank.
+
+## Core delete
+
+<MotionList>
+  <Motion keys="x" name="Delete character under cursor" example="Like dl" />
+  <Motion keys="X" name="Delete character before cursor" example="Like dh" />
+  <Motion keys="d{motion}" name="Delete over motion" />
+  <Motion keys="dd" name="Delete line" />
+  <Motion keys="D" name="Delete to end of line" example="Like d$" />
+  <Motion keys="J" name="Join lines" example="Deletes newline; spaces smartly" />
+  <Motion keys="gJ" name="Join without spaces" />
+</MotionList>
+
+## High-value combos
+
+| Keys | Result |
+| --- | --- |
+| <Keys keys="dw" /> | Delete to next word |
+| <Keys keys="diw" /> | Delete word under cursor |
+| <Keys keys="daw" /> | Delete word + space |
+| <Keys keys="dd" /> | Delete line |
+| <Keys keys="dgg" /> | Delete to top of file |
+| <Keys keys="dG" /> | Delete to end of file |
+| <Keys keys="d%" /> | Delete to matching pair |
+| <Keys keys='di"' /> | Delete inside quotes |
+| <Keys keys="dit" /> | Delete inside tag |
+| <Keys keys="dip" /> | Delete paragraph contents |
+| <Keys keys="d/foo" /> | Delete until search match |
+
+## Visual delete
+
+Select with <Keys keys="v" /> / <Keys keys="V" /> / <Keys keys="Ctrl-v" />, then <Keys keys="d" /> or <Keys keys="x" />.
+
+## Undo
+
+<Keys keys="u" /> undoes; <Keys keys="Ctrl-r" /> redoes. See [Undo & repeat](/docs/editing/undo).

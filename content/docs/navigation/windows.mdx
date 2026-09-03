@@ -1,0 +1,43 @@
+---
+title: Windows
+description: Split the screen and move between windows.
+---
+
+## Split
+
+<MotionList>
+  <Motion keys=":sp / Ctrl-w s" name="Horizontal split" />
+  <Motion keys=":vsp / Ctrl-w v" name="Vertical split" />
+  <Motion keys=":new" name="Horizontal split, empty buffer" />
+  <Motion keys=":vnew" name="Vertical split, empty buffer" />
+  <Motion keys="Ctrl-w q" name="Quit a window" />
+  <Motion keys="Ctrl-w c" name="Close window" />
+  <Motion keys="Ctrl-w o" name="Only — close other windows" />
+</MotionList>
+
+## Move focus
+
+<MotionList>
+  <Motion keys="Ctrl-w h/j/k/l" name="Focus left/down/up/right" />
+  <Motion keys="Ctrl-w w" name="Next window" />
+  <Motion keys="Ctrl-w W" name="Previous window" />
+  <Motion keys="Ctrl-w p" name="Last accessed window" />
+  <Motion keys="Ctrl-w t / b" name="Top-left / bottom-right window" />
+</MotionList>
+
+## Move & resize
+
+<MotionList>
+  <Motion keys="Ctrl-w H/J/K/L" name="Move window to far left/down/up/right" />
+  <Motion keys="Ctrl-w r / R" name="Rotate windows" />
+  <Motion keys="Ctrl-w x" name="Exchange with next" />
+  <Motion keys="Ctrl-w =" name="Equalize sizes" />
+  <Motion keys="Ctrl-w _" name="Maximize height" />
+  <Motion keys="Ctrl-w |" name="Maximize width" />
+  <Motion keys="Ctrl-w +" name="Increase height" />
+  <Motion keys="Ctrl-w -" name="Decrease height" />
+  <Motion keys="Ctrl-w >" name="Increase width" />
+  <Motion keys="Ctrl-w <" name="Decrease width" />
+</MotionList>
+
+Many people remap <Keys keys="Ctrl-h/j/k/l" /> to window moves in their vimrc.

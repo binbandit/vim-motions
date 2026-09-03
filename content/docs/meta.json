@@ -1,0 +1,17 @@
+{
+  "title": "Vim Motions",
+  "pages": [
+    "index",
+    "---Learn---",
+    "getting-started",
+    "---Move---",
+    "motions",
+    "---Act---",
+    "operators",
+    "editing",
+    "---Navigate---",
+    "navigation",
+    "---Lookup---",
+    "cheatsheet"
+  ]
+}

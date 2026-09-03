@@ -1,0 +1,48 @@
+---
+title: Yank & Put
+description: Copy and paste with y, p, P, and registers.
+---
+
+## Yank
+
+<MotionList>
+  <Motion keys="y{motion}" name="Yank (copy) over motion" />
+  <Motion keys="yy / Y" name="Yank line" />
+  <Motion keys="yiw" name="Yank inner word" />
+  <Motion keys="yap" name="Yank a paragraph" />
+  <Motion keys='yi"' name="Yank inside quotes" />
+</MotionList>
+
+## Put (paste)
+
+<MotionList>
+  <Motion keys="p" name="Put after cursor / below line" example="Characterwise vs linewise depends on what was yanked" />
+  <Motion keys="P" name="Put before cursor / above line" />
+  <Motion keys="gp" name="Put after, cursor after new text" />
+  <Motion keys="gP" name="Put before, cursor after new text" />
+  <Motion keys="]p" name="Put and adjust indent" />
+</MotionList>
+
+## Registers (quick)
+
+| Register | Use |
+| --- | --- |
+| <Keys keys='"' /> | Unnamed — last delete/yank |
+| <Keys keys='"a' />–<Keys keys='"z' /> | Named |
+| <Keys keys='"A' /> | Append to register `a` |
+| <Keys keys='"0' /> | Last **yank** (not deletes) |
+| <Keys keys='"1' />–<Keys keys='"9' /> | Delete history |
+| <Keys keys='"+' /> | System clipboard (when available) |
+| <Keys keys='"*' /> | Primary selection (Linux) |
+| <Keys keys='"_' /> | Black hole — discard |
+
+Examples:
+
+```text
+"ayy      yank line into a
+"ap       put from a
+"+yiw     yank word to clipboard
+"_dd      delete line, keep previous yank
+```
+
+More in [Registers](/docs/navigation/registers).

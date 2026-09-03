@@ -1,0 +1,39 @@
+---
+title: Visual Mode
+description: Character, line, and block selections.
+---
+
+## Enter Visual
+
+<MotionList>
+  <Motion keys="v" name="Character-wise" />
+  <Motion keys="V" name="Line-wise" />
+  <Motion keys="Ctrl-v" name="Block / column" />
+  <Motion keys="gv" name="Reselect last selection" />
+</MotionList>
+
+## While selecting
+
+<MotionList>
+  <Motion keys="o" name="Jump to other end of selection" />
+  <Motion keys="iw / ap / i(" name="Expand via text objects" />
+  <Motion keys="d / x" name="Delete selection" />
+  <Motion keys="c / s" name="Change selection" />
+  <Motion keys="y" name="Yank selection" />
+  <Motion keys=">" name="Indent" />
+  <Motion keys="<" name="Outdent" />
+  <Motion keys="=" name="Auto-indent" />
+  <Motion keys="~ gU gu" name="Case transforms" />
+  <Motion keys=":" name="Ex command on range" example=":'&lt;,'&gt;s/foo/bar/g" />
+</MotionList>
+
+## Block editing
+
+1. <Keys keys="Ctrl-v" /> select a column.
+2. <Keys keys="I" /> insert at start of each line (or <Keys keys="A" /> at end).
+3. Type text, <Keys keys="Esc" /> — applies to all lines.
+4. <Keys keys="x" /> / <Keys keys="d" /> delete a column; <Keys keys="r" /> replace column chars.
+
+## Select all
+
+`ggVG` — top, line-visual, end. Or `:%` for Ex ranges.

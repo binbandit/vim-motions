@@ -1,0 +1,33 @@
+---
+title: Marks
+description: Bookmark positions and jump back instantly.
+---
+
+## Set & jump
+
+<MotionList>
+  <Motion keys="m{a-z}" name="Set mark in this file" example="ma" />
+  <Motion keys="m{A-Z}" name="Set global mark (file + position)" example="mA — works across files" />
+  <Motion keys="'{a-zA-Z}" name="Jump to first non-blank of mark line" />
+  <Motion keys="`{a-zA-Z}" name="Jump to exact mark position" />
+  <Motion keys=":marks" name="List marks" />
+  <Motion keys=":delmarks a b" name="Delete marks" />
+  <Motion keys=":delmarks!" name="Delete all lowercase marks" />
+</MotionList>
+
+## Special marks
+
+| Mark | Meaning |
+| --- | --- |
+| <Keys keys="''" /> / <Keys keys="``" /> | Previous jump position |
+| <Keys keys="'." /> / <Keys keys="`." /> | Last change |
+| <Keys keys="'^" /> | Last Insert exit |
+| <Keys keys="'[" /> / <Keys keys="']" /> | Start/end of last yank or change |
+| <Keys keys="'<" /> / <Keys keys="'>" /> | Start/end of last visual selection |
+| <Keys keys="0" />–<Keys keys="9" /> | Viminfo: `0` last exit file, etc. |
+
+## Workflow
+
+- `mm` before a risky experiment; `''` to return.
+- `mA` on an API definition; jump back from anywhere with `'A`.
+- Combine with operators carefully — marks are mainly for jumping.

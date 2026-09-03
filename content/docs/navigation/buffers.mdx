@@ -1,0 +1,33 @@
+---
+title: Buffers
+description: Files loaded in memory — navigate without thinking in tabs.
+---
+
+A **buffer** is a file (or empty text) in memory. Windows display buffers.
+
+## Commands
+
+<MotionList>
+  <Motion keys=":ls / :buffers" name="List buffers" />
+  <Motion keys=":b {name}" name="Edit buffer by name/number" example=":b main" />
+  <Motion keys=":bnext / :bn" name="Next buffer" />
+  <Motion keys=":bprev / :bp" name="Previous buffer" />
+  <Motion keys=":bfirst / :blast" name="First / last buffer" />
+  <Motion keys=":b#" name="Alternate buffer" example="Also Ctrl-^ or Ctrl-6" />
+  <Motion keys=":bd" name="Delete (unload) buffer" />
+  <Motion keys=":bd!" name="Delete even if modified" />
+  <Motion keys=":e {file}" name="Edit file in this window" />
+  <Motion keys=":e#" name="Edit alternate file" />
+</MotionList>
+
+## Flags in `:ls`
+
+- `%` current
+- `#` alternate
+- `a` active (visible)
+- `h` hidden
+- `+` modified
+
+## Tip
+
+Prefer buffers over proliferating tabs. Use [fzf](https://github.com/junegunn/fzf) / Telescope / etc. to fuzzy-switch buffers.

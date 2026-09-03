@@ -1,0 +1,101 @@
+---
+title: Cheatsheet
+description: Dense lookup for Vim motions, operators, and text objects.
+full: true
+---
+
+Quick scan while you code. Search with <Kbd>⌘</Kbd><Kbd>K</Kbd> for details.
+
+## Motions
+
+| Keys | Action |
+| --- | --- |
+| <Keys keys="h j k l" /> | Left / down / up / right |
+| <Keys keys="w W e E" /> | Next word/WORD / end |
+| <Keys keys="b B ge" /> | Back word / end of prev |
+| <Keys keys="0 ^ $" /> | Col1 / first non-blank / EOL |
+| <Keys keys="gg G" /> | File top / bottom (count → line) |
+| <Keys keys="f F t T ; ," /> | Find / till on line; repeat |
+| <Keys keys="/ ? n N" /> | Search; next / prev |
+| <Keys keys="* # g* g#" /> | Word under cursor search |
+| <Keys keys="%" /> | Matching pair / `{count}%` |
+| <Keys keys="H M L" /> | Window top / mid / bottom |
+| <Keys keys="Ctrl-d/u/f/b" /> | Half / full page scroll |
+| <Keys keys="zz zt zb" /> | Center / top / bottom cursor |
+| <Keys keys="gd gD" /> | Local / global definition |
+| <Keys keys="Ctrl-o Ctrl-i" /> | Jump list back / forward |
+| <Keys keys="'' ``" /> | Prev jump line / exact |
+
+## Text objects (after operator or `v`)
+
+| Keys | Object |
+| --- | --- |
+| <Keys keys="iw aw iW aW" /> | word / WORD |
+| <Keys keys="is as ip ap" /> | sentence / paragraph |
+| <Keys keys={'i" a" i\' a\' i` a`'} /> | quotes |
+| <Keys keys="i) a) ib ab" /> | parentheses |
+| <Keys keys="i] a] i} a}" /> | `[]` / `{}` (`iB aB`) |
+| <Keys keys="it at" /> | XML/HTML tags |
+| <Keys keys="i> a>" /> | angle brackets |
+
+## Operators
+
+| Keys | Action |
+| --- | --- |
+| <Keys keys="d c y" /> | Delete / change / yank |
+| <Keys keys="dd cc yy" /> | Whole line |
+| <Keys keys="D C Y" /> | To EOL / line yank |
+| <Keys keys="x X s S" /> | Del char / sub char / sub line |
+| <Keys keys="> < =" /> | Indent / outdent / format |
+| <Keys keys="g~ gu gU" /> | Toggle / lower / upper case |
+| <Keys keys="! gq" /> | Filter / format text |
+| <Keys keys="p P" /> | Put after / before |
+
+## Insert & edit
+
+| Keys | Action |
+| --- | --- |
+| <Keys keys="i a I A" /> | Insert / append (BOL nonblank / EOL) |
+| <Keys keys="o O" /> | Open line below / above |
+| <Keys keys="r R" /> | Replace char / Replace mode |
+| <Keys keys="u Ctrl-r" /> | Undo / redo |
+| <Keys keys="." /> | Repeat change |
+| <Keys keys="q{a} @{a}" /> | Record / play macro |
+| <Keys keys="Esc Ctrl-o" /> | Normal / one Normal from Insert |
+
+## Visual
+
+| Keys | Action |
+| --- | --- |
+| <Keys keys="v V Ctrl-v" /> | Char / line / block |
+| <Keys keys="gv o" /> | Reselect / other end |
+| <Keys keys="I A" /> | Block insert / append (after Esc) |
+
+## Windows / buffers / tabs
+
+| Keys | Action |
+| --- | --- |
+| <Keys keys="Ctrl-w s/v" /> | Split horiz / vert |
+| <Keys keys="Ctrl-w h/j/k/l" /> | Focus window |
+| <Keys keys="Ctrl-w q/o" /> | Quit window / only |
+| <Keys keys=":bn :bp Ctrl-^" /> | Next / prev / alternate buffer |
+| <Keys keys="gt gT {n}gt" /> | Tabs |
+
+## Marks & registers
+
+| Keys | Action |
+| --- | --- |
+| <Keys keys="m{a} '{a} `{a}" /> | Set / line jump / exact jump |
+| <Keys keys='"{a}y "{a}p' /> | Yank / put named register |
+| <Keys keys='"+y "+p' /> | Clipboard |
+| <Keys keys='"_d' /> | Black-hole delete |
+
+## Ex essentials
+
+```vim
+:w :q :wq :x :q!
+:e {file}  :b {name}  :ls
+:%s/old/new/gc
+:noh
+:help {topic}
+```

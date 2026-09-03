@@ -1,0 +1,34 @@
+---
+title: Operators
+description: d c y > < = g~ and how they compose with motions.
+---
+
+Operators wait for a motion or text object, then act on that range.
+
+## Index
+
+<Cards>
+  <Card title="Delete" href="/docs/operators/delete" description="d x D and friends" />
+  <Card title="Change" href="/docs/operators/change" description="c s C S — delete then insert" />
+  <Card title="Yank & put" href="/docs/operators/yank" description="y p P registers" />
+  <Card title="Transform" href="/docs/operators/transform" description="indent, case, filter, format" />
+</Cards>
+
+## Grammar reminder
+
+```text
+[register][count]operator[count]motion
+"a3dw          → delete 3 words into register a
+```
+
+## Linewise doubling
+
+| Keys | Acts on |
+| --- | --- |
+| <Keys keys="dd" /> | Current line |
+| <Keys keys="cc" /> | Current line → Insert |
+| <Keys keys="yy" /> | Current line |
+| <Keys keys=">>" /> | Indent line |
+| <Keys keys="<<" /> | Outdent line |
+| <Keys keys="==" /> | Auto-indent line |
+| <Keys keys="g~~" /> | Toggle case on line |
